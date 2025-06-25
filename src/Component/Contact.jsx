@@ -1,0 +1,54 @@
+import { MdOutlineMail, MdOutlineLocalPhone, MdOutlineLocationOn } from "react-icons/md";
+import { FaPaperPlane } from "react-icons/fa";
+
+function Contact() {
+  return (
+    <div className='flex w-full h-full bg-white dark:bg-black p-30' id="contact">
+      <div className="flex flex-col w-1/2 gap-y-5 p-r-5">
+        <div className='flex flex-col gap-y-2'>
+          <div className='text-5xl font-bold text-black dark:text-white'>Contact Me</div>
+          <div className='h-1 w-30 bg-cyan-200'></div>
+        </div>
+        <div className='text-black dark:text-white'>Open to new opportunities, collaborations, and meaningful conversations. Feel free to reach out — let’s build something impactful.</div>
+
+        {/* Email */}
+        <div className="flex gap-x-2 my-2">
+          <MdOutlineMail className="text-green-500 text-3xl"/>
+          <div className="flex flex-col gap-y-2">
+            <p className="text-black dark:text-white text-xl text-semibold">Email</p>
+            <p className="text-black dark:text-white text-md">ashokbhatt2048@gmail.com</p>
+          </div>
+        </div>
+
+        {/* Phone */}
+        <div className="flex gap-x-2 my-2">
+          <MdOutlineLocalPhone className="text-green-500 text-3xl"/>
+          <div className="flex flex-col gap-y-2">
+            <p className="text-black dark:text-white text-xl text-semibold">Phone</p>
+            <p className="text-black dark:text-white text-md">+91 8153889431</p>
+          </div>
+        </div>
+
+        {/* Location */}
+        <div className="flex gap-x-2 my-2">
+          <MdOutlineLocationOn className="text-green-500 text-3xl"/>
+          <div className="flex flex-col gap-y-2">
+            <p className="text-black dark:text-white text-xl text-semibold">Location</p>
+            <p className="text-black dark:text-white text-md">vadodara, India</p>
+          </div>
+        </div>
+      </div>
+      <div className="w-1/2">
+        <form className="flex flex-col border border-gray-500 p-10 rounded bg-gray-100 dark:bg-gray-900 gap-y-5">
+          <input type="text" placeholder="Your Name" className="p-4 text-black dark:text-white border-gray-500 bg-gray-200 dark:bg-gray-800 rounded-lg"/>
+          <input type="text" placeholder="Your Name" className="p-4 text-black dark:text-white border-gray-500 bg-gray-200 dark:bg-gray-800 rounded-lg"/>
+          <input type="text" placeholder="Your Name" className="p-4 text-black dark:text-white border-gray-500 bg-gray-200 dark:bg-gray-800 rounded-lg"/>
+          <textarea placeholder="Your Message" rows="5" className="p-4 text-black dark:text-white border-gray-500 bg-gray-200 dark:bg-gray-800 rounded-lg"></textarea>
+          <button className="flex justify-center items-center gap-x-2 p-2 hover:cursor-pointer text-black bg-green-300">{<FaPaperPlane/>} Send Message</button>
+        </form>
+      </div>
+    </div>
+  )
+}
+
+export default Contact
