@@ -45,17 +45,17 @@ function Intro() {
             <p className='text-blue-500 text-2xl font-semibold'>{description && descriptionPointer ? description[descriptionPointer[0]].slice(0, descriptionPointer[1]+1) + " |" : ""}</p>
         </div>
         <div className='flex gap-x-5 mt-5'>
-            <div className='rounded-full bg-black dark:bg-white p-2 hover:cursor-pointer' onClick={()=>window.location.href="https://www.linkedin.com/in/ashokbhatt2048/"}>
-                <FaLinkedin className='text-2xl text-white dark:text-black'/>
+            <div className='rounded-full bg-black dark:bg-white p-2 hover:cursor-pointer group' onClick={()=>window.location.href="https://www.linkedin.com/in/ashokbhatt2048/"}>
+                <FaLinkedin className='text-2xl text-white dark:text-black group-hover:text-blue-600'/>
             </div>
-            <div className='rounded-full bg-black dark:bg-white p-2 hover:cursor-pointer' onClick={()=>window.location.href="https://github.com/Ashok-Bhatt/"}>
+            <div className='rounded-full bg-black dark:bg-white p-2 hover:cursor-pointer group' onClick={()=>window.location.href="https://github.com/Ashok-Bhatt/"}>
                 <FaGithub className='text-2xl text-white dark:text-black'/>
             </div>
-            <div className='rounded-full bg-black dark:bg-white p-2 hover:cursor-pointer' onClick={()=>window.location.href="https://www.geeksforgeeks.org/user/ashokbhacjou/"}>
-                <SiGeeksforgeeks className='text-2xl text-white dark:text-black'/>
+            <div className='rounded-full bg-black dark:bg-white p-2 hover:cursor-pointer group' onClick={()=>window.location.href="https://www.geeksforgeeks.org/user/ashokbhacjou/"}>
+                <SiGeeksforgeeks className='text-2xl text-white dark:text-black group-hover:text-green-600'/>
             </div>
-            <div className='rounded-full bg-black dark:bg-white p-2 hover:cursor-pointer' onClick={()=>window.location.href="https://leetcode.com/u/ashokbhatt2048/"}>
-                <SiLeetcode className='text-2xl text-white dark:text-black'/>
+            <div className='rounded-full bg-black dark:bg-white p-2 hover:cursor-pointer group' onClick={()=>window.location.href="https://leetcode.com/u/ashokbhatt2048/"}>
+                <SiLeetcode className='text-2xl text-white dark:text-black group-hover:text-orange-400'/>
             </div>
         </div>
       </div>

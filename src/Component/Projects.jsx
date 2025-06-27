@@ -34,12 +34,27 @@ function Projects() {
       liveLink : "",
       repoLink : "https://github.com/Ashok-Bhatt/Path-Finding-Visualizer",
     },
+    {
+      projectName : "Collab Horizon",
+      projectImage: "https://res.cloudinary.com/dvjkkh0tf/image/upload/v1751033790/Screenshot_2025-06-27_194322_qywfl0.png",
+      description : "A team project management system where teammates can collaborate on a project",
+      liveLink : "",
+      repoLink : "https://github.com/Ashok-Bhatt/Collab-Horizon",
+    },
+    {
+      projectName : "TechSagers",
+      projectImage: "https://res.cloudinary.com/dvjkkh0tf/image/upload/v1751034682/Screenshot_2025-06-27_200009_njhu1w.png",
+      description : "A blog website where user can read, create and manage blogs",
+      liveLink : "",
+      repoLink : "https://github.com/Ashok-Bhatt/TechSagers---Blog-Website",
+    },
+
   ]
 
   const [currentPtr, setCurrentPointer] = useState(0);
 
   return (
-    <div className='flex flex-col w-full gap-y-10 bg-gray-100 dark:bg-gray-900 pt-15 pb-30' id="projects">
+    <div className='flex flex-col w-full gap-y-10 bg-gray-100 dark:bg-gray-900 pt-15 pb-30 z-5' id="projects">
       <div className='flex gap-x-3 w-full justify-center items-center'>
         <FaLaptopCode className='text-black dark:text-white text-3xl font-bold'/>
         <span className='text-black dark:text-white text-3xl font-bold'>Projects</span>
