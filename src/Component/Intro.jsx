@@ -30,7 +30,7 @@ function Intro() {
                     }
                 }
             });
-        }, 200);
+        }, 100);
 
         return () => {clearInterval(timer);}
     }, [])
@@ -49,7 +49,7 @@ function Intro() {
                 <FaLinkedin className='text-2xl text-white dark:text-black group-hover:text-blue-600'/>
             </div>
             <div className='rounded-full bg-black dark:bg-white p-2 hover:cursor-pointer group' onClick={()=>window.location.href="https://github.com/Ashok-Bhatt/"}>
-                <FaGithub className='text-2xl text-white dark:text-black'/>
+                <FaGithub className='text-2xl text-white dark:text-black group-hover:text-red-600'/>
             </div>
             <div className='rounded-full bg-black dark:bg-white p-2 hover:cursor-pointer group' onClick={()=>window.location.href="https://www.geeksforgeeks.org/user/ashokbhacjou/"}>
                 <SiGeeksforgeeks className='text-2xl text-white dark:text-black group-hover:text-green-600'/>

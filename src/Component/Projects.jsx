@@ -48,7 +48,20 @@ function Projects() {
       liveLink : "",
       repoLink : "https://github.com/Ashok-Bhatt/TechSagers---Blog-Website",
     },
-
+    {
+      projectName : "Smart Attendance System",
+      projectImage: "https://res.cloudinary.com/dvjkkh0tf/image/upload/v1751092810/Screenshot_2025-06-28_120006_pwzyww.webp",
+      description : "A web prototype for an automated system to track attendance of students",
+      liveLink : "",
+      repoLink : "https://github.com/Ashok-Bhatt/Smart-Attendance-System",
+    },
+    {
+      projectName : "Draw Perfect Circle",
+      projectImage: "https://res.cloudinary.com/dvjkkh0tf/image/upload/v1751169742/Screenshot_2025-06-28_221421_bl1ykf.png",
+      description : "A fun game that challenges you to draw the perfect freehand circle",
+      liveLink : "https://perfect-circle-two.vercel.app/",
+      repoLink : "https://github.com/Ashok-Bhatt/PerfectCircle",
+    },
   ]
 
   const [currentPtr, setCurrentPointer] = useState(0);
@@ -64,8 +77,8 @@ function Projects() {
         <ProjectBlock project={projects[currentPtr]}/>
         <ProjectBlock project={projects[currentPtr+1]}/>
         <ProjectBlock project={projects[currentPtr+2]}/>
-        <FaChevronCircleLeft className='absolute left-20 top-1/2 -translate-y-1/2 text-black dark:text-white bg-white dark:bg-black text-3xl rounded-full hover:cursor-pointer' style={{visibility: (currentPtr==0) ? "false": "true"}} onClick={()=>setCurrentPointer((prev)=>Math.max(0, prev-1))}/>
-        <FaChevronCircleRight className='absolute right-20 top-1/2 -translate-y-1/2 text-black dark:text-white bg-white dark:bg-black text-3xl rounded-full hover:cursor-pointer'  style={{visibility: (currentPtr+3==projects.length) ? "false": "true"}} onClick={()=>setCurrentPointer((prev)=>Math.min(projects.length-3, prev+1))}/>
+        <FaChevronCircleLeft className='absolute left-20 top-1/2 -translate-y-1/2 text-black dark:text-white bg-white dark:bg-black text-3xl rounded-full hover:cursor-pointer' style={{visibility: (currentPtr==0) ? "hidden": "visible"}} onClick={()=>setCurrentPointer((prev)=>Math.max(0, prev-3))}/>
+        <FaChevronCircleRight className='absolute right-20 top-1/2 -translate-y-1/2 text-black dark:text-white bg-white dark:bg-black text-3xl rounded-full hover:cursor-pointer'  style={{visibility: (currentPtr+3==projects.length) ? "hidden": "visible"}} onClick={()=>setCurrentPointer((prev)=>Math.min(projects.length-3, prev+3))}/>
       </div>
     </div>
   )
