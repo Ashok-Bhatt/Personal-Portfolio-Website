@@ -60,7 +60,7 @@ function Intro() {
         </div>
       </div>
       <div className="flex justify-center items-center h-full w-1/2">
-        <img src="/Images/coder_image.png" alt="coder image" className='rounded-full' style={{width: "300px"}}/>
+        <img src="/Images/coder_logo.png" alt="coder image" className='rounded-full' style={{width: "300px"}}/>
       </div>
     </div>
   )
