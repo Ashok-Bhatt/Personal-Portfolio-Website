@@ -3,6 +3,7 @@ import { FaLinkedin } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
 import { SiGeeksforgeeks } from "react-icons/si";
 import { SiLeetcode } from "react-icons/si";
+import { BsTwitterX } from "react-icons/bs";
 
 function Intro() {
 
@@ -56,6 +57,9 @@ function Intro() {
             </div>
             <div className='rounded-full bg-black dark:bg-white p-2 hover:cursor-pointer group' onClick={()=>window.location.href="https://leetcode.com/u/ashokbhatt2048/"}>
                 <SiLeetcode className='text-2xl text-white dark:text-black group-hover:text-orange-400'/>
+            </div>
+            <div className='rounded-full bg-black dark:bg-white p-2 hover:cursor-pointer group' onClick={()=>window.location.href="https://x.com/AshokBhatt619"}>
+                <BsTwitterX className='text-2xl text-white dark:text-black group-hover:text-pink-400'/>
             </div>
         </div>
       </div>
