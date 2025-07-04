@@ -15,6 +15,9 @@ function Navbar() {
           <div className='hover:underline hover:cursor-pointer decoration-blue-700 underline-offset-4' onClick={()=>window.location.href="#skills"}>
               Skills
           </div>
+          <div className='hover:underline hover:cursor-pointer decoration-blue-700 underline-offset-4' onClick={()=>window.location.href="#coding_profiles"}>
+              Coding Profiles
+          </div>
           <div className='hover:underline hover:cursor-pointer decoration-blue-700 underline-offset-4' onClick={()=>window.location.href="#projects"}>
               Projects
           </div>

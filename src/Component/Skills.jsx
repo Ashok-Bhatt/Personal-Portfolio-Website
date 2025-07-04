@@ -60,6 +60,7 @@ function Skills() {
     const innerRadius = 150;
     const outerRadius = 125;
     const shockLevel = 0;
+    const rotationDelay = 50;
 
     const [angleBuffer, setAngleBuffer] = useState(0);
 
@@ -72,7 +73,7 @@ function Skills() {
                 }
                 return prev;
             });
-        }, 25);
+        }, rotationDelay);
         return ()=>clearInterval(timer);
     }, [])
 
@@ -85,7 +86,7 @@ function Skills() {
       </div>
       <div className='relative min-h-[600px] flex flex-col p-10 gap-y-5'>
         {Object.entries(skills).map((skillGroup, groupNo)=>(
-            <div className='absolute border border-dashed border-green-500 left-1/2 top-1/2 -translate-1/2 rounded-full' key={skillGroup} style={{height:innerRadius+groupNo*outerRadius, width:innerRadius+groupNo*outerRadius, zIndex:10-groupNo}}>
+            <div className='absolute border border-dashed border-blue-500 left-1/2 top-1/2 -translate-1/2 rounded-full' key={skillGroup} style={{height:innerRadius+groupNo*outerRadius, width:innerRadius+groupNo*outerRadius, zIndex:10-groupNo}}>
                 {skillGroup[1].map((skill, skillNo)=>(
                     // <SkillBlock skillName={skill.name} skillLogo={skill.Logo} key={skill.name}/>
                     <div className='absolute group flex gap-2 rounded-full p-2 items-center border border-purple-600 min-w-15 bg-gray-100 dark:bg-gray-900 -translate-1/2 hover:cursor-pointer hover:border-green-500 hover:border-3' key={skill.name} style={{
@@ -93,8 +94,8 @@ function Skills() {
                         left:`${ innerRadius/2 + groupNo*outerRadius/2 + (Math.cos(2*Math.PI*skillNo/skillGroup[1].length + angleBuffer*(groupNo%2==0?1:-1))).toFixed(6)*(innerRadius/2+groupNo*outerRadius/2) + Math.ceil(Math.random()*2*shockLevel-shockLevel)}px`,
                         }}>
                         {skill.Logo}
-                        <div className='absolute bg-white dark:bg-red-600 min-w-20 w-auto p-2 rounded-lg left-[75px] hidden group-hover:block'>
-                            <p className='text-lg text-black dark:text-white w-full'>{skill.name}</p>
+                        <div className='absolute bg-white dark:bg-black min-w-20 w-auto p-2 rounded-lg left-[75px] hidden group-hover:block'>
+                            <p className='text-center text-lg text-black dark:text-white break-words'>{skill.name}</p>
                         </div>
                     </div>
                 ))}

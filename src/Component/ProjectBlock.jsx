@@ -15,7 +15,7 @@ function ProjectBlock(props) {
                 {project.description}
             </div>
             <div className='flex justify-between mt-2'>
-                <div className="flex items-center gap-x-2 bg-white dark:bg-black text-black dark:text-white py-2 px-5 hover:cursor-pointer rounded" onClick={()=>window.location.href=project.liveLink}>
+                <div className="flex items-center gap-x-2 bg-white dark:bg-black text-black dark:text-white py-2 px-5 hover:cursor-pointer rounded" onClick={()=>window.location.href=project.liveLink} style={{visibility: project.liveLink=="" ? 'hidden' : 'visible'}}>
                     <IoEyeSharp/>
                     <p>View</p>
                 </div>

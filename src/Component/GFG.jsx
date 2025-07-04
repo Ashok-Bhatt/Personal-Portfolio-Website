@@ -1,0 +1,95 @@
+import React, {useEffect, useState} from 'react'
+import axios from "axios"
+import ProblemsBlock from './ProblemsBlock';
+
+function GFG() {
+
+    const userName = "ashokbhacjou";
+    const instituteRankMedals = ["🥇", "🥈", "🥉"];
+    const [userData, setUserData] = useState({
+        "Profile Name" : "",
+        "Full Name" : "",
+        "Profile Image" : "",
+        "Institute Rank" : 0,
+        "Coding Score" : 0,
+        "Easy Problems Solved" : 0,
+        "Medium Problems Solved" : 0,
+        "Hard Problems Solved" : 0,
+        "Total Easy Problems" : 2154,
+        "Total Medium Problems" : 1141,
+        "Total Hard Problems" : 211,
+    });
+
+    useEffect(()=>{
+
+        if (localStorage.getItem("userGfgData")){
+            setUserData(JSON.parse(localStorage.getItem("userGfgData")));
+            return;
+        }
+
+        axios
+        .get(`/api/${userName}`)
+        .then((res)=>{
+            const data = res.data;
+            setUserData({
+                ...userData,
+                ["Profile Name"] : data["info"]["userName"],
+                ["Full Name"] : data["info"]["fullName"],
+                ["Profile Image"] : data["info"]["profilePicture"],
+                ["Institute Rank"] : data["info"]["instituteRank"],
+                ["Coding Score"] : data["info"]["codingScore"],
+                ["Easy Problems Solved"] : data["solvedStats"]["easy"]["count"] + data["solvedStats"]["basic"]["count"] + data["solvedStats"]["school"]["count"],
+                ["Medium Problems Solved"] : data["solvedStats"]["medium"]["count"],
+                ["Hard Problems Solved"] : data["solvedStats"]["hard"]["count"],
+            });
+        })
+        .catch((error)=>{
+            console.log(`Couldn't load user data : ${error}`)
+        })
+    }, []);
+
+    useEffect(()=>{
+        if (userData["Profile Name"]){
+            localStorage.setItem("userGfgData", JSON.stringify(userData));
+        }
+    }, [userData]);
+
+  return (
+    <div className="flex flex-grow rounded-lg bg-gray-200 dark:bg-gray-800 overflow-hidden">
+        <div className="flex flex-col w-1/3 h-full items-center justify-center gap-y-5 p-2">
+            <div className='w-50 h-50 rounded-full overflow-hidden border-4 border-blue-400'>
+                <img src={userData["Profile Image"] || "/Images/coder_logo.png"} className='h-full w-full' alt="Leetcode Profile Image" />
+            </div>
+            <div className="flex flex-col w-full items-center">
+                <p className='text-black dark:text-white text-3xl'>{userData["Full Name"]}</p>
+                <p className='text-yellow-600'>{userData["Profile Name"]}</p>
+            </div>
+        </div>
+        <div className="flex flex-col w-2/3 h-full p-2">
+            <div className='flex items-center p-2 justify-between bg-gray-100 dark:bg-gray-900'>
+                <ProblemsBlock problemsCount={[
+                    {"problemsTag" : "Easy", "setColor" : "green", "solvedProblems" : userData["Easy Problems Solved"], "totalProblems" : userData["Total Easy Problems"]},
+                    {"problemsTag" : "Medium", "setColor" : "yellow", "solvedProblems" : userData["Medium Problems Solved"], "totalProblems" : userData["Total Medium Problems"]},
+                    {"problemsTag" : "Hard", "setColor" : "red", "solvedProblems" : userData["Hard Problems Solved"], "totalProblems" : userData["Total Hard Problems"]}
+                ]}/>
+                <div className='flex flex-col justify-center rounded p-2 w-[200px]'>
+                    <div className='text-blue-500 text-center text-2xl'>Total Problems</div>
+                    <div className='text-center text-lg'>{userData["Easy Problems Solved"] + userData["Medium Problems Solved"] + userData["Hard Problems Solved"]} / {userData["Total Easy Problems"] + userData["Total Medium Problems"] + userData["Total Hard Problems"]}</div>
+                </div>
+            </div>
+            <div className="flex w-full justify-between p-5 text-xl">
+                <div className='bg-gray-100 dark:bg-gray-900 rounded p-2 w-[200px]'>
+                    <div className='text-yellow-400 text-center'>Institute Rank</div>
+                    <div className='text-center'>{(userData["Institute Rank"]>=1 && userData["Institute Rank"]<=3) ? instituteRankMedals[userData["Institute Rank"]-1] : ""} {userData["Institute Rank"]}</div>
+                </div>
+                <div className='bg-gray-100 dark:bg-gray-900 rounded p-2 w-[200px]'>
+                    <div className='text-yellow-400 text-center'>Coding Score</div>
+                    <div className='text-center'>{userData["Coding Score"]}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+  )
+}
+
+export default GFG
