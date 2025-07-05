@@ -7,6 +7,7 @@ function Leetcode() {
 
     const userName = "ashokbhatt2048";
     const apiUrl = "https://alfa-leetcode-api.onrender.com";
+    const dataRefreshRateInSeconds = 5*60;
 
     const [userData, setUserData] = useState({
         "Full Name" : "Ashok Bhatt",
@@ -58,13 +59,14 @@ function Leetcode() {
     const fetchUserLeetcodeDetails = async ()=>{
 
         try{
+            
             // 1️⃣ API Call to get user avatar
             const userInfoResponse = await axios.get(`${apiUrl}/${userName}`);
             const userInfoData = userInfoResponse.data;
-            setUserData({
-                ...userData,
-                ["Profile Image"] : data["avatar"]
-            })
+            setUserData((prev)=>({
+                ...prev,
+                ["Profile Image"] : userInfoData["avatar"]
+            }))
 
             // 2️⃣ API Call to get contest data
             const contestResponse = await axios.get(`${apiUrl}/${userName}/contest`);
@@ -83,7 +85,7 @@ function Leetcode() {
             }));
 
             // 3️⃣ API Call to get badges data
-            const badgesResponse = await axios.get(`${apiUrl}/${userName}/contest`);
+            const badgesResponse = await axios.get(`${apiUrl}/${userName}/badges`);
             const badgesData = badgesResponse.data;
 
             setUserData((prev) => ({
@@ -132,30 +134,43 @@ function Leetcode() {
                     "Hard": profileData["totalSubmissions"][3]["submissions"],
                 },
             }))
+
+            // 5️⃣ API Call to get data about percentage of users beaten per each difficulty level
+            const userSessionBeatsResponse = await axios.get(`${apiUrl}/userProfileUserQuestionProgressV2/${ashokbhatt2048}`);
+            const userSessionBeatsData = userSessionBeatsResponse.data;
+
+            setUserData((prev) => ({
+                ...prev,
+                ["userSessionBeatsPercentage"] : {
+                    ...prev["userSessionBeatsPercentage"],
+                    ["Easy"] : userSessionBeatsData["data"]["userProfileUserQuestionProgressV2"]["userSessionBeatsPercentage"][0],
+                    ["Medium"] : userSessionBeatsData["data"]["userProfileUserQuestionProgressV2"]["userSessionBeatsPercentage"][1],
+                    ["Hard"] : userSessionBeatsData["data"]["userProfileUserQuestionProgressV2"]["userSessionBeatsPercentage"][2],
+                }
+            }));
         } catch (error){
-            console.log("Error Occurred while fetching user data!");
+            console.log("Error Occurred while fetching user data!", error);
         }
     }
 
     useEffect(()=>{
 
-        if (localStorage.getItem("userLeetcodeData")){
+        if (localStorage.getItem("userLeetcodeData") && localStorage.getItem("lastLeetcodeRefresh") && Date.now()-localStorage.getItem("lastLeetcodeRefresh")>dataRefreshRateInSeconds){
+            console.log("cached");
             setUserData(JSON.parse(localStorage.getItem("userLeetcodeData")));
-            console.log("No Problem!");
         } else {
+            console.log("updated data");
             fetchUserLeetcodeDetails();
         }
 
     }, []);
 
     useEffect(()=>{
-        console.log(userData);
-        localStorage.setItem("userLeetcodeData", JSON.stringify(userData));
+        // We are checking for global rank of user to userData isn't assigned to empty object
+        if (userData["Global Rank"]){
+            localStorage.setItem("userLeetcodeData", JSON.stringify(userData));
+        }
     }, [userData]);
-
-    const getProfileData = ()=>{
-        
-    }
 
   return (
     <div className="flex flex-grow rounded-lg bg-gray-200 dark:bg-gray-800 overflow-hidden">

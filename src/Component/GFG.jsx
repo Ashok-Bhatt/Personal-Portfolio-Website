@@ -6,6 +6,8 @@ function GFG() {
 
     const userName = "ashokbhacjou";
     const instituteRankMedals = ["🥇", "🥈", "🥉"];
+    const dataRefreshRateInSeconds = 6 * 60 * 60;
+
     const [userData, setUserData] = useState({
         "Profile Name" : "",
         "Full Name" : "",
@@ -23,32 +25,34 @@ function GFG() {
     });
 
     useEffect(()=>{
-
-        if (localStorage.getItem("userGfgData")){
+        
+        if (localStorage.getItem("userGfgData") && localStorage.getItem("lastGfgRefresh") && ((Number(localStorage.getItem("lastGfgRefresh")) + dataRefreshRateInSeconds*1000) >= Date.now())){
             setUserData(JSON.parse(localStorage.getItem("userGfgData")));
-            return;
+            console.log("cached!");
+        } else {
+            console.log("required");
+            axios
+            .get(`/api/${userName}`)
+            .then((res)=>{
+                const data = res.data;
+                setUserData({
+                    ...userData,
+                    ["Profile Name"] : data["info"]["userName"],
+                    ["Full Name"] : data["info"]["fullName"],
+                    ["Profile Image"] : data["info"]["profilePicture"],
+                    ["Institute Rank"] : data["info"]["instituteRank"],
+                    ["Coding Score"] : data["info"]["codingScore"],
+                    ["Basic Problems Solved"] : data["solvedStats"]["basic"]["count"] + data["solvedStats"]["school"]["count"],
+                    ["Easy Problems Solved"] : data["solvedStats"]["easy"]["count"],
+                    ["Medium Problems Solved"] : data["solvedStats"]["medium"]["count"],
+                    ["Hard Problems Solved"] : data["solvedStats"]["hard"]["count"],
+                });
+                localStorage.setItem("lastGfgRefresh", Date.now());
+            })
+            .catch((error)=>{
+                console.log(`Couldn't load user data : ${error}`)
+            })
         }
-
-        axios
-        .get(`/api/${userName}`)
-        .then((res)=>{
-            const data = res.data;
-            setUserData({
-                ...userData,
-                ["Profile Name"] : data["info"]["userName"],
-                ["Full Name"] : data["info"]["fullName"],
-                ["Profile Image"] : data["info"]["profilePicture"],
-                ["Institute Rank"] : data["info"]["instituteRank"],
-                ["Coding Score"] : data["info"]["codingScore"],
-                ["Basic Problems Solved"] : data["solvedStats"]["basic"]["count"] + data["solvedStats"]["school"]["count"],
-                ["Easy Problems Solved"] : data["solvedStats"]["easy"]["count"],
-                ["Medium Problems Solved"] : data["solvedStats"]["medium"]["count"],
-                ["Hard Problems Solved"] : data["solvedStats"]["hard"]["count"],
-            });
-        })
-        .catch((error)=>{
-            console.log(`Couldn't load user data : ${error}`)
-        })
     }, []);
 
     useEffect(()=>{

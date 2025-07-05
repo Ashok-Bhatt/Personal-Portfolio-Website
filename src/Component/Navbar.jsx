@@ -2,7 +2,7 @@
 
 function Navbar() {
   return (
-    <nav className='fixed top-0 flex justify-center w-full h-[60px] bg-white dark:bg-black text-black dark:text-white z-10'>
+    <nav className='fixed top-0 flex justify-center w-full h-[60px] bg-white dark:bg-black text-black dark:text-white z-50'>
       <div className="flex justify-between items-center px-5 w-[1080px] h-full">
         <div className='text-3xl font-bold text-black dark:text-white'><span className='text-green-400'>Ashok</span> Bhatt</div>
         <div className='flex gap-x-5'>
