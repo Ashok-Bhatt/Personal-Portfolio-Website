@@ -5,7 +5,7 @@ import GFG from "./GFG"
 
 function CodingProfiles() {
 
-    const [codingPlatformIndex, setCodingPlatformIndex] = useState(1);
+    const [codingPlatformIndex, setCodingPlatformIndex] = useState(0);
 
     const codingPlatforms = [
         {

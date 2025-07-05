@@ -12,10 +12,12 @@ function GFG() {
         "Profile Image" : "",
         "Institute Rank" : 0,
         "Coding Score" : 0,
+        "Basic Problems Solved" : 0,
         "Easy Problems Solved" : 0,
         "Medium Problems Solved" : 0,
         "Hard Problems Solved" : 0,
-        "Total Easy Problems" : 2154,
+        "Total Basic Problems" : 769,
+        "Total Easy Problems" : 1383,
         "Total Medium Problems" : 1141,
         "Total Hard Problems" : 211,
     });
@@ -38,7 +40,8 @@ function GFG() {
                 ["Profile Image"] : data["info"]["profilePicture"],
                 ["Institute Rank"] : data["info"]["instituteRank"],
                 ["Coding Score"] : data["info"]["codingScore"],
-                ["Easy Problems Solved"] : data["solvedStats"]["easy"]["count"] + data["solvedStats"]["basic"]["count"] + data["solvedStats"]["school"]["count"],
+                ["Basic Problems Solved"] : data["solvedStats"]["basic"]["count"] + data["solvedStats"]["school"]["count"],
+                ["Easy Problems Solved"] : data["solvedStats"]["easy"]["count"],
                 ["Medium Problems Solved"] : data["solvedStats"]["medium"]["count"],
                 ["Hard Problems Solved"] : data["solvedStats"]["hard"]["count"],
             });
@@ -68,13 +71,14 @@ function GFG() {
         <div className="flex flex-col w-2/3 h-full p-2">
             <div className='flex items-center p-2 justify-between bg-gray-100 dark:bg-gray-900'>
                 <ProblemsBlock problemsCount={[
+                    {"problemsTag" : "Basic", "setColor" : "blue", "solvedProblems" : userData["Basic Problems Solved"], "totalProblems" : userData["Total Basic Problems"]},
                     {"problemsTag" : "Easy", "setColor" : "green", "solvedProblems" : userData["Easy Problems Solved"], "totalProblems" : userData["Total Easy Problems"]},
                     {"problemsTag" : "Medium", "setColor" : "yellow", "solvedProblems" : userData["Medium Problems Solved"], "totalProblems" : userData["Total Medium Problems"]},
                     {"problemsTag" : "Hard", "setColor" : "red", "solvedProblems" : userData["Hard Problems Solved"], "totalProblems" : userData["Total Hard Problems"]}
                 ]}/>
                 <div className='flex flex-col justify-center rounded p-2 w-[200px]'>
                     <div className='text-blue-500 text-center text-2xl'>Total Problems</div>
-                    <div className='text-center text-lg'>{userData["Easy Problems Solved"] + userData["Medium Problems Solved"] + userData["Hard Problems Solved"]} / {userData["Total Easy Problems"] + userData["Total Medium Problems"] + userData["Total Hard Problems"]}</div>
+                    <div className='text-center text-lg'>{userData["Basic Problems Solved"] + userData["Easy Problems Solved"] + userData["Medium Problems Solved"] + userData["Hard Problems Solved"]} / {userData["Total Basic Problems"] + userData["Total Easy Problems"] + userData["Total Medium Problems"] + userData["Total Hard Problems"]}</div>
                 </div>
             </div>
             <div className="flex w-full justify-between p-5 text-xl">
