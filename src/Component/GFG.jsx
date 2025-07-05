@@ -75,7 +75,7 @@ function GFG() {
         <div className="flex flex-col w-2/3 h-full p-2">
             <div className='flex items-center p-2 justify-between bg-gray-100 dark:bg-gray-900'>
                 <ProblemsBlock problemsCount={[
-                    {"problemsTag" : "Basic", "setColor" : "blue", "solvedProblems" : userData["Basic Problems Solved"], "totalProblems" : userData["Total Basic Problems"]},
+                    {"problemsTag" : "Basic", "setColor" : "lightgreen", "solvedProblems" : userData["Basic Problems Solved"], "totalProblems" : userData["Total Basic Problems"]},
                     {"problemsTag" : "Easy", "setColor" : "green", "solvedProblems" : userData["Easy Problems Solved"], "totalProblems" : userData["Total Easy Problems"]},
                     {"problemsTag" : "Medium", "setColor" : "yellow", "solvedProblems" : userData["Medium Problems Solved"], "totalProblems" : userData["Total Medium Problems"]},
                     {"problemsTag" : "Hard", "setColor" : "red", "solvedProblems" : userData["Hard Problems Solved"], "totalProblems" : userData["Total Hard Problems"]}

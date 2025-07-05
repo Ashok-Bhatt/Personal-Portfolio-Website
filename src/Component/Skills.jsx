@@ -60,9 +60,9 @@ function Skills() {
     const innerRadius = 150;
     const outerRadius = 125;
     const shockLevel = 0;
-    const rotationDelay = 50;
+    const [rotationDelay, setRotationDelay] = useState(50);
 
-    const [angleBuffer, setAngleBuffer] = useState(0);
+    const [angleBuffer, setAngleBuffer] = useState(0);      // Radian Value
 
     useEffect(()=>{
         const timer = setInterval(()=>{
@@ -75,7 +75,7 @@ function Skills() {
             });
         }, rotationDelay);
         return ()=>clearInterval(timer);
-    }, [])
+    }, [rotationDelay])
 
   return (
     <div className='flex flex-col w-full bg-blue-900 pt-15 z-5' id="skills">
@@ -94,7 +94,7 @@ function Skills() {
                         left:`${ innerRadius/2 + groupNo*outerRadius/2 + (Math.cos(2*Math.PI*skillNo/skillGroup[1].length + angleBuffer*(groupNo%2==0?1:-1))).toFixed(6)*(innerRadius/2+groupNo*outerRadius/2) + Math.ceil(Math.random()*2*shockLevel-shockLevel)}px`,
                         }}>
                         {skill.Logo}
-                        <div className='absolute bg-white dark:bg-black min-w-20 w-auto p-2 rounded-lg left-[75px] hidden group-hover:block'>
+                        <div className='absolute bg-white dark:bg-black min-w-20 w-auto p-2 rounded-lg hidden group-hover:block' style={{left: (((360-Math.ceil((2*Math.PI*skillNo/skillGroup[1].length + angleBuffer*(groupNo%2==0?1:-1))*(180/Math.PI))%360)%360 + 90)%360)<=180 ? '75px' : '-100px'}}>
                             <p className='text-center text-lg text-black dark:text-white break-words'>{skill.name}</p>
                         </div>
                     </div>

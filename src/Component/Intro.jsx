@@ -7,7 +7,7 @@ import { BsTwitterX } from "react-icons/bs";
 
 function Intro() {
 
-    const description = ["Final Year B.Tech CSE Student", "Software Development Enthusiast", "Leetcoder", "Hardcore DSA Lover"];
+    const description = ["Final Year B.Tech CSE Student", "Software Development Enthusiast", "Leetcoder", "MERN Stack Developer", "Hardcore DSA Lover"];
     const [descriptionPointer, setDescriptionPointer] = useState([0, 0]);
 
     useEffect(()=>{
