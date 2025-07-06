@@ -62,6 +62,7 @@ function Intro() {
                 <BsTwitterX className='text-2xl text-white dark:text-black group-hover:text-pink-400'/>
             </div>
         </div>
+        <div className='bg-green-400 mt-5 py-2 px-10 hover:cursor-pointer rounded-xl text-lg font-bold' onClick={()=>window.location.href="https://drive.google.com/file/d/1n7ezEvzqZJUzQO4UWD7YE2TjZlOvvwyB/view?usp=drive_link"}>Resume</div>
       </div>
       <div className="flex justify-center items-center h-full w-1/2">
         <img src="/Images/coder_logo.png" alt="coder image" className='rounded-full' style={{width: "300px"}}/>

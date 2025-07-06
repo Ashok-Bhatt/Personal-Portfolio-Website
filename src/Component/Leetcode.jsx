@@ -7,7 +7,7 @@ function Leetcode() {
 
     const userName = "ashokbhatt2048";
     const apiUrl = "https://alfa-leetcode-api.onrender.com";
-    const dataRefreshRateInSeconds = 5*60;
+    const dataRefreshRateInSeconds = 1*24*60*60;
 
     const [userData, setUserData] = useState({
         "Full Name" : "Ashok Bhatt",
@@ -71,7 +71,6 @@ function Leetcode() {
             // 2️⃣ API Call to get contest data
             const contestResponse = await axios.get(`${apiUrl}/${userName}/contest`);
             const contestData = contestResponse.data;
-            console.log(contestData);
 
             setUserData((prev) => ({
                 ...prev,
@@ -136,7 +135,7 @@ function Leetcode() {
             }))
 
             // 5️⃣ API Call to get data about percentage of users beaten per each difficulty level
-            const userSessionBeatsResponse = await axios.get(`${apiUrl}/userProfileUserQuestionProgressV2/${ashokbhatt2048}`);
+            const userSessionBeatsResponse = await axios.get(`${apiUrl}/userProfileUserQuestionProgressV2/${userName}`);
             const userSessionBeatsData = userSessionBeatsResponse.data;
 
             setUserData((prev) => ({
@@ -149,13 +148,15 @@ function Leetcode() {
                 }
             }));
         } catch (error){
-            console.log("Error Occurred while fetching user data!", error);
+            console.log("Error Occurred while fetching user data!", error.message);
+        } finally {
+            localStorage.setItem("lastLeetcodeRefresh", Date.now());
         }
     }
 
     useEffect(()=>{
 
-        if (localStorage.getItem("userLeetcodeData") && localStorage.getItem("lastLeetcodeRefresh") && Date.now()-localStorage.getItem("lastLeetcodeRefresh")>dataRefreshRateInSeconds){
+        if (localStorage.getItem("userLeetcodeData") && localStorage.getItem("lastLeetcodeRefresh") && ((Number(localStorage.getItem("lastGfgRefresh")) + dataRefreshRateInSeconds*1000) >= Date.now())){
             console.log("cached");
             setUserData(JSON.parse(localStorage.getItem("userLeetcodeData")));
         } else {
@@ -208,7 +209,7 @@ function Leetcode() {
                 
                 </div>
                 <div className="h-full w-1/2">
-                    <LeetcodeBadges/>
+                    <LeetcodeBadges badgesCount={userData["Badge Count"]} badges={userData["Badges"]}/>
                 </div>
             </div>
         </div>

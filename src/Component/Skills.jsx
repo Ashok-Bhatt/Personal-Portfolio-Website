@@ -95,7 +95,7 @@ function Skills() {
                         }}>
                         {skill.Logo}
                         <div className='absolute bg-white dark:bg-black min-w-20 w-auto p-2 rounded-lg hidden group-hover:block' style={{left: (((360-Math.ceil((2*Math.PI*skillNo/skillGroup[1].length + angleBuffer*(groupNo%2==0?1:-1))*(180/Math.PI))%360)%360 + 90)%360)<=180 ? '75px' : '-100px'}}>
-                            <p className='text-center text-lg text-black dark:text-white break-words'>{skill.name}</p>
+                            <p className='text-center text-lg text-black dark:text-white w-max'>{skill.name}</p>
                         </div>
                     </div>
                 ))}
