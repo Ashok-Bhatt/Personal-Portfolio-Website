@@ -1,6 +1,7 @@
 import { MdOutlineMail, MdOutlineLocalPhone, MdOutlineLocationOn } from "react-icons/md";
 import { FaPaperPlane } from "react-icons/fa";
 import { useForm } from "react-hook-form";
+import { ToastContainer, toast, Zoom } from 'react-toastify';
 
 function Contact() {
 
@@ -11,14 +12,13 @@ function Contact() {
   } = useForm();
 
   const onSubmit = async (data)=>{
-
+    
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("email", data.email);
     formData.append("phone", data.phone);
     formData.append("message", data.message);
     formData.append("access_key", import.meta.env.VITE_EMAIL_ACCESS_KEY);
-    console.log(formData);
 
     const object = Object.fromEntries(formData);
     const json = JSON.stringify(object);
@@ -30,12 +30,32 @@ function Contact() {
         Accept: "application/json"
       },
       body: json
-    }).then((res) => res.json()).catch((error)=>console.log(error));
+    }).then((res) => res.json())
 
     if (res.success){
-      console.log("Success", res);
+      toast.success('Mail Sent Successfully!', {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Zoom,
+      });
     } else {
-      console.log("Something Went Wrong!");
+      toast.error('Something went wrong! Sent mail again!', {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Zoom,
+      });
     }
   }
 
@@ -88,6 +108,20 @@ function Contact() {
           <button type="submit" className="flex justify-center items-center gap-x-2 p-2 hover:cursor-pointer text-black bg-green-300">{<FaPaperPlane/>} Send Message</button>
         </form>
       </div>
+
+      <ToastContainer
+        position="bottom-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={Zoom}
+      />
     </div>
   )
 }
