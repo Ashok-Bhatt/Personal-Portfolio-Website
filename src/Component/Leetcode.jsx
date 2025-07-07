@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, {useState, useEffect} from 'react'
 import LeetcodeBadges from './LeetcodeBadges';
 import ProblemsBlock from './ProblemsBlock';
+import LeetcodeContests from './LeetcodeContests';
 
 function Leetcode() {
 
@@ -184,12 +185,12 @@ function Leetcode() {
                 <p className='text-yellow-600'>{userData["Profile Name"]}</p>
                 <div className="flex flex-col mt-5 min-w-[200px] w-max rounded p-2 items-center">
                     <p className='text-green-600 text-2xl'>Global Rank</p>
-                    <p className='text-lg'>{userData["Global Rank"]}</p>
+                    <p className='text-lg'>{userData["Global Rank"]} / 5M</p>
                 </div>
             </div>
         </div>
-        <div className="flex flex-col w-2/3 h-full p-2">
-            <div className='flex items-center p-2 justify-between bg-gray-100 dark:bg-gray-900'>
+        <div className="flex flex-col w-2/3 h-full p-2 gap-1">
+            <div className='flex items-center p-2 justify-between bg-gray-100 dark:bg-gray-900 gap-2'>
                 <ProblemsBlock problemsCount={[
                     {"problemsTag" : "Easy", "setColor" : "green", "solvedProblems" : userData["Problems"]["Easy"]["Solved"], "totalProblems" : userData["Problems"]["Easy"]["Total"]},
                     {"problemsTag" : "Medium", "setColor" : "yellow", "solvedProblems" : userData["Problems"]["Medium"]["Solved"], "totalProblems" : userData["Problems"]["Medium"]["Total"]},
@@ -201,15 +202,26 @@ function Leetcode() {
                 </div>
                 <div className='flex flex-col justify-center rounded p-2 min-w-[200px]'>
                     <div className='text-blue-500 text-center text-2xl'>Total Submissions</div>
-                    {/* <div className='text-center text-lg'>{userData["Submissions"]["All"]}</div> */}
+                    <div className='text-center text-lg'>{userData["Submissions"]["All"]}</div>
                 </div>
             </div>
-            <div className="flex w-full h-full justify-between p-5 text-xl">
+            <div className="flex w-full h-full justify-between text-xl gap-1">
                 <div className="h-full w-1/2">
-                
+                    <LeetcodeContests
+                        contestAttended={userData["Contests Attended"]}
+                        contestRating={userData["Contest Rating"]}
+                        contestRanking={userData["Contest Ranking"]}
+                        totalParticipants={userData["Total Participants"]}
+                        contestTopPercentage={userData["Contest Top Percentage"]}
+                        contestBadges={userData["Contest Badges"]}
+                        contestData={userData["Contests Data"]}
+                    />
                 </div>
                 <div className="h-full w-1/2">
-                    <LeetcodeBadges badgesCount={userData["Badge Count"]} badges={userData["Badges"]}/>
+                    <LeetcodeBadges 
+                        badgesCount={userData["Badge Count"]} 
+                        badges={userData["Badges"]}
+                    />
                 </div>
             </div>
         </div>
