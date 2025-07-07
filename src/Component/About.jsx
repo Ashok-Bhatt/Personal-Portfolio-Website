@@ -25,7 +25,7 @@ function About() {
               <span className='text-blue-400'>Institute : </span> ITM(SLS) Baroda University
             </p>
             <p className='text-black dark:text-white text-lg  '>
-              <span className='text-blue-400'>Skills :</span> Web Development, Python, C++, Data Structures and Algorithms, 
+              <span className='text-blue-400'>Top Skills :</span> Web Development, Python, C++, Data Structures and Algorithms, Problem Solving
             </p>
         </div>
       </div>

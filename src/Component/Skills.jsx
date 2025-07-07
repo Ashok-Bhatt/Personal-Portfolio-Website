@@ -67,7 +67,7 @@ function Skills() {
     }, [rotationDelay])
 
   return (
-    <div className='flex flex-col w-full bg-gray-200 dark:bg-gray-800 pt-15 z-5' id="skills">
+    <div className='flex flex-col w-full bg-gray-100 dark:bg-gray-900 pt-15 z-5' id="skills">
       <div className='flex gap-x-3 w-full justify-center items-center'>
         <FaLaptopCode className='text-black dark:text-white text-3xl font-bold'/>
         <span className='text-black dark:text-white text-3xl font-bold'>Skills &</span>
