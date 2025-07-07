@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, {useState, useEffect} from 'react'
 import LeetcodeBadges from './LeetcodeBadges';
-import ProblemsBlock from './ProblemsBlock';
 import LeetcodeContests from './LeetcodeContests';
+import ProblemsBlock from './ProblemsBlock';
 
 function Leetcode() {
 
@@ -175,6 +175,7 @@ function Leetcode() {
     }, [userData]);
 
   return (
+    <>
     <div className="flex flex-grow rounded-lg bg-gray-200 dark:bg-gray-800 overflow-hidden">
         <div className="flex flex-col w-1/3 h-full items-center justify-center gap-y-5 p-2">
             <div className='w-50 h-50 rounded-full overflow-hidden border-4 border-blue-400'>
@@ -217,7 +218,7 @@ function Leetcode() {
                         contestData={userData["Contests Data"]}
                     />
                 </div>
-                <div className="h-full w-1/2">
+                <div className="h-full w-1/2 bg-gray-100 dark:bg-gray-900">
                     <LeetcodeBadges 
                         badgesCount={userData["Badge Count"]} 
                         badges={userData["Badges"]}
@@ -226,6 +227,7 @@ function Leetcode() {
             </div>
         </div>
     </div>
+    </>
   )
 }
 
