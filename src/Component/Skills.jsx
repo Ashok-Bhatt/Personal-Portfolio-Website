@@ -77,16 +77,23 @@ function Skills() {
         {Object.entries(skills).map((skillGroup, groupNo)=>(
             <div className='absolute border border-dashed border-blue-500 left-1/2 top-1/2 -translate-1/2 rounded-full' key={skillGroup} style={{height:innerRadius+groupNo*outerRadius, width:innerRadius+groupNo*outerRadius, zIndex:10-groupNo}}>
                 {skillGroup[1].map((skill, skillNo)=>(
-                    // <SkillBlock skillName={skill.name} skillLogo={skill.Logo} key={skill.name}/>
-                    <div className='absolute group flex gap-2 rounded-full p-2 items-center border border-purple-600 min-w-15 bg-gray-100 dark:bg-gray-900 -translate-1/2 hover:cursor-pointer hover:border-green-500 hover:border-3' key={skill.name} style={{
-                        top: `${ innerRadius/2 + groupNo*outerRadius/2 + (Math.sin(2*Math.PI*skillNo/skillGroup[1].length + angleBuffer*(groupNo%2==0?1:-1))).toFixed(6)*(innerRadius/2+groupNo*outerRadius/2) + Math.ceil(Math.random()*2*shockLevel-shockLevel)}px`, 
-                        left:`${ innerRadius/2 + groupNo*outerRadius/2 + (Math.cos(2*Math.PI*skillNo/skillGroup[1].length + angleBuffer*(groupNo%2==0?1:-1))).toFixed(6)*(innerRadius/2+groupNo*outerRadius/2) + Math.ceil(Math.random()*2*shockLevel-shockLevel)}px`,
-                        }}>
-                        {skill.Logo}
-                        <div className='absolute bg-white dark:bg-black min-w-20 w-auto p-2 rounded-lg hidden group-hover:block' style={{left: (((360-Math.ceil((2*Math.PI*skillNo/skillGroup[1].length + angleBuffer*(groupNo%2==0?1:-1))*(180/Math.PI))%360)%360 + 90)%360)<=180 ? '75px' : '-100px'}}>
-                            <p className='text-center text-lg text-black dark:text-white w-max'>{skill.name}</p>
-                        </div>
-                    </div>
+                    <SkillBlock
+                        skillName = {skill.name}
+                        xPos = {innerRadius/2 + groupNo*outerRadius/2 + (Math.cos(2*Math.PI*skillNo/skillGroup[1].length + angleBuffer*(groupNo%2==0?1:-1))).toFixed(6)*(innerRadius/2+groupNo*outerRadius/2) + Math.ceil(Math.random()*2*shockLevel-shockLevel)}
+                        yPos = {innerRadius/2 + groupNo*outerRadius/2 + (Math.sin(2*Math.PI*skillNo/skillGroup[1].length + angleBuffer*(groupNo%2==0?1:-1))).toFixed(6)*(innerRadius/2+groupNo*outerRadius/2) + Math.ceil(Math.random()*2*shockLevel-shockLevel)}
+                        skillLogo = {skill.Logo}
+                        labelPos = {(((360-Math.ceil((2*Math.PI*skillNo/skillGroup[1].length + angleBuffer*(groupNo%2==0?1:-1))*(180/Math.PI))%360)%360 + 90)%360)<=180 ? 75 : -100}
+                        key = {skill.name}
+                    />
+                    // <div className='absolute group flex gap-2 rounded-full p-2 items-center border border-purple-600 min-w-15 bg-gray-100 dark:bg-gray-900 -translate-1/2 hover:cursor-pointer hover:border-green-500 hover:border-3' key={skill.name} style={{
+                        // top: `${ innerRadius/2 + groupNo*outerRadius/2 + (Math.sin(2*Math.PI*skillNo/skillGroup[1].length + angleBuffer*(groupNo%2==0?1:-1))).toFixed(6)*(innerRadius/2+groupNo*outerRadius/2) + Math.ceil(Math.random()*2*shockLevel-shockLevel)}px`, 
+                        // left:`${ innerRadius/2 + groupNo*outerRadius/2 + (Math.cos(2*Math.PI*skillNo/skillGroup[1].length + angleBuffer*(groupNo%2==0?1:-1))).toFixed(6)*(innerRadius/2+groupNo*outerRadius/2) + Math.ceil(Math.random()*2*shockLevel-shockLevel)}px`,
+                    //     }}>
+                    //     {skill.Logo}
+                    //     <div className='absolute bg-white dark:bg-black min-w-20 w-auto p-2 rounded-lg hidden group-hover:block' style={{left: (((360-Math.ceil((2*Math.PI*skillNo/skillGroup[1].length + angleBuffer*(groupNo%2==0?1:-1))*(180/Math.PI))%360)%360 + 90)%360)<=180 ? '75px' : '-100px'}}>
+                    //         <p className='text-center text-lg text-black dark:text-white w-max'>{skill.name}</p>
+                    //     </div>
+                    // </div>
                 ))}
             </div>
         ))}
