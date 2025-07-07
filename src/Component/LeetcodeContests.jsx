@@ -43,7 +43,7 @@ function LeetcodeContests(props) {
 
   return (
     <div>
-      <div className='bg-gray-100 dark:bg-gray-900'>
+      <div>
         {contestData.length > 0 ? <Line data={data} options={options} /> : null}
       </div>
     </div>

@@ -191,7 +191,7 @@ function Leetcode() {
             </div>
         </div>
         <div className="flex flex-col w-2/3 h-full p-2 gap-1">
-            <div className='flex items-center p-2 justify-between bg-gray-100 dark:bg-gray-900 gap-2'>
+            <div className='flex h-1/2 items-center p-2 justify-between bg-gray-100 dark:bg-gray-900 gap-2'>
                 <ProblemsBlock problemsCount={[
                     {"problemsTag" : "Easy", "setColor" : "green", "solvedProblems" : userData["Problems"]["Easy"]["Solved"], "totalProblems" : userData["Problems"]["Easy"]["Total"]},
                     {"problemsTag" : "Medium", "setColor" : "yellow", "solvedProblems" : userData["Problems"]["Medium"]["Solved"], "totalProblems" : userData["Problems"]["Medium"]["Total"]},
@@ -206,8 +206,8 @@ function Leetcode() {
                     <div className='text-center text-lg'>{userData["Submissions"]["All"]}</div>
                 </div>
             </div>
-            <div className="flex w-full h-full justify-between text-xl gap-1">
-                <div className="h-full w-1/2">
+            <div className="flex w-full h-1/2 justify-between items-center text-xl gap-1">
+                <div className="h-full w-1/2 bg-gray-100 dark:bg-gray-900">
                     <LeetcodeContests
                         contestAttended={userData["Contests Attended"]}
                         contestRating={userData["Contest Rating"]}

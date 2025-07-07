@@ -7,6 +7,7 @@ function GFG() {
     const userName = "ashokbhacjou";
     const instituteRankMedals = ["🥇", "🥈", "🥉"];
     const dataRefreshRateInSeconds = 6 * 60 * 60;
+    const baseUrl = import.meta.env.VITE_APP_ENV=="development" ? "/api" : "https://geeks-for-geeks-api.vercel.app";
 
     const [userData, setUserData] = useState({
         "Profile Name" : "",
@@ -31,8 +32,9 @@ function GFG() {
             console.log("cached!");
         } else {
             console.log("required");
+            console.log(userName);
             axios
-            .get(`/api/${userName}`)
+            .get(`${baseUrl}/${userName}`)
             .then((res)=>{
                 const data = res.data;
                 setUserData({
