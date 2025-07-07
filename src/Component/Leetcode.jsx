@@ -157,7 +157,7 @@ function Leetcode() {
 
     useEffect(()=>{
 
-        if (localStorage.getItem("userLeetcodeData") && localStorage.getItem("lastLeetcodeRefresh") && ((Number(localStorage.getItem("lastGfgRefresh")) + dataRefreshRateInSeconds*1000) >= Date.now())){
+        if (localStorage.getItem("userLeetcodeData") && localStorage.getItem("lastLeetcodeRefresh") && ((Number(localStorage.getItem("lastLeetcodeRefresh")) + dataRefreshRateInSeconds*1000) >= Date.now())){
             console.log("cached");
             setUserData(JSON.parse(localStorage.getItem("userLeetcodeData")));
         } else {

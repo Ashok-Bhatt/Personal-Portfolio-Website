@@ -12,7 +12,7 @@ function Skills() {
             { name: "C", logoSrc: "/Images/c_logo.png" },
             { name: "C++", logoSrc: "/Images/cpp_logo.png" },
             { name: "Java", logoSrc: "/Images/java_logo.png" },
-            { name: "Javascript", logoSrc: "/Images/javascript_logo.jpg" }
+            { name: "Javascript", logoSrc: "/Images/javascript_logo.png" }
         ],
         "Frontend": [
             { name: "HTML", logoSrc: "/Images/html_logo.png" },
