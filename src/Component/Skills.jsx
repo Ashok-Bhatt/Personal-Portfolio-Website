@@ -15,10 +15,6 @@ import { useEffect, useState } from 'react';
 function Skills() {
 
     const skills = {
-        // "Soft Skills": [
-        //     { name: "Problem Solving", Logo: <img src="/Images/problem_solving_logo.png" alt="problem solving logo" className='h-10 w-10 rounded-full'/> },
-        //     { name: "Team Work", Logo: <img src="/Images/teamwork_logo.png" alt="teamwork logo" className='h-10 w-10 rounded-full'/> }
-        // ],
         "Programming Languages": [
             { name: "Python", Logo: <img src="/Images/python_logo.png" alt="python logo" className='h-10 w-10 rounded-full'/> },
             { name: "C", Logo: <img src="/Images/c_logo.png" alt="c logo" className='h-10 w-10 rounded-full'/> },
@@ -48,13 +44,6 @@ function Skills() {
             { name: "Android Studio", Logo: <img src="/Images/android_logo.png" alt="android logo" className='h-10 w-10 rounded-full'/> },
             { name: "Replit", Logo: <img src="/Images/replit_logo.png" alt="replit logo" className='h-10 w-10 rounded-full'/> }
         ],
-        // "Course Work": [
-        //     { name: "DSA", Logo: <img src="/Images/dsa_logo.png" alt="dsa logo" className='h-10 w-10 rounded-full'/> },
-        //     { name: "OS", Logo: <img src="/Images/os_logo.png" alt="os logo" className='h-10 w-10 rounded-full'/> },
-        //     { name: "CN", Logo: <img src="/Images/cn_logo.png" alt="cn logo" className='h-10 w-10 rounded-full'/> },
-        //     { name: "DBMS", Logo: <img src="/Images/dbms_logo.png" alt="dbms logo" className='h-10 w-10 rounded-full'/> },
-        //     { name: "OOPS", Logo: <img src="/Images/oops_logo.png" alt="oops logo" className='h-10 w-10 rounded-full'/> }
-        // ]
     };
 
     const innerRadius = 150;
@@ -78,7 +67,7 @@ function Skills() {
     }, [rotationDelay])
 
   return (
-    <div className='flex flex-col w-full bg-blue-900 pt-15 z-5' id="skills">
+    <div className='flex flex-col w-full bg-gray-200 dark:bg-gray-800 pt-15 z-5' id="skills">
       <div className='flex gap-x-3 w-full justify-center items-center'>
         <FaLaptopCode className='text-black dark:text-white text-3xl font-bold'/>
         <span className='text-black dark:text-white text-3xl font-bold'>Skills &</span>

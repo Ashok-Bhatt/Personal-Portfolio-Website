@@ -13,12 +13,20 @@ function About() {
         <div className="rounded-2xl overflow-hidden">
             <img src="Images/my_image.jpeg" alt="my image" style={{height:"400px"}}/>
         </div>
-        <div className="flex flex-col gap-y-1 max-w-[600px]">
+        <div className="flex flex-col gap-y-4 max-w-[600px]">
             <p className="text-black dark:text-white font-bold text-3xl">I'm <span className='text-blue-500'>Ashok Bhatt</span></p>
-            <p className='mt-5 text-md text-black dark:text-white'>- An aspiring software developer fueled by curiosity and a passion for innovation.</p>
-            <p className='text-md text-black dark:text-white'>- Specialized in building web, android and desktop apps</p>
-            <p className='text-md text-black dark:text-white'>- Active on Coding Platforms like Leetcode and GFG</p>
-            <p className='text-md text-black dark:text-white'>- Final year of B.Tech CSE Student at ITM (SLS) Baroda University.</p>
+            <p className='mt-5 text-black dark:text-white text-lg '>
+              I am a <span className='text-green-300'>final-year B.Tech Computer Science student</span> and an aspiring software developer driven by curiosity, creativity, and a passion for building impactful solutions.
+            </p>
+            <p className="text-black dark:text-white text-lg  ">
+              I specialize in building modern <span className='text-green-300'>web applications,</span> along with hands-on experience developing <span className='text-green-300'>Android and desktop applications.</span> I actively enhance my problem-solving abilities through platforms like <span className='text-green-300'>LeetCode </span>and <span className='text-green-300'>GeeksforGeeks.</span>
+            </p>
+            <p className='text-black dark:text-white text-lg  '>
+              <span className='text-blue-400'>Institute : </span> ITM(SLS) Baroda University
+            </p>
+            <p className='text-black dark:text-white text-lg  '>
+              <span className='text-blue-400'>Skills :</span> Web Development, Python, C++, Data Structures and Algorithms, 
+            </p>
         </div>
       </div>
     </div>
