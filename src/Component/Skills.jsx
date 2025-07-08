@@ -1,42 +1,10 @@
 import {FaLaptopCode} from 'react-icons/fa';
-
 import SkillBlock from './SkillBlock';
 import { useEffect, useState } from 'react';
+import { skills } from '../Constants';
 
 
 function Skills() {
-
-    const skills = {
-        "Programming Languages": [
-            { name: "Python", logoSrc: "/Images/python_logo.png" },
-            { name: "C", logoSrc: "/Images/c_logo.png" },
-            { name: "C++", logoSrc: "/Images/cpp_logo.png" },
-            { name: "Java", logoSrc: "/Images/java_logo.png" },
-            { name: "Javascript", logoSrc: "/Images/javascript_logo.png" }
-        ],
-        "Frontend": [
-            { name: "HTML", logoSrc: "/Images/html_logo.png" },
-            { name: "CSS", logoSrc: "/Images/css_logo.png" },
-            { name: "Bootstrap", logoSrc: "/Images/bootstrap_logo.png" },
-            { name: "Tailwind", logoSrc: "/Images/tailwind_logo.png" },
-            { name: "React", logoSrc: "/Images/react_logo.png" }
-        ],
-        "Backend and Databases": [
-            { name: "Node", logoSrc: "/Images/node_logo.png" },
-            { name: "Express", logoSrc: "/Images/express_logo.png" },
-            { name: "MongoDB", logoSrc: "/Images/mongodb_logo.png" },
-            { name: "Firebase", logoSrc: "/Images/firebase_logo.png" },
-            { name: "Appwrite", logoSrc: "/Images/appwrite_logo.png" }
-        ],
-        "Tools": [
-            { name: "Git", logoSrc: "/Images/git_logo.png" },
-            { name: "Github", logoSrc: "/Images/github_logo.png" },
-            { name: "Postman", logoSrc: "/Images/postman_logo.png" },
-            { name: "VS Code", logoSrc: "/Images/vscode_logo.png" },
-            { name: "Android Studio", logoSrc: "/Images/android_logo.png" },
-            { name: "Replit", logoSrc: "/Images/replit_logo.png" }
-        ],
-    };
 
     const innerRadius = 150;
     const outerRadius = 125;

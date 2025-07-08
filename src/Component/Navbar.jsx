@@ -1,33 +1,8 @@
 import React, { useState } from "react";
+import { navigation } from "../Constants";
 
 function Navbar() {
 
-  const navigation = [
-    {
-      text : "Home",
-      link: "#home",
-    },
-    {
-      text : "About",
-      link: "#about",
-    },
-    {
-      text : "Skills",
-      link: "#skills",
-    },
-    {
-      text : "Coding Profiles",
-      link: "#coding_profiles",
-    },
-    {
-      text : "Projects",
-      link: "#projects",
-    },
-    {
-      text : "Contact",
-      link: "#contact",
-    },
-  ]
   const [navPointer, setNavPointer] = useState(0);
 
   const setNavigation = (index) => {

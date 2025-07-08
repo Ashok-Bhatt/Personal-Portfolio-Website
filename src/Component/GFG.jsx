@@ -9,6 +9,8 @@ function GFG() {
     const dataRefreshRateInSeconds = 6 * 60 * 60;
     const baseUrl = import.meta.env.VITE_APP_ENV=="development" ? "/api" : "https://geeks-for-geeks-api.vercel.app";
 
+    console.log(`${baseUrl}/${userName}`)
+
     const [userData, setUserData] = useState({
         "Profile Name" : "",
         "Full Name" : "",
@@ -32,7 +34,6 @@ function GFG() {
             console.log("cached!");
         } else {
             console.log("required");
-            console.log(userName);
             axios
             .get(`${baseUrl}/${userName}`)
             .then((res)=>{

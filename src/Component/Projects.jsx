@@ -2,67 +2,9 @@ import { FaLaptopCode } from 'react-icons/fa';
 import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import ProjectBlock from './ProjectBlock'
 import { useState } from 'react';
+import { projects } from '../Constants';
 
 function Projects() {
-
-  const projects = [
-    {
-      projectName : "Flavour Fusion",
-      projectImage: "https://res.cloudinary.com/dvjkkh0tf/image/upload/v1750856554/IMG_20250625_183147_qto7fl.jpg",
-      description : "A feature-rich recipe app providing an extensive collection of easy-to-follow and diverse recipes for every taste.",
-      liveLink : "",
-      repoLink : "https://github.com/Ashok-Bhatt/Flavour-Fusion---Recipe-App",
-    },
-    {
-      projectName : "Kaun Banega Crorepati",
-      projectImage: "https://res.cloudinary.com/dvjkkh0tf/image/upload/v1749817985/Screenshot_2025-06-13_174237_szh9ff.png",
-      description : "An interactive quiz game inspired by Kaun Banega Crorepati, testing knowledge with progressive difficulty levels",
-      liveLink : "https://ashok-bhatt.github.io/Kaun-Banega-Crorepati/",
-      repoLink : "https://github.com/Ashok-Bhatt/Kaun-Banega-Crorepati",
-    },
-    {
-      projectName : "Listify",
-      projectImage: "https://res.cloudinary.com/dvjkkh0tf/image/upload/v1750855886/Screenshot_2025-06-25_182030_wgbuup.png",
-      description : "A list managing web app built to help users create and manage lists",
-      liveLink : "",
-      repoLink : "https://github.com/Ashok-Bhatt/Listify",
-    },
-    {
-      projectName : "Path Finding Visualizer",
-      projectImage: "https://res.cloudinary.com/dvjkkh0tf/image/upload/v1748866201/path_finding_visualizer_a_star_algo_jqzlgj.png",
-      description : "A visualizing tool built to visualize a set of path finding algorithms.",
-      liveLink : "",
-      repoLink : "https://github.com/Ashok-Bhatt/Path-Finding-Visualizer",
-    },
-    {
-      projectName : "Collab Horizon",
-      projectImage: "https://res.cloudinary.com/dvjkkh0tf/image/upload/v1751033790/Screenshot_2025-06-27_194322_qywfl0.png",
-      description : "A team project management system where teammates can collaborate on a project",
-      liveLink : "",
-      repoLink : "https://github.com/Ashok-Bhatt/Collab-Horizon",
-    },
-    {
-      projectName : "TechSagers",
-      projectImage: "https://res.cloudinary.com/dvjkkh0tf/image/upload/v1751034682/Screenshot_2025-06-27_200009_njhu1w.png",
-      description : "A blog website where user can read, create and manage blogs",
-      liveLink : "",
-      repoLink : "https://github.com/Ashok-Bhatt/TechSagers---Blog-Website",
-    },
-    {
-      projectName : "Smart Attendance System",
-      projectImage: "https://res.cloudinary.com/dvjkkh0tf/image/upload/v1751092810/Screenshot_2025-06-28_120006_pwzyww.webp",
-      description : "A web prototype for an automated system to track attendance of students",
-      liveLink : "",
-      repoLink : "https://github.com/Ashok-Bhatt/Smart-Attendance-System",
-    },
-    {
-      projectName : "Draw Perfect Circle",
-      projectImage: "https://res.cloudinary.com/dvjkkh0tf/image/upload/v1751169742/Screenshot_2025-06-28_221421_bl1ykf.png",
-      description : "A fun game that challenges you to draw the perfect freehand circle",
-      liveLink : "https://perfect-circle-two.vercel.app/",
-      repoLink : "https://github.com/Ashok-Bhatt/PerfectCircle",
-    },
-  ]
 
   const [currentPtr, setCurrentPointer] = useState(0);
 
