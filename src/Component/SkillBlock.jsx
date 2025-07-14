@@ -10,9 +10,16 @@ function SkillBlock(props) {
         left:`${xPos}px`,
         }}>
         {skillLogo}
-        <div className='absolute bg-black dark:bg-white min-w-20 w-auto p-2 rounded-lg hidden group-hover:block' style={{left:`${labelPos}px`}}>
-            <p className='text-center text-lg text-white dark:text-black w-max font-bold'>{skillName}</p>
-        </div>
+        {
+          labelPos=='left' ? (
+            <div className='absolute bg-black dark:bg-white min-w-20 w-auto p-2 rounded-lg hidden group-hover:block -left-[20px] -translate-x-1/1'>
+              <p className='text-center text-lg text-white dark:text-black w-max font-bold'>{skillName}</p>
+            </div>) : (
+            <div className='absolute bg-black dark:bg-white min-w-20 w-auto p-2 rounded-lg hidden group-hover:block -right-[20px] translate-x-1/1'>
+              <p className='text-center text-lg text-white dark:text-black w-max font-bold'>{skillName}</p>
+            </div>
+          )
+        }
     </div>
   )
 }

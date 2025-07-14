@@ -3,7 +3,7 @@ import { FaCode } from "react-icons/fa";
 
 function ProjectBlock(props) {
 
-    const {project} = props;
+  const {project} = props;
 
   return (
     <div className='relative h-[250px] w-[400px] rounded-lg border border-gray-500 overflow-hidden group transition-all duration-300'>

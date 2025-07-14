@@ -42,9 +42,12 @@ function LeetcodeContests(props) {
   };
 
   return (
-    <div>
-      <div>
-        {contestData.length > 0 ? <Line data={data} options={options} /> : null}
+    <div className="flex h-full w-full">
+      <div className="">
+        
+      </div>
+      <div className='flex-grow w-full'>
+        {contestData.length > 0 ? <Line data={data} options={options} style={{height:'100%', width:'100%'}}/> : null}
       </div>
     </div>
   )

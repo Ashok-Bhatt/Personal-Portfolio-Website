@@ -20,6 +20,10 @@ const navigation = [
         link: "#projects",
     },
     {
+       text : "Certificates",
+       link: "#certificates"
+    },
+    {
         text : "Contact",
         link: "#contact",
     },
@@ -123,4 +127,30 @@ const skills = {
     ],
 };
 
-export {navigation, projects, skills};
+const certificates = [
+  {
+    name : "Hackerrank Problem Solving (Intermediate)",
+    preview : "/Images/Certificates/hackerrank_problem_solving_intermediate.png",
+    link : "https://www.hackerrank.com/certificates/7e8942b3619c",
+    description: "Demonstrates proficiency in core Data Structures like HashMaps, Stacks, and Queues, along with the ability to design and implement optimal algorithmic solutions. Focuses on solving real-world coding problems with efficiency and clarity.",
+  },
+  {
+    name : "Hackerrank Problem Solving (Intermediate)",
+    preview : "/Images/Certificates/hackerrank_problem_solving_intermediate.png",
+    link : "https://www.hackerrank.com/certificates/7e8942b3619c",
+    description: "Demonstrates proficiency in core Data Structures like HashMaps, Stacks, and Queues, along with the ability to design and implement optimal algorithmic solutions. Focuses on solving real-world coding problems with efficiency and clarity.",
+  },
+  {
+    name : "Hackerrank Problem Solving (Intermediate)",
+    preview : "/Images/Certificates/hackerrank_problem_solving_intermediate.png",
+    link : "https://www.hackerrank.com/certificates/7e8942b3619c",
+    description: "Demonstrates proficiency in core Data Structures like HashMaps, Stacks, and Queues, along with the ability to design and implement optimal algorithmic solutions. Focuses on solving real-world coding problems with efficiency and clarity.",
+  }
+]
+
+export {
+  navigation, 
+  projects,
+  skills,
+  certificates,
+};

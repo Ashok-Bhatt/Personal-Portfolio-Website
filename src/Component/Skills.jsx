@@ -42,7 +42,7 @@ function Skills() {
                         xPos = {innerRadius/2 + groupNo*outerRadius/2 + (Math.cos(2*Math.PI*skillNo/skillGroup[1].length + angleBuffer*(groupNo%2==0?1:-1))).toFixed(6)*(innerRadius/2+groupNo*outerRadius/2) + Math.ceil(Math.random()*2*shockLevel-shockLevel)}
                         yPos = {innerRadius/2 + groupNo*outerRadius/2 + (Math.sin(2*Math.PI*skillNo/skillGroup[1].length + angleBuffer*(groupNo%2==0?1:-1))).toFixed(6)*(innerRadius/2+groupNo*outerRadius/2) + Math.ceil(Math.random()*2*shockLevel-shockLevel)}
                         skillLogo = {<img src={skill.logoSrc} className='h-10 w-10 rounded-full'/>}
-                        labelPos = {(((360-Math.ceil((2*Math.PI*skillNo/skillGroup[1].length + angleBuffer*(groupNo%2==0?1:-1))*(180/Math.PI))%360)%360 + 90)%360)<=180 ? 75 : -100}
+                        labelPos = {(((360-Math.ceil((2*Math.PI*skillNo/skillGroup[1].length + angleBuffer*(groupNo%2==0?1:-1))*(180/Math.PI))%360)%360 + 90)%360)<=180 ? 'right' : 'left'}
                         key = {skill.name}
                     />
                 ))}

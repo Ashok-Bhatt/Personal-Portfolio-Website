@@ -19,7 +19,7 @@ function CodingProfiles() {
     ];
 
   return (
-    <div className='flex flex-col gap-y-3 bg-white dark:bg-black text-black dark:text-white min-h-screen w-screen p-15' id="coding_profiles">
+    <div className='flex flex-col gap-y-3 bg-white dark:bg-black text-black dark:text-white min-h-screen w-full p-15' id="coding_profiles">
         <div className='flex gap-x-3 w-full justify-center items-center'>
             <FaLaptopCode className='text-black dark:text-white text-3xl font-bold'/>
             <span className='text-black dark:text-white text-3xl font-bold'>Coding</span>

@@ -176,7 +176,7 @@ function Leetcode() {
 
   return (
     <>
-    <div className="flex flex-grow rounded-lg bg-gray-200 dark:bg-gray-800 overflow-hidden">
+    <div className="flex h-full rounded-lg overflow-hidden">
         <div className="flex flex-col w-1/3 h-full items-center justify-center gap-y-5 p-2">
             <div className='w-50 h-50 rounded-full overflow-hidden border-4 border-blue-400'>
                 <img src={userData["Profile Image"] || "/Images/coder_logo.png"} className='h-full w-full' alt="Leetcode Profile Image" />
@@ -190,20 +190,28 @@ function Leetcode() {
                 </div>
             </div>
         </div>
-        <div className="flex flex-col w-2/3 h-full p-2 gap-1">
-            <div className='flex h-1/2 items-center p-2 justify-between bg-gray-100 dark:bg-gray-900 gap-2'>
-                <ProblemsBlock problemsCount={[
-                    {"problemsTag" : "Easy", "setColor" : "green", "solvedProblems" : userData["Problems"]["Easy"]["Solved"], "totalProblems" : userData["Problems"]["Easy"]["Total"]},
-                    {"problemsTag" : "Medium", "setColor" : "yellow", "solvedProblems" : userData["Problems"]["Medium"]["Solved"], "totalProblems" : userData["Problems"]["Medium"]["Total"]},
-                    {"problemsTag" : "Hard", "setColor" : "red", "solvedProblems" : userData["Problems"]["Hard"]["Solved"], "totalProblems" : userData["Problems"]["Hard"]["Total"]}
-                ]}/>
-                <div className='flex flex-col justify-center rounded p-2 min-w-[200px]'>
-                    <div className='text-blue-500 text-center text-2xl'>Total Problems</div>
-                    <div className='text-center text-lg'>{userData["Problems"]["All"]["Solved"]} / {userData["Problems"]["All"]["Total"]}</div>
+        <div className="flex flex-col flex-grow h-full p-2 gap-y-1">
+            <div className='flex w-full h-1/2 items-center justify-between gap-x-1'>
+                <div className="flex h-full w-full bg-gray-100 dark:bg-gray-900">
+                    <ProblemsBlock problemsCount={[
+                        {"problemsTag" : "Easy", "setColor" : "green", "solvedProblems" : userData["Problems"]["Easy"]["Solved"], "totalProblems" : userData["Problems"]["Easy"]["Total"]},
+                        {"problemsTag" : "Medium", "setColor" : "yellow", "solvedProblems" : userData["Problems"]["Medium"]["Solved"], "totalProblems" : userData["Problems"]["Medium"]["Total"]},
+                        {"problemsTag" : "Hard", "setColor" : "red", "solvedProblems" : userData["Problems"]["Hard"]["Solved"], "totalProblems" : userData["Problems"]["Hard"]["Total"]}
+                    ]}/>
                 </div>
-                <div className='flex flex-col justify-center rounded p-2 min-w-[200px]'>
-                    <div className='text-blue-500 text-center text-2xl'>Total Submissions</div>
-                    <div className='text-center text-lg'>{userData["Submissions"]["All"]}</div>
+                <div className="flex flex-col w-full h-full bg-gray-100 dark:bg-gray-900">
+                    <div className="flex flex-col justify-center rounded p-2 w-full h-1/2">
+                        <div className="text-blue-500 text-center text-2xl">Total Problems</div>
+                        <div className="text-center text-lg">
+                        {userData["Problems"]["All"]["Solved"]} / {userData["Problems"]["All"]["Total"]}
+                        </div>
+                    </div>
+                    <div className="flex flex-col justify-center rounded p-2 w-full h-1/2">
+                        <div className="text-blue-500 text-center text-2xl">Total Submissions</div>
+                        <div className="text-center text-lg">
+                        {userData["Submissions"]["All"]}
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className="flex w-full h-1/2 justify-between items-center text-xl gap-1">
