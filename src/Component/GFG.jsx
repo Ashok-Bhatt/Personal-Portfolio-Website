@@ -29,9 +29,11 @@ function GFG() {
 
     useEffect(()=>{
         
-        if (localStorage.getItem("userGfgData") && localStorage.getItem("lastGfgRefresh") && ((Number(localStorage.getItem("lastGfgRefresh")) + dataRefreshRateInSeconds*1000) >= Date.now())){
+        if (localStorage.getItem("userGfgData")){
             setUserData(JSON.parse(localStorage.getItem("userGfgData")));
-            console.log("cached!");
+            if (localStorage.getItem("lastGfgRefresh") && ((Number(localStorage.getItem("lastGfgRefresh")) + dataRefreshRateInSeconds*1000) >= Date.now())){
+                console.log("cached!");
+            }
         } else {
             console.log("required");
             axios
@@ -54,6 +56,7 @@ function GFG() {
             })
             .catch((error)=>{
                 console.log(`Couldn't load user data : ${error}`)
+                setUserData(JSON.parse(localStorage.getItem("userGfgData")));
             })
         }
     }, []);

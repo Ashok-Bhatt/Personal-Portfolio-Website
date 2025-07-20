@@ -105,7 +105,7 @@ function Contact() {
           {errors.phone && <p className="text-sm text-red-500 ">{errors.phone.message}</p>}
           <textarea placeholder="Your Message" rows="5" className="p-4 text-black dark:text-white border-gray-500 bg-gray-200 dark:bg-gray-800 rounded-lg" {...register("message", {required:"Message is required!"})}></textarea>
           {errors.message && <p className="text-sm text-red-500 ">{errors.message.message}</p>}
-          <button type="submit" className="flex justify-center items-center gap-x-2 p-2 hover:cursor-pointer text-black bg-green-300">{<FaPaperPlane/>} Send Message</button>
+          <button type="submit" className="flex justify-center items-center gap-x-2 p-2 hover:cursor-pointer text-black bg-green-300 rounded">{<FaPaperPlane/>} Send Message</button>
         </form>
       </div>
 

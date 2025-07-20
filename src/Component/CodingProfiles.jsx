@@ -15,6 +15,14 @@ function CodingProfiles() {
         {
             platformName: "GFG",
             platformView: <GFG/>
+        },
+        {
+            platformName: "Coding Ninjas",
+            platformView: <Leetcode/>
+        },
+        {
+            platformName: "Github",
+            platformView: <Leetcode/>
         }
     ];
 
@@ -27,7 +35,7 @@ function CodingProfiles() {
         </div>
         <div className="flex border border-black dark:border-white w-max rounded-lg overflow-hidden">
             {codingPlatforms.map((platform, index)=>(
-                <div className="text-2xl min-w-20 py-1 px-3 font-semibold hover:cursor-pointer" style={{background:index==codingPlatformIndex?'green':'black'}} onClick={()=>setCodingPlatformIndex(index)} key={platform.platformName}>
+                <div className="text-2xl text-center min-w-40 py-1 px-3 font-semibold hover:cursor-pointer" style={{background:index==codingPlatformIndex?'green':'black'}} onClick={()=>setCodingPlatformIndex(index)} key={platform.platformName}>
                     {platform.platformName}
                 </div>
             ))}

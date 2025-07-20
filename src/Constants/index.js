@@ -24,6 +24,10 @@ const navigation = [
        link: "#certificates"
     },
     {
+        text : "Achievements",
+        link: "#achievements",
+    },
+    {
         text : "Contact",
         link: "#contact",
     },
@@ -97,33 +101,40 @@ const projects = [
 
 const skills = {
     "Programming Languages": [
-        { name: "Python", logoSrc: "/Images/python_logo.png" },
-        { name: "C", logoSrc: "/Images/c_logo.png" },
-        { name: "C++", logoSrc: "/Images/cpp_logo.png" },
-        { name: "Java", logoSrc: "/Images/java_logo.png" },
-        { name: "Javascript", logoSrc: "/Images/javascript_logo.png" }
+        { name: "Python", logoSrc: "/Images/Skills/python_logo.png" },
+        { name: "C", logoSrc: "/Images/Skills/c_logo.png" },
+        { name: "C++", logoSrc: "/Images/Skills/cpp_logo.png" },
+        { name: "Java", logoSrc: "/Images/Skills/java_logo.png" },
+        { name: "Javascript", logoSrc: "/Images/Skills/javascript_logo.png" }
     ],
     "Frontend": [
-        { name: "HTML", logoSrc: "/Images/html_logo.png" },
-        { name: "CSS", logoSrc: "/Images/css_logo.png" },
-        { name: "Bootstrap", logoSrc: "/Images/bootstrap_logo.png" },
-        { name: "Tailwind", logoSrc: "/Images/tailwind_logo.png" },
-        { name: "React", logoSrc: "/Images/react_logo.png" }
+        { name: "HTML", logoSrc: "/Images/Skills/html_logo.png" },
+        { name: "CSS", logoSrc: "/Images/Skills/css_logo.png" },
+        { name: "Bootstrap", logoSrc: "/Images/Skills/bootstrap_logo.png" },
+        { name: "Tailwind", logoSrc: "/Images/Skills/tailwind_logo.png" },
+        { name: "React", logoSrc: "/Images/Skills/react_logo.png" },
+        { name: "Redux", logoSrc: "/Images/Skills/redux_logo.png" },
     ],
     "Backend and Databases": [
-        { name: "Node", logoSrc: "/Images/node_logo.png" },
-        { name: "Express", logoSrc: "/Images/express_logo.png" },
-        { name: "MongoDB", logoSrc: "/Images/mongodb_logo.png" },
-        { name: "Firebase", logoSrc: "/Images/firebase_logo.png" },
-        { name: "Appwrite", logoSrc: "/Images/appwrite_logo.png" }
+        { name: "Node", logoSrc: "/Images/Skills/node_logo.png" },
+        { name: "Express", logoSrc: "/Images/Skills/express_logo.png" },
+        { name: "MongoDB", logoSrc: "/Images/Skills/mongodb_logo.png" },
+        { name: "Firebase", logoSrc: "/Images/Skills/firebase_logo.png" },
+        { name: "Appwrite", logoSrc: "/Images/Skills/appwrite_logo.png" },
+        { name: "Flask", logoSrc: "/Images/Skills/flask_logo.png" },
+        { name: "JWT", logoSrc: "/Images/Skills/jwt_logo.png" },
     ],
     "Tools": [
-        { name: "Git", logoSrc: "/Images/git_logo.png" },
-        { name: "Github", logoSrc: "/Images/github_logo.png" },
-        { name: "Postman", logoSrc: "/Images/postman_logo.png" },
-        { name: "VS Code", logoSrc: "/Images/vscode_logo.png" },
-        { name: "Android Studio", logoSrc: "/Images/android_logo.png" },
-        { name: "Replit", logoSrc: "/Images/replit_logo.png" }
+        { name: "Git", logoSrc: "/Images/Skills/git_logo.png" },
+        { name: "Github", logoSrc: "/Images/Skills/github_logo.png" },
+        { name: "Postman", logoSrc: "/Images/Skills/postman_logo.png" },
+        { name: "VS Code", logoSrc: "/Images/Skills/vscode_logo.png" },
+        { name: "Android Studio", logoSrc: "/Images/Skills/android_logo.png" },
+        { name: "Replit", logoSrc: "/Images/Skills/replit_logo.png" },
+        { name: "Vercel", logoSrc: "/Images/Skills/vercel_logo.png" },
+        { name: "Cursor", logoSrc: "/Images/Skills/cursor_logo.jpg" },
+        { name: "Chatgpt", logoSrc: "/Images/Skills/chatgpt_logo.png" },
+        { name: "Vite", logoSrc: "/Images/Skills/vite_logo.jpg" },
     ],
 };
 
@@ -132,25 +143,50 @@ const certificates = [
     name : "Hackerrank Problem Solving (Intermediate)",
     preview : "/Images/Certificates/hackerrank_problem_solving_intermediate.png",
     link : "https://www.hackerrank.com/certificates/7e8942b3619c",
-    description: "Demonstrates proficiency in core Data Structures like HashMaps, Stacks, and Queues, along with the ability to design and implement optimal algorithmic solutions. Focuses on solving real-world coding problems with efficiency and clarity.",
+    description: "Demonstrates proficiency in core Data Structures like HashMaps, Stacks, and Queues, along with the ability to design and implement optimal algorithmic solutions.",
   },
   {
-    name : "Hackerrank Problem Solving (Intermediate)",
-    preview : "/Images/Certificates/hackerrank_problem_solving_intermediate.png",
-    link : "https://www.hackerrank.com/certificates/7e8942b3619c",
-    description: "Demonstrates proficiency in core Data Structures like HashMaps, Stacks, and Queues, along with the ability to design and implement optimal algorithmic solutions. Focuses on solving real-world coding problems with efficiency and clarity.",
+    name : "Deloitte Job Simulation",
+    preview : "Images/Certificates/deloitte_job_simulation.png",
+    link : "https://forage-uploads-prod.s3.amazonaws.com/completion-certificates/9PBTqmSxAf6zZTseP/udmxiyHeqYQLkTPvf_9PBTqmSxAf6zZTseP_53bYQLnZQNdzDFYvp_1752669531060_completion_certificate.pdf",
+    description: "Completed Deloitte Australia Technology Job Simulation on Forage, enhancing software development skills.",
   },
   {
-    name : "Hackerrank Problem Solving (Intermediate)",
-    preview : "/Images/Certificates/hackerrank_problem_solving_intermediate.png",
-    link : "https://www.hackerrank.com/certificates/7e8942b3619c",
-    description: "Demonstrates proficiency in core Data Structures like HashMaps, Stacks, and Queues, along with the ability to design and implement optimal algorithmic solutions. Focuses on solving real-world coding problems with efficiency and clarity.",
-  }
+    name : "Coding Ninjas Slayground",
+    preview : "Images/Certificates/coding_ninjas_slayground_level_3.png",
+    link : "https://drive.google.com/file/d/11jYOKoNOKKKNwPGyBFEKfGhuhZkrgQub/view?usp=drive_link",
+    description: "Participation certificate for Coding Ninjas' Slayground Challenge — a 21-day coding marathon focused on consistency and skill-building.",
+  },
 ]
+
+const achievements = [
+  {
+    achievementTitle: "Winner - Code Clash, Illuminati 2025",
+    achievementDescription: "Secured 1st place in Code Clash at Illuminati 2025, the annual tech fest of ITM (SLS) Baroda University.",
+    achievementDate: new Date(2025, 2)
+  },
+  {
+    achievementTitle: "GFG Institute Rank 1",
+    achievementDescription: "Ranked 1st on the GeeksForGeeks Institute Leaderboard of ITM (SLS) Baroda University with 1400+ coding score.",
+    achievementDate: new Date(2025, 2)
+  },
+  {
+    achievementTitle: "GATE CS/IT 2025 Qualified - AIR 8129",
+    achievementDescription: "Qualified GATE CS/IT 2025 with All India Rank of 8129 out of 1.7 lakh candidates (Top 5%).",
+    achievementDate: new Date(2025, 3)
+  },
+  {
+    achievementTitle: "Global Rank 1805 - LeetCode Weekly 420",
+    achievementDescription: "Achieved Global Rank 1805 out of 32563 participants in LeetCode Weekly Contest 420. Solved 3/4 problems within 50 minutes",
+    achievementDate: new Date(2024, 10)
+  },
+];
+
 
 export {
   navigation, 
   projects,
   skills,
   certificates,
+  achievements,
 };

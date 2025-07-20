@@ -3,6 +3,7 @@ import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import ProjectBlock from './ProjectBlock'
 import { useState } from 'react';
 import { projects } from '../Constants';
+import Slider from './Slider';
 
 function Projects() {
 
@@ -15,12 +16,17 @@ function Projects() {
         <span className='text-black dark:text-white text-3xl font-bold'>Projects</span>
         <span className='text-yellow-300 text-3xl font-bold'>Made</span>
       </div>
-      <div className='flex relative gap-x-2 w-full justify-center'>
-        <ProjectBlock project={projects[currentPtr]}/>
-        <ProjectBlock project={projects[currentPtr+1]}/>
-        <ProjectBlock project={projects[currentPtr+2]}/>
-        <FaChevronCircleLeft className='absolute left-20 top-1/2 -translate-y-1/2 text-black dark:text-white bg-white dark:bg-black text-3xl rounded-full hover:cursor-pointer' style={{visibility: (currentPtr==0) ? "hidden": "visible"}} onClick={()=>setCurrentPointer((prev)=>Math.max(0, prev-3))}/>
-        <FaChevronCircleRight className='absolute right-20 top-1/2 -translate-y-1/2 text-black dark:text-white bg-white dark:bg-black text-3xl rounded-full hover:cursor-pointer'  style={{visibility: (currentPtr+3==projects.length) ? "hidden": "visible"}} onClick={()=>setCurrentPointer((prev)=>Math.min(projects.length-3, prev+3))}/>
+      <div className="flex relative gap-x-2 w-full justify-center">
+        <Slider 
+          cards={
+            projects.map((_, index)=>(
+              <ProjectBlock project={projects[index]}/>
+            ))
+          }
+          cardClasses = "h-full w-[400px]"
+          scrollTrigger="button"
+          defaultPointer = {1}
+        />
       </div>
     </div>
   )

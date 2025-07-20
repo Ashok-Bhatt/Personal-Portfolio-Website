@@ -7,6 +7,7 @@ import Projects from './Component/Projects';
 import Contact from "./Component/Contact";
 import CodingProfiles from "./Component/CodingProfiles";
 import Certificates from "./Component/Certificates"
+import Achievements from './Component/Achievements';
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
       <CodingProfiles/>
       <Projects/>
       <Certificates/>
+      <Achievements/>
       <Contact/>
     </div>
   )

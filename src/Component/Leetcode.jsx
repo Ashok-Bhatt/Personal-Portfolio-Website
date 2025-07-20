@@ -3,12 +3,15 @@ import React, {useState, useEffect} from 'react'
 import LeetcodeBadges from './LeetcodeBadges';
 import LeetcodeContests from './LeetcodeContests';
 import ProblemsBlock from './ProblemsBlock';
+import LeetcodeBadge from './LeetcodeBadge';
+import Slider from './Slider';
 
 function Leetcode() {
 
     const userName = "ashokbhatt2048";
     const apiUrl = "https://alfa-leetcode-api.onrender.com";
     const dataRefreshRateInSeconds = 1*24*60*60;
+    const [loading, setLoading] = useState(false);
 
     const [userData, setUserData] = useState({
         "Full Name" : "Ashok Bhatt",
@@ -68,6 +71,8 @@ function Leetcode() {
                 ...prev,
                 ["Profile Image"] : userInfoData["avatar"]
             }))
+            localStorage.setItem("lastLeetcodeRefresh", Date.now());
+            
 
             // 2️⃣ API Call to get contest data
             const contestResponse = await axios.get(`${apiUrl}/${userName}/contest`);
@@ -151,30 +156,40 @@ function Leetcode() {
         } catch (error){
             console.log("Error Occurred while fetching user data!", error.message);
         } finally {
-            localStorage.setItem("lastLeetcodeRefresh", Date.now());
+            setLoading(false);
         }
     }
 
     useEffect(()=>{
-
-        if (localStorage.getItem("userLeetcodeData") && localStorage.getItem("lastLeetcodeRefresh") && ((Number(localStorage.getItem("lastLeetcodeRefresh")) + dataRefreshRateInSeconds*1000) >= Date.now())){
-            console.log("cached");
+        
+        if (localStorage.getItem("userLeetcodeData")){
             setUserData(JSON.parse(localStorage.getItem("userLeetcodeData")));
+
+            if (localStorage.getItem("lastLeetcodeRefresh") && ((Number(localStorage.getItem("lastLeetcodeRefresh")) + dataRefreshRateInSeconds*1000) >= Date.now())){
+            console.log("cached");
+        }
+        }
+
+        if (localStorage.getItem("lastLeetcodeRefresh") && ((Number(localStorage.getItem("lastLeetcodeRefresh")) + dataRefreshRateInSeconds*1000) >= Date.now())){
+            console.log("cached");
         } else {
             console.log("updated data");
+            setLoading(true);
             fetchUserLeetcodeDetails();
+            setLoading(false);
         }
 
     }, []);
 
     useEffect(()=>{
-        // We are checking for global rank of user to userData isn't assigned to empty object
+        // We are checking for global rank of user to ensure userData isn't assigned to empty object and at least one api call is resolved
         if (userData["Global Rank"]){
             localStorage.setItem("userLeetcodeData", JSON.stringify(userData));
         }
     }, [userData]);
 
   return (
+    loading ? <>Loading</> :
     <>
     <div className="flex h-full rounded-lg overflow-hidden">
         <div className="flex flex-col w-1/3 h-full items-center justify-center gap-y-5 p-2">
@@ -193,11 +208,13 @@ function Leetcode() {
         <div className="flex flex-col flex-grow h-full p-2 gap-y-1">
             <div className='flex w-full h-1/2 items-center justify-between gap-x-1'>
                 <div className="flex h-full w-full bg-gray-100 dark:bg-gray-900">
-                    <ProblemsBlock problemsCount={[
-                        {"problemsTag" : "Easy", "setColor" : "green", "solvedProblems" : userData["Problems"]["Easy"]["Solved"], "totalProblems" : userData["Problems"]["Easy"]["Total"]},
-                        {"problemsTag" : "Medium", "setColor" : "yellow", "solvedProblems" : userData["Problems"]["Medium"]["Solved"], "totalProblems" : userData["Problems"]["Medium"]["Total"]},
-                        {"problemsTag" : "Hard", "setColor" : "red", "solvedProblems" : userData["Problems"]["Hard"]["Solved"], "totalProblems" : userData["Problems"]["Hard"]["Total"]}
-                    ]}/>
+                    <>
+                        <ProblemsBlock problemsCount={[
+                            {"problemsTag" : "Easy", "setColor" : "green", "solvedProblems" : userData["Problems"]["Easy"]["Solved"], "totalProblems" : userData["Problems"]["Easy"]["Total"]},
+                            {"problemsTag" : "Medium", "setColor" : "yellow", "solvedProblems" : userData["Problems"]["Medium"]["Solved"], "totalProblems" : userData["Problems"]["Medium"]["Total"]},
+                            {"problemsTag" : "Hard", "setColor" : "red", "solvedProblems" : userData["Problems"]["Hard"]["Solved"], "totalProblems" : userData["Problems"]["Hard"]["Total"]}
+                        ]}/>
+                    </>
                 </div>
                 <div className="flex flex-col w-full h-full bg-gray-100 dark:bg-gray-900">
                     <div className="flex flex-col justify-center rounded p-2 w-full h-1/2">
@@ -227,10 +244,18 @@ function Leetcode() {
                     />
                 </div>
                 <div className="h-full w-1/2 bg-gray-100 dark:bg-gray-900">
-                    <LeetcodeBadges 
-                        badgesCount={userData["Badge Count"]} 
-                        badges={userData["Badges"]}
-                    />
+                    <div className="flex relative gap-x-2 w-full justify-center">
+                        <Slider 
+                            cards={
+                                userData["Badges"].map((_, index)=>(
+                                    <LeetcodeBadge badge={userData["Badges"][index]}/>
+                                ))
+                            }
+                            cardClasses = "h-full w-[130px]"
+                            scrollTrigger="card"
+                            defaultPointer = {1}
+                        />
+                    </div>
                 </div>
             </div>
         </div>

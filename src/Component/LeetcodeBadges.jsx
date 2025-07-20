@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 
 function LeetcodeBadges(props) {
