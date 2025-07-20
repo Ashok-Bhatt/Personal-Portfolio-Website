@@ -6,7 +6,7 @@ import { skills } from '../Constants';
 
 function Skills() {
 
-    const innerRadius = 150;
+    const innerRadius = 125;
     const outerRadius = 125;
     const shockLevel = 0;
     const [rotationDelay, setRotationDelay] = useState(50);
@@ -27,13 +27,13 @@ function Skills() {
     }, [rotationDelay])
 
   return (
-    <div className='flex flex-col w-full bg-gray-100 dark:bg-gray-900 pt-15 z-5' id="skills">
+    <div className='flex flex-col h-screen w-full bg-gray-100 dark:bg-gray-900 pt-15 z-5 box-border' id="skills">
       <div className='flex gap-x-3 w-full justify-center items-center'>
         <FaLaptopCode className='text-black dark:text-white text-3xl font-bold'/>
         <span className='text-black dark:text-white text-3xl font-bold'>Skills &</span>
         <span className='text-yellow-300 text-3xl font-bold'>Abilities</span>
       </div>
-      <div className='relative min-h-[600px] flex flex-col p-10 gap-y-5'>
+      <div className='relative h-full min-h-[550px] flex flex-col gap-y-5'>
         {Object.entries(skills).map((skillGroup, groupNo)=>(
             <div className='absolute border border-dashed border-blue-500 left-1/2 top-1/2 -translate-1/2 rounded-full' key={skillGroup} style={{height:innerRadius+groupNo*outerRadius, width:innerRadius+groupNo*outerRadius, zIndex:10-groupNo}}>
                 {skillGroup[1].map((skill, skillNo)=>(

@@ -6,7 +6,7 @@ function ProjectBlock(props) {
   const {project} = props;
 
   return (
-    <div className='relative h-[250px] w-[400px] rounded-lg border border-gray-500 overflow-hidden group transition-all duration-300'>
+    <div className='relative h-[250px] w-[400px] rounded-lg border border-gray-500 hover:cursor-pointer overflow-hidden group transition duration-300'>
       <img src={project.projectImage} className='h-[200px] w-full'/>
       <div className='flex flex-col absolute bottom-0 w-full'>
         <div className='flex w-full h-[50px] bg-yellow-300 text-black text-lg font-bold justify-center items-center'>{project.projectName}</div>

@@ -3,10 +3,10 @@ import classNames from 'classnames';
 
 function CertificateBlock(props) {
 
-  const {certificate, className, eventListeners} = props;
+  const {certificate, className="", eventListeners} = props;
 
   return (
-    <div className={`relative rounded-lg border border-gray-500 overflow-hidden group transition-all duration-300 ${className}`} onClick={()=>{if (eventListeners) window.location.href=certificate.link}}>
+    <div className={`relative rounded-lg border border-gray-500 overflow-hidden group transition duration-300 ${className}`} onClick={()=>{if (eventListeners) window.location.href=certificate.link}}>
         <img src={certificate.preview} className='h-[200px] w-full'/>
         <div className='flex flex-col absolute bottom-0 w-full'>
             <div className='flex w-full h-[50px] bg-yellow-300 text-black text-sm font-bold justify-center items-center'>

@@ -12,6 +12,7 @@ function Leetcode() {
     const apiUrl = "https://alfa-leetcode-api.onrender.com";
     const dataRefreshRateInSeconds = 1*24*60*60;
     const [loading, setLoading] = useState(false);
+    const [badgePointer, setBadgePointer] = useState(1);
 
     const [userData, setUserData] = useState({
         "Full Name" : "Ashok Bhatt",
@@ -248,12 +249,13 @@ function Leetcode() {
                         <Slider 
                             cards={
                                 userData["Badges"].map((_, index)=>(
-                                    <LeetcodeBadge badge={userData["Badges"][index]}/>
+                                    <LeetcodeBadge badge={userData["Badges"][index]} isMiddleBadge={index==badgePointer}/>
                                 ))
                             }
                             cardClasses = "h-full w-[130px]"
                             scrollTrigger="card"
                             defaultPointer = {1}
+                            setParentPointer = {setBadgePointer}
                         />
                     </div>
                 </div>

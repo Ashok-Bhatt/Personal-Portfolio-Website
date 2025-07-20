@@ -18,7 +18,7 @@ function About() {
             <p className='mt-5 text-black dark:text-white text-lg '>
               I am a <span className='text-green-300'>final-year B.Tech Computer Science student</span> and an aspiring software developer driven by curiosity, creativity, and a passion for building impactful solutions.
             </p>
-            <p className="text-black dark:text-white text-lg  ">
+            <p className="text-black dark:text-white text-lg">
               I specialize in building modern <span className='text-green-300'>web applications,</span> along with hands-on experience developing <span className='text-green-300'>Android and desktop applications.</span> I actively enhance my problem-solving abilities through platforms like <span className='text-green-300'>LeetCode </span>and <span className='text-green-300'>GeeksforGeeks.</span>
             </p>
             <p className='text-black dark:text-white text-lg  '>

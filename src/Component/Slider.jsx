@@ -4,23 +4,31 @@ import {FaChevronCircleLeft, FaChevronCircleRight} from "react-icons/fa"
 
 function Slider(props) {
 
-  const {cards, cardClasses="", containerClasses="", scrollTrigger="button", defaultPointer=0} = props;
+  const {cards, cardClasses="", containerClasses="", scrollTrigger="button", defaultPointer=0, setParentPointer=null} = props;
   const [pointer, setPointer] = useState(defaultPointer);
 
   const scrollLeft = (triggerEvent) => {
     if (scrollTrigger==triggerEvent){
-      setPointer((prev)=>Math.max(prev-1, 0));
+      const newPointer = Math.max(0, pointer-1);
+      setPointer(newPointer);
+      if (setParentPointer){
+        setParentPointer(newPointer);
+      }
     }
   }
 
   const scrollRight = (triggerEvent) => {
     if (scrollTrigger==triggerEvent){
-      setPointer((prev)=>Math.min(cards.length-1, prev+1));
+      const newPointer = Math.min(cards.length-1, pointer+1);
+      setPointer(newPointer);
+      if (setParentPointer){
+        setParentPointer(newPointer);
+      }
     }
   }
 
   return (
-    <div className={classNames(containerClasses, 'flex relative gap-x-2 justify-between w-grow h-full p-2')}>
+    <div className={classNames(containerClasses, 'flex relative gap-x-2 justify-between items-center w-grow h-full p-2')}>
       <div className={classNames(cardClasses, "flex flex-col items-center")} onClick={()=>scrollLeft("card")}>
           {(cards.length>0 && pointer>=1) ? cards[pointer-1] : <></>}
       </div>
