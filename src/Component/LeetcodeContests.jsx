@@ -1,13 +1,14 @@
 import React from 'react'
+import classNames from 'classnames';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, LineElement, PointElement, LinearScale, CategoryScale, Tooltip, Legend } from 'chart.js';
 ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Tooltip, Legend);
 
 function LeetcodeContests(props) {
 
-  const {contestAttended, contestRating, contestRanking, totalParticipants, contestTopPercentage, contestBadges, contestData} = props;
-  const maxRating = contestData.reduce((accumulator, contest)=>Math.max(accumulator,contest["rating"]), 0);
-  const minRating = contestData.reduce((accumulator, contest)=>Math.min(accumulator,contest["rating"]), 1500);
+  const {contestAttended, contestRating, contestRanking, totalParticipants, contestTopPercentage, contestBadges, contestData, className,} = props;
+  const maxRating = contestData.reduce((accumulator, contest)=>Math.max(accumulator, contest["rating"]), 0);
+  const minRating = contestData.reduce((accumulator, contest)=>Math.min(accumulator, contest["rating"]), 1500);
 
   const data = {
     labels: contestData.map(contest => " "),
@@ -42,7 +43,7 @@ function LeetcodeContests(props) {
   };
 
   return (
-    <div className="flex flex-col h-full w-full p-2 gap-5">
+    <div className={classNames("flex flex-col h-full w-full p-5 gap-5 rounded", className)}>
       <div className="flex w-full justify-between">
         <div>
           <p className='text-sm text-gray-500'>Contest Rating</p>

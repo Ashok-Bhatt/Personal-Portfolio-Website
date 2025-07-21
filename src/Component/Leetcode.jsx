@@ -1,10 +1,10 @@
 import axios from 'axios';
 import React, {useState, useEffect} from 'react'
-import LeetcodeBadges from './LeetcodeBadges';
 import LeetcodeContests from './LeetcodeContests';
 import ProblemsBlock from './ProblemsBlock';
 import LeetcodeBadge from './LeetcodeBadge';
 import Slider from './Slider';
+import StatsBlock from './statsBlock';
 
 function Leetcode() {
 
@@ -192,7 +192,7 @@ function Leetcode() {
   return (
     loading ? <>Loading</> :
     <>
-    <div className="flex h-full rounded-lg overflow-hidden">
+    <div className="flex h-full rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-800">
         <div className="flex flex-col w-1/3 h-full items-center justify-center gap-y-5 p-2">
             <div className='w-50 h-50 rounded-full overflow-hidden border-4 border-blue-400'>
                 <img src={userData["Profile Image"] || "/Images/coder_logo.png"} className='h-full w-full' alt="Leetcode Profile Image" />
@@ -200,66 +200,49 @@ function Leetcode() {
             <div className="flex flex-col w-full items-center">
                 <p className='text-black dark:text-white text-3xl'>{userData["Full Name"]}</p>
                 <p className='text-yellow-600'>{userData["Profile Name"]}</p>
-                <div className="flex flex-col mt-5 min-w-[200px] w-max rounded p-2 items-center">
-                    <p className='text-green-600 text-2xl'>Global Rank</p>
-                    <p className='text-lg'>{userData["Global Rank"]} / 5M</p>
-                </div>
+            </div>
+            <div className="flex flex-col min-w-[200px] w-max rounded p-2 items-center">
+                <p className='text-green-600 text-2xl'>Global Rank</p>
+                <p className='text-lg'>{userData["Global Rank"]} / 5M</p>
             </div>
         </div>
-        <div className="flex flex-col flex-grow h-full p-2 gap-y-1">
-            <div className='flex w-full h-1/2 items-center justify-between gap-x-1'>
-                <div className="flex h-full w-full bg-gray-100 dark:bg-gray-900">
-                    <>
-                        <ProblemsBlock problemsCount={[
-                            {"problemsTag" : "Easy", "setColor" : "green", "solvedProblems" : userData["Problems"]["Easy"]["Solved"], "totalProblems" : userData["Problems"]["Easy"]["Total"]},
-                            {"problemsTag" : "Medium", "setColor" : "yellow", "solvedProblems" : userData["Problems"]["Medium"]["Solved"], "totalProblems" : userData["Problems"]["Medium"]["Total"]},
-                            {"problemsTag" : "Hard", "setColor" : "red", "solvedProblems" : userData["Problems"]["Hard"]["Solved"], "totalProblems" : userData["Problems"]["Hard"]["Total"]}
-                        ]}/>
-                    </>
-                </div>
-                <div className="flex flex-col w-full h-full bg-gray-100 dark:bg-gray-900">
-                    <div className="flex flex-col justify-center rounded p-2 w-full h-1/2">
-                        <div className="text-blue-500 text-center text-2xl">Total Problems</div>
-                        <div className="text-center text-lg">
-                        {userData["Problems"]["All"]["Solved"]} / {userData["Problems"]["All"]["Total"]}
-                        </div>
-                    </div>
-                    <div className="flex flex-col justify-center rounded p-2 w-full h-1/2">
-                        <div className="text-blue-500 text-center text-2xl">Total Submissions</div>
-                        <div className="text-center text-lg">
-                        {userData["Submissions"]["All"]}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="flex w-full h-1/2 justify-between items-center text-xl gap-1">
-                <div className="h-full w-1/2 bg-gray-100 dark:bg-gray-900">
-                    <LeetcodeContests
-                        contestAttended={userData["Contests Attended"]}
-                        contestRating={userData["Contest Rating"]}
-                        contestRanking={userData["Contest Ranking"]}
-                        totalParticipants={userData["Total Participants"]}
-                        contestTopPercentage={userData["Contest Top Percentage"]}
-                        contestBadges={userData["Contest Badges"]}
-                        contestData={userData["Contests Data"]}
-                    />
-                </div>
-                <div className="h-full w-1/2 bg-gray-100 dark:bg-gray-900">
-                    <div className="flex relative gap-x-2 w-full justify-center">
-                        <Slider 
-                            cards={
-                                userData["Badges"].map((_, index)=>(
-                                    <LeetcodeBadge badge={userData["Badges"][index]} isMiddleBadge={index==badgePointer}/>
-                                ))
-                            }
-                            cardClasses = "h-full w-[130px]"
-                            scrollTrigger="card"
-                            defaultPointer = {1}
-                            setParentPointer = {setBadgePointer}
-                        />
-                    </div>
-                </div>
-            </div>
+        <div className="grid grid-cols-2 gap-2 flex-grow h-full p-2">
+            <ProblemsBlock className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800" problemsCount={[
+                {"problemsTag" : "Easy", "setColor" : "green", "solvedProblems" : userData["Problems"]["Easy"]["Solved"], "totalProblems" : userData["Problems"]["Easy"]["Total"]},
+                {"problemsTag" : "Medium", "setColor" : "yellow", "solvedProblems" : userData["Problems"]["Medium"]["Solved"], "totalProblems" : userData["Problems"]["Medium"]["Total"]},
+                {"problemsTag" : "Hard", "setColor" : "red", "solvedProblems" : userData["Problems"]["Hard"]["Solved"], "totalProblems" : userData["Problems"]["Hard"]["Total"]}
+            ]}/>
+            <LeetcodeContests
+                contestAttended={userData["Contests Attended"]}
+                contestRating={userData["Contest Rating"]}
+                contestRanking={userData["Contest Ranking"]}
+                totalParticipants={userData["Total Participants"]}
+                contestTopPercentage={userData["Contest Top Percentage"]}
+                contestBadges={userData["Contest Badges"]}
+                contestData={userData["Contests Data"]}
+                className = "bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
+            />
+            <StatsBlock 
+                data={[
+                    {title:"Total Problems", stats:`${userData["Problems"]["All"]["Solved"]} / ${userData["Problems"]["All"]["Total"]}`},
+                    {title:"Total Submissions", stats:`${userData["Submissions"]["All"]}`}
+                ]}
+                containerClasses = "bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
+                titleClasses = "text-blue-500"
+                statsClasses = "text-black dark:text-white"
+            />
+            <Slider 
+                cards={
+                    userData["Badges"].map((_, index)=>(
+                        <LeetcodeBadge badge={userData["Badges"][index]} isMiddleBadge={index==badgePointer}/>
+                    ))
+                }
+                cardClasses = "h-full w-[130px]"
+                containerClasses = "bg-gray-100 dark:bg-gray-900 rounded border border-gray-200 dark:border-gray-800"
+                scrollTrigger="card"
+                defaultPointer = {1}
+                setParentPointer = {setBadgePointer}
+            />
         </div>
     </div>
     </>

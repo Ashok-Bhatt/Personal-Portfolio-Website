@@ -182,6 +182,35 @@ const achievements = [
   },
 ];
 
+const gfgContestData = [
+  {
+      "attended": true,
+      "rating": 1590,
+      "ranking": 1329,
+      "trendDirection": "UP",
+      "problemsSolved": 1,
+      "totalProblems": 4,
+      "finishTimeInSeconds": 5632,
+      "contest": {
+          "title": "Weekly Contest 154",
+          "startTime": 1706409000
+      }
+  },
+  {
+      "attended": true,
+      "rating": 1705,
+      "ranking": 504,
+      "trendDirection": "UP",
+      "problemsSolved": 1,
+      "totalProblems": 4,
+      "finishTimeInSeconds": 5632,
+      "contest": {
+          "title": "Weekly Contest 192",
+          "startTime": 1706409000
+      }
+  },
+];
+
 
 export {
   navigation, 
@@ -189,4 +218,5 @@ export {
   skills,
   certificates,
   achievements,
+  gfgContestData
 };

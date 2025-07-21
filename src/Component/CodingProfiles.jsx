@@ -5,7 +5,7 @@ import GFG from "./GFG"
 
 function CodingProfiles() {
 
-    const [codingPlatformIndex, setCodingPlatformIndex] = useState(0);
+    const [codingPlatformIndex, setCodingPlatformIndex] = useState(1);
 
     const codingPlatforms = [
         {
@@ -16,14 +16,6 @@ function CodingProfiles() {
             platformName: "GFG",
             platformView: <GFG/>
         },
-        {
-            platformName: "Coding Ninjas",
-            platformView: <Leetcode/>
-        },
-        {
-            platformName: "Github",
-            platformView: <Leetcode/>
-        }
     ];
 
   return (

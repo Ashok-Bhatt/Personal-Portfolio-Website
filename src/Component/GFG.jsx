@@ -1,6 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import axios from "axios"
 import ProblemsBlock from './ProblemsBlock';
+import StatsBlock from './statsBlock';
+import {gfgContestData} from '../Constants/index.js'
+import LeetcodeContests from './LeetcodeContests';
 
 function GFG() {
 
@@ -25,6 +28,15 @@ function GFG() {
         "Total Easy Problems" : 1383,
         "Total Medium Problems" : 1141,
         "Total Hard Problems" : 211,
+        // Temporary static data setup for gfg contests
+        "Contests Attended" : 0,
+        "Contest Rating": 1754,
+        "Contest Ranking" : 5152,
+        "Total Participants" : 36062,
+        "Contest Top Percentage" : 14.29,
+        "Contest Badges" : [],
+        "Contests Data" : gfgContestData,
+        "Global Rank" : 21288
     });
 
     useEffect(()=>{
@@ -51,6 +63,15 @@ function GFG() {
                     ["Easy Problems Solved"] : data["solvedStats"]["easy"]["count"],
                     ["Medium Problems Solved"] : data["solvedStats"]["medium"]["count"],
                     ["Hard Problems Solved"] : data["solvedStats"]["hard"]["count"],
+                    // Temporary static data setup for gfg contests
+                    ["Contests Attended"] : 0,
+                    ["Contest Rating"] : 1754,
+                    ["Contest Ranking"] : 5152,
+                    ["Total Participants"] : 36062,
+                    ["Contest Top Percentage"] : 14.29,
+                    ["Contest Badges"] : [],
+                    ["Contests Data"] : gfgContestData,
+                    ["Global Rank"] : 21288
                 });
                 localStorage.setItem("lastGfgRefresh", Date.now());
             })
@@ -77,30 +98,38 @@ function GFG() {
                 <p className='text-black dark:text-white text-3xl'>{userData["Full Name"]}</p>
                 <p className='text-yellow-600'>{userData["Profile Name"]}</p>
             </div>
+            <div className="flex flex-col min-w-[200px] w-max rounded p-2 items-center">
+                <p className='text-green-600 text-2xl'>Global Rank</p>
+                <p className='text-lg'>{userData["Global Rank"]} / 2M</p>
+            </div>
         </div>
-        <div className="flex flex-col w-2/3 h-full p-2">
-            <div className='flex items-center p-2 justify-between bg-gray-100 dark:bg-gray-900'>
-                <ProblemsBlock problemsCount={[
-                    {"problemsTag" : "Basic", "setColor" : "lightgreen", "solvedProblems" : userData["Basic Problems Solved"], "totalProblems" : userData["Total Basic Problems"]},
-                    {"problemsTag" : "Easy", "setColor" : "green", "solvedProblems" : userData["Easy Problems Solved"], "totalProblems" : userData["Total Easy Problems"]},
-                    {"problemsTag" : "Medium", "setColor" : "yellow", "solvedProblems" : userData["Medium Problems Solved"], "totalProblems" : userData["Total Medium Problems"]},
-                    {"problemsTag" : "Hard", "setColor" : "red", "solvedProblems" : userData["Hard Problems Solved"], "totalProblems" : userData["Total Hard Problems"]}
-                ]}/>
-                <div className='flex flex-col justify-center rounded p-2 w-[200px]'>
-                    <div className='text-blue-500 text-center text-2xl'>Total Problems</div>
-                    <div className='text-center text-lg'>{userData["Basic Problems Solved"] + userData["Easy Problems Solved"] + userData["Medium Problems Solved"] + userData["Hard Problems Solved"]} / {userData["Total Basic Problems"] + userData["Total Easy Problems"] + userData["Total Medium Problems"] + userData["Total Hard Problems"]}</div>
-                </div>
-            </div>
-            <div className="flex w-full justify-between p-5 text-xl">
-                <div className='bg-gray-100 dark:bg-gray-900 rounded p-2 w-[200px]'>
-                    <div className='text-yellow-400 text-center'>Institute Rank</div>
-                    <div className='text-center'>{(userData["Institute Rank"]>=1 && userData["Institute Rank"]<=3) ? instituteRankMedals[userData["Institute Rank"]-1] : ""} {userData["Institute Rank"]}</div>
-                </div>
-                <div className='bg-gray-100 dark:bg-gray-900 rounded p-2 w-[200px]'>
-                    <div className='text-yellow-400 text-center'>Coding Score</div>
-                    <div className='text-center'>{userData["Coding Score"]}</div>
-                </div>
-            </div>
+        <div className="grid grid-cols-2 gap-2 flex-grow h-full p-2">
+            <ProblemsBlock className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800" problemsCount={[
+                {"problemsTag" : "Basic", "setColor" : "lightgreen", "solvedProblems" : userData["Basic Problems Solved"], "totalProblems" : userData["Total Basic Problems"]},
+                {"problemsTag" : "Easy", "setColor" : "green", "solvedProblems" : userData["Easy Problems Solved"], "totalProblems" : userData["Total Easy Problems"]},
+                {"problemsTag" : "Medium", "setColor" : "yellow", "solvedProblems" : userData["Medium Problems Solved"], "totalProblems" : userData["Total Medium Problems"]},
+                {"problemsTag" : "Hard", "setColor" : "red", "solvedProblems" : userData["Hard Problems Solved"], "totalProblems" : userData["Total Hard Problems"]}
+            ]}/>
+            <LeetcodeContests
+                contestAttended={userData["Contests Attended"]}
+                contestRating={userData["Contest Rating"]}
+                contestRanking={userData["Contest Ranking"]}
+                totalParticipants={userData["Total Participants"]}
+                contestTopPercentage={userData["Contest Top Percentage"]}
+                contestBadges={userData["Contest Badges"]}
+                contestData={userData["Contests Data"]}
+                className = "bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
+            />
+            <StatsBlock 
+                data={[
+                    {title:"Total Problems", stats:`${userData["Basic Problems Solved"] + userData["Easy Problems Solved"] + userData["Medium Problems Solved"] + userData["Hard Problems Solved"]} / ${userData["Total Basic Problems"] + userData["Total Easy Problems"] + userData["Total Medium Problems"] + userData["Total Hard Problems"]}`},
+                    {title:"Institute Rank", stats:`${(userData["Institute Rank"]>=1 && userData["Institute Rank"]<=3) ? instituteRankMedals[userData["Institute Rank"]-1] : ""} ${userData["Institute Rank"]}`},
+                    {title:"Coding Score", stats:`${userData["Coding Score"]}`},
+                ]}
+                containerClasses = "bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
+                titleClasses = "text-blue-500"
+                statsClasses = "text-black dark:text-white"
+            />
         </div>
     </div>
   )

@@ -1,13 +1,14 @@
+import classNames from 'classnames';
 import React from 'react'
 
 function ProblemsBlock(props) {
 
-    const {problemsCount} = props;
+    const {problemsCount, className} = props;
     const barLength = 300;
     const barHeight = 10;
 
     return (
-        <div className='flex flex-col items-start p-5 gap-y-3 rounded w-max'>
+        <div className={classNames(className, 'flex flex-col justify-center items-center p-5 gap-y-3 rounded')}>
             {problemsCount.map((problemsSet)=>(
                 <div className='flex flex-col' key={problemsSet["problemsTag"]}>
                     <div className="text-lg" style={{color: problemsSet["setColor"]}}>{problemsSet["problemsTag"]}</div>
