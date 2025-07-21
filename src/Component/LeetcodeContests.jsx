@@ -42,9 +42,24 @@ function LeetcodeContests(props) {
   };
 
   return (
-    <div className="flex h-full w-full">
-      <div className="">
-        
+    <div className="flex flex-col h-full w-full p-2 gap-5">
+      <div className="flex w-full justify-between">
+        <div>
+          <p className='text-sm text-gray-500'>Contest Rating</p>
+          <p className='text-xl text-black dark:text-white'>{Math.round(contestRating)}</p>
+        </div>
+        <div>
+          <p className='text-sm text-gray-500'>Global Ranking</p>
+          <p className='text-sm text-black dark:text-white'>{contestRanking}/<span className='text-gray-300 dark:text-gray-600'>{totalParticipants}</span></p>
+        </div>
+        <div>
+          <p className='text-sm text-gray-500'>Attended</p>
+          <p className='text-sm text-black dark:text-white'>{contestAttended}</p>
+        </div>
+        <div>
+          <p className='text-sm text-gray-500'> Top</p>
+          <p className='text-xl text-black dark:text-white'>{contestTopPercentage} %</p>
+        </div>
       </div>
       <div className='flex-grow w-full'>
         {contestData.length > 0 ? <Line data={data} options={options} style={{height:'100%', width:'100%'}}/> : null}
