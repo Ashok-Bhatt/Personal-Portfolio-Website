@@ -4,7 +4,7 @@ import LeetcodeContests from './LeetcodeContests';
 import ProblemsBlock from './ProblemsBlock';
 import LeetcodeBadge from './LeetcodeBadge';
 import Slider from './Slider';
-import StatsBlock from './statsBlock';
+import StatsBlock from './StatsBlock';
 
 function Leetcode() {
 

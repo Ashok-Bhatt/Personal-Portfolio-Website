@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import axios from "axios"
 import ProblemsBlock from './ProblemsBlock';
-import StatsBlock from './statsBlock';
+import StatsBlock from './StatsBlock.jsx';
 import {gfgContestData} from '../Constants/index.js'
 import LeetcodeContests from './LeetcodeContests';
 
