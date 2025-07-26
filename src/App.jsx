@@ -8,6 +8,7 @@ import Contact from "./Component/Contact";
 import CodingProfiles from "./Component/CodingProfiles";
 import Certificates from "./Component/Certificates"
 import Achievements from './Component/Achievements';
+import { useEffect, useState } from 'react';
 
 function App() {
 

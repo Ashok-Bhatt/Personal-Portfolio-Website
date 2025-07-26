@@ -7,7 +7,7 @@ function StatsBlock(props) {
     const {data, containerClasses="", blockClasses="", titleClasses="", statsClasses=""} = props;
 
   return (
-    <div className={classNames(containerClasses, classNames("flex flex-col justify-center items-center rounded gap-y-2 p-2"))}>
+    <div className={classNames(containerClasses, classNames("flex flex-col justify-center items-center rounded gap-y-1 p-1"))}>
         {
             data.map((dataStat)=>(
                 <div className={classNames(blockClasses, "flex flex-col justify-center items-center border border-gray-500 rounded p-2 w-full")} key={uuid()}>

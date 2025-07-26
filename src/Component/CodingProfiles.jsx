@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import {FaLaptopCode} from "react-icons/fa"
 import Leetcode from './Leetcode';
 import GFG from "./GFG"
+import GitHub from './GitHub';
 
 function CodingProfiles() {
 
-    const [codingPlatformIndex, setCodingPlatformIndex] = useState(1);
+    const [codingPlatformIndex, setCodingPlatformIndex] = useState(0);
 
     const codingPlatforms = [
         {

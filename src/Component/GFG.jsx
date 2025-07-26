@@ -8,17 +8,16 @@ import LeetcodeContests from './LeetcodeContests';
 function GFG() {
 
     const userName = "ashokbhacjou";
+    const fullName = "Ashok Bhatt";
     const instituteRankMedals = ["🥇", "🥈", "🥉"];
     const dataRefreshRateInSeconds = 6 * 60 * 60;
-    const baseUrl = import.meta.env.VITE_APP_ENV=="development" ? "/api" : "https://geeks-for-geeks-api.vercel.app";
-
-    console.log(`${baseUrl}/${userName}`)
+    const baseUrl = "https://scrape-spidey.onrender.com/api/v1/gfg/user"
 
     const [userData, setUserData] = useState({
         "Profile Name" : "",
         "Full Name" : "",
         "Profile Image" : "",
-        "Institute Rank" : 0,
+        "Institution Rank" : 0,
         "Coding Score" : 0,
         "Basic Problems Solved" : 0,
         "Easy Problems Solved" : 0,
@@ -28,47 +27,47 @@ function GFG() {
         "Total Easy Problems" : 1383,
         "Total Medium Problems" : 1141,
         "Total Hard Problems" : 211,
-        // Temporary static data setup for gfg contests
         "Contests Attended" : 0,
         "Contest Rating": 1754,
         "Contest Ranking" : 5152,
         "Total Participants" : 36062,
         "Contest Top Percentage" : 14.29,
+        "Contest Level" : "",
+        // Temporary static data setup for gfg contests
         "Contest Badges" : [],
         "Contests Data" : gfgContestData,
         "Global Rank" : 21288
     });
 
     useEffect(()=>{
-        
+
         if (localStorage.getItem("userGfgData")){
             setUserData(JSON.parse(localStorage.getItem("userGfgData")));
-            if (localStorage.getItem("lastGfgRefresh") && ((Number(localStorage.getItem("lastGfgRefresh")) + dataRefreshRateInSeconds*1000) >= Date.now())){
-                console.log("cached!");
-            }
-        } else {
-            console.log("required");
+        }
+        
+        if (!localStorage.getItem("lastGfgRefresh") || ((Number(localStorage.getItem("lastGfgRefresh")) + dataRefreshRateInSeconds*1000) < Date.now())) {
             axios
             .get(`${baseUrl}/${userName}`)
             .then((res)=>{
                 const data = res.data;
                 setUserData({
                     ...userData,
-                    ["Profile Name"] : data["info"]["userName"],
-                    ["Full Name"] : data["info"]["fullName"],
-                    ["Profile Image"] : data["info"]["profilePicture"],
-                    ["Institute Rank"] : data["info"]["instituteRank"],
-                    ["Coding Score"] : data["info"]["codingScore"],
-                    ["Basic Problems Solved"] : data["solvedStats"]["basic"]["count"] + data["solvedStats"]["school"]["count"],
-                    ["Easy Problems Solved"] : data["solvedStats"]["easy"]["count"],
-                    ["Medium Problems Solved"] : data["solvedStats"]["medium"]["count"],
-                    ["Hard Problems Solved"] : data["solvedStats"]["hard"]["count"],
+                    ["Full Name"] : fullName,
+                    ["Profile Name"] : data["username"],
+                    ["Profile Image"] : data["avatar"],
+                    ["Institution Rank"] : Number.parseInt(data["institutionRank"]),
+                    ["Coding Score"] : Number.parseInt(data["codingScore"]),
+                    ["Basic Problems Solved"] : Number.parseInt(data["problemsSolved"]["school"]) + Number.parseInt(data["problemsSolved"]["basic"]),
+                    ["Easy Problems Solved"] : Number.parseInt(data["problemsSolved"]["easy"]),
+                    ["Medium Problems Solved"] : Number.parseInt(data["problemsSolved"]["medium"]),
+                    ["Hard Problems Solved"] : Number.parseInt(data["problemsSolved"]["hard"]),
+                    ["Contests Attended"] : Number.parseInt(data["contestAttended"]),
+                    ["Contest Rating"] : Number.parseInt(data["contestRating"]),
+                    ["Contest Ranking"] : Number.parseInt(data["contestRanking"]),
+                    ["Total Participants"] : Number.parseInt(data["contestTotalParticipants"]),
+                    ["Contest Top Percentage"] : Number.parseFloat(data["contestTopPercentage"]),
+                    ["Contest Level"] : Number.parseInt(data["contestLevel"]),
                     // Temporary static data setup for gfg contests
-                    ["Contests Attended"] : 0,
-                    ["Contest Rating"] : 1754,
-                    ["Contest Ranking"] : 5152,
-                    ["Total Participants"] : 36062,
-                    ["Contest Top Percentage"] : 14.29,
                     ["Contest Badges"] : [],
                     ["Contests Data"] : gfgContestData,
                     ["Global Rank"] : 21288
@@ -90,7 +89,7 @@ function GFG() {
 
   return (
     <div className="flex flex-grow rounded-lg bg-gray-200 dark:bg-gray-800 overflow-hidden">
-        <div className="flex flex-col w-1/3 h-full items-center justify-center gap-y-5 p-2">
+        <div className="flex flex-col w-1/4 h-full items-center justify-center gap-y-5 p-2">
             <div className='w-50 h-50 rounded-full overflow-hidden border-4 border-blue-400'>
                 <img src={userData["Profile Image"] || "/Images/coder_logo.png"} className='h-full w-full' alt="Leetcode Profile Image" />
             </div>
@@ -123,7 +122,7 @@ function GFG() {
             <StatsBlock 
                 data={[
                     {title:"Total Problems", stats:`${userData["Basic Problems Solved"] + userData["Easy Problems Solved"] + userData["Medium Problems Solved"] + userData["Hard Problems Solved"]} / ${userData["Total Basic Problems"] + userData["Total Easy Problems"] + userData["Total Medium Problems"] + userData["Total Hard Problems"]}`},
-                    {title:"Institute Rank", stats:`${(userData["Institute Rank"]>=1 && userData["Institute Rank"]<=3) ? instituteRankMedals[userData["Institute Rank"]-1] : ""} ${userData["Institute Rank"]}`},
+                    {title:"Institution Rank", stats:`${(userData["Institution Rank"]>=1 && userData["Institution Rank"]<=3) ? instituteRankMedals[userData["Institution Rank"]-1] : ""} ${userData["Institution Rank"]}`},
                     {title:"Coding Score", stats:`${userData["Coding Score"]}`},
                 ]}
                 containerClasses = "bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"

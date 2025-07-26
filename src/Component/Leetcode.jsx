@@ -162,19 +162,12 @@ function Leetcode() {
     }
 
     useEffect(()=>{
-        
+
         if (localStorage.getItem("userLeetcodeData")){
             setUserData(JSON.parse(localStorage.getItem("userLeetcodeData")));
-
-            if (localStorage.getItem("lastLeetcodeRefresh") && ((Number(localStorage.getItem("lastLeetcodeRefresh")) + dataRefreshRateInSeconds*1000) >= Date.now())){
-            console.log("cached");
         }
-        }
-
-        if (localStorage.getItem("lastLeetcodeRefresh") && ((Number(localStorage.getItem("lastLeetcodeRefresh")) + dataRefreshRateInSeconds*1000) >= Date.now())){
-            console.log("cached");
-        } else {
-            console.log("updated data");
+        
+        if (!localStorage.getItem("lastGfgRefresh") || ((Number(localStorage.getItem("lastGfgRefresh")) + dataRefreshRateInSeconds*1000) < Date.now())) {
             setLoading(true);
             fetchUserLeetcodeDetails();
             setLoading(false);
@@ -193,7 +186,7 @@ function Leetcode() {
     loading ? <>Loading</> :
     <>
     <div className="flex h-full rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-800">
-        <div className="flex flex-col w-1/3 h-full items-center justify-center gap-y-5 p-2">
+        <div className="flex flex-col w-1/4 h-full items-center justify-center gap-y-5 p-2">
             <div className='w-50 h-50 rounded-full overflow-hidden border-4 border-blue-400'>
                 <img src={userData["Profile Image"] || "/Images/coder_logo.png"} className='h-full w-full' alt="Leetcode Profile Image" />
             </div>
@@ -225,7 +218,8 @@ function Leetcode() {
             <StatsBlock 
                 data={[
                     {title:"Total Problems", stats:`${userData["Problems"]["All"]["Solved"]} / ${userData["Problems"]["All"]["Total"]}`},
-                    {title:"Total Submissions", stats:`${userData["Submissions"]["All"]}`}
+                    {title:"Total Submissions", stats:`${userData["Submissions"]["All"]}`},
+                    {title:"Contribution Points", stats:`${userData["Contribution Points"]}`},
                 ]}
                 containerClasses = "bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
                 titleClasses = "text-blue-500"
@@ -238,7 +232,7 @@ function Leetcode() {
                     ))
                 }
                 cardClasses = "h-full w-[130px]"
-                containerClasses = "bg-gray-100 dark:bg-gray-900 rounded border border-gray-200 dark:border-gray-800"
+                containerClasses = "rounded flex-grow rounded bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
                 scrollTrigger="card"
                 defaultPointer = {1}
                 setParentPointer = {setBadgePointer}

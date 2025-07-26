@@ -28,14 +28,14 @@ function Slider(props) {
   }
 
   return (
-    <div className={classNames(containerClasses, 'flex relative gap-x-2 justify-between items-center w-grow h-full p-2')}>
-      <div className={classNames(cardClasses, "flex flex-col items-center")} onClick={()=>scrollLeft("card")}>
+    <div className={classNames(containerClasses, 'flex relative gap-x-2 justify-between items-center h-full p-2')}>
+      <div className={classNames(cardClasses, "flex flex-col items-center justify-center")} onClick={()=>scrollLeft("card")}>
           {(cards.length>0 && pointer>=1) ? cards[pointer-1] : <></>}
       </div>
-      <div className={classNames(cardClasses, "flex flex-col items-center")}>
+      <div className={classNames(cardClasses, "flex flex-col items-center justify-center")}>
           {(cards.length>0) ? cards[pointer] : <></>}
       </div>
-      <div className={classNames(cardClasses, "flex flex-col items-center")} onClick={()=>scrollRight("card")}>
+      <div className={classNames(cardClasses, "flex flex-col items-center justify-center")} onClick={()=>scrollRight("card")}>
           {(cards.length>0 && pointer+1 < cards.length) ? cards[pointer+1] : <></>}
       </div>
 
