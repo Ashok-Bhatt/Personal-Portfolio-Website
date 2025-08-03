@@ -200,11 +200,15 @@ function Leetcode() {
             </div>
         </div>
         <div className="grid grid-cols-2 gap-2 flex-grow h-full p-2">
-            <ProblemsBlock className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800" problemsCount={[
-                {"problemsTag" : "Easy", "setColor" : "green", "solvedProblems" : userData["Problems"]["Easy"]["Solved"], "totalProblems" : userData["Problems"]["Easy"]["Total"]},
-                {"problemsTag" : "Medium", "setColor" : "yellow", "solvedProblems" : userData["Problems"]["Medium"]["Solved"], "totalProblems" : userData["Problems"]["Medium"]["Total"]},
-                {"problemsTag" : "Hard", "setColor" : "red", "solvedProblems" : userData["Problems"]["Hard"]["Solved"], "totalProblems" : userData["Problems"]["Hard"]["Total"]}
-            ]}/>
+            <ProblemsBlock 
+                problemsCount={[
+                    {"problemsTag" : "Easy", "setColor" : "green", "solvedProblems" : userData["Problems"]["Easy"]["Solved"], "totalProblems" : userData["Problems"]["Easy"]["Total"]},
+                    {"problemsTag" : "Medium", "setColor" : "yellow", "solvedProblems" : userData["Problems"]["Medium"]["Solved"], "totalProblems" : userData["Problems"]["Medium"]["Total"]},
+                    {"problemsTag" : "Hard", "setColor" : "red", "solvedProblems" : userData["Problems"]["Hard"]["Solved"], "totalProblems" : userData["Problems"]["Hard"]["Total"]}
+                ]}
+                className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800" 
+                title = "Problems Solved"
+            />
             <LeetcodeContests
                 contestAttended={userData["Contests Attended"]}
                 contestRating={userData["Contest Rating"]}
@@ -214,16 +218,7 @@ function Leetcode() {
                 contestBadges={userData["Contest Badges"]}
                 contestData={userData["Contests Data"]}
                 className = "bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
-            />
-            <StatsBlock 
-                data={[
-                    {title:"Total Problems", stats:`${userData["Problems"]["All"]["Solved"]} / ${userData["Problems"]["All"]["Total"]}`},
-                    {title:"Total Submissions", stats:`${userData["Submissions"]["All"]}`},
-                    {title:"Contribution Points", stats:`${userData["Contribution Points"]}`},
-                ]}
-                containerClasses = "bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
-                titleClasses = "text-blue-500"
-                statsClasses = "text-black dark:text-white"
+                title = "Contest Stats"
             />
             <Slider 
                 cards={
@@ -236,6 +231,16 @@ function Leetcode() {
                 scrollTrigger="card"
                 defaultPointer = {1}
                 setParentPointer = {setBadgePointer}
+                title = "Leetcode Badges"
+            />
+            <StatsBlock 
+                data={[
+                    {title:"Total Problems", stats:`${userData["Problems"]["All"]["Solved"]} / ${userData["Problems"]["All"]["Total"]}`},
+                    {title:"Total Submissions", stats:`${userData["Submissions"]["All"]}`},
+                ]}
+                containerClasses = "bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
+                titleClasses = "text-blue-500"
+                statsClasses = "text-black dark:text-white"
             />
         </div>
     </div>

@@ -96,6 +96,13 @@ const projects = [
       description : "A classic two-player arcade game where players aiming to score points by hitting the ball to past the opponent using paddles.",
       liveLink : "",
       repoLink :"https://github.com/Ashok-Bhatt/Pong-Game"
+    },
+    {
+      projectName : "Scrape Spidey",
+      projectImage : "https://res.cloudinary.com/dvjkkh0tf/image/upload/v1753500148/images_vhz0bz.png",
+      description : "A public api that can fetch the user data from gfg profile",
+      liveLink : "https://scrape-spidey.onrender.com/",
+      repoLink :"https://github.com/Ashok-Bhatt/ScrapeSpidey"
     }
 ]
 
@@ -179,6 +186,11 @@ const achievements = [
     achievementTitle: "Global Rank 1805 - LeetCode Weekly 420",
     achievementDescription: "Achieved Global Rank 1805 out of 32563 participants in LeetCode Weekly Contest 420. Solved 3/4 problems within 50 minutes",
     achievementDate: new Date(2024, 10)
+  },
+  {
+    achievementTitle: "Global Rank 1698 - LeetCode BiWeekly 161",
+    achievementDescription: "Achieved Global Rank 1698 out of 31670 participants in LeetCode BiWeekly Contest 161. Solved 3/4 problems within 80 minutes",
+    achievementDate: new Date(2026, 7)
   },
 ];
 

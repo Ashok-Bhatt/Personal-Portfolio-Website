@@ -95,7 +95,7 @@ function Contact() {
           </div>
         </div>
       </div>
-      <div className="w-1/2 min-h-full bg-red-400">
+      <div className="w-1/2 min-h-full">
         <form className="h-full flex flex-col border border-gray-500 rounded bg-gray-100 dark:bg-gray-900 p-5 gap-y-5 overflow-y-auto" onSubmit={handleSubmit(onSubmit)}>
           <input type="text" placeholder="Your Name" className="p-4 text-black dark:text-white border-gray-500 bg-gray-200 dark:bg-gray-800 rounded-lg" {...register("name", {required:"Name is required!"})}/>
           {errors.name && (<p className="text-sm text-red-500">{errors.name.message}</p>)}

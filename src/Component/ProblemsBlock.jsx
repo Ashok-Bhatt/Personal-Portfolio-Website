@@ -3,23 +3,26 @@ import React from 'react'
 
 function ProblemsBlock(props) {
 
-    const {problemsCount, className} = props;
+    const {problemsCount, className, title=""} = props;
     const barLength = 300;
     const barHeight = 10;
 
     return (
-        <div className={classNames(className, 'flex flex-col justify-center items-center p-5 gap-y-3 rounded')}>
-            {problemsCount.map((problemsSet)=>(
-                <div className='flex flex-col' key={problemsSet["problemsTag"]}>
-                    <div className="text-lg" style={{color: problemsSet["setColor"]}}>{problemsSet["problemsTag"]}</div>
-                    <div className='flex gap-x-2 items-center'>
-                        <div className='rounded-full overflow-hidden bg-gray-200 dark:bg-gray-800' style={{height:barHeight, width:barLength}}>
-                            <div className='h-full' style={{width: (Math.floor(problemsSet["solvedProblems"]/Math.max(1, problemsSet["totalProblems"])*barLength)), backgroundColor: problemsSet["setColor"]}}></div>
+        <div className={classNames(className, 'flex flex-col gap-2 p-2 h-full')}>
+            {title && <div className="w-full text-2xl text-center text-blue-500">{title}</div>}
+            <div className='flex flex-col justify-center items-center p-5 gap-y-3 rounded'>
+                {problemsCount.map((problemsSet)=>(
+                    <div className='flex flex-col' key={problemsSet["problemsTag"]}>
+                        <div className="text-lg" style={{color: problemsSet["setColor"]}}>{problemsSet["problemsTag"]}</div>
+                        <div className='flex gap-x-2 items-center'>
+                            <div className='rounded-full overflow-hidden bg-gray-200 dark:bg-gray-800' style={{height:barHeight, width:barLength}}>
+                                <div className='h-full' style={{width: (Math.floor(problemsSet["solvedProblems"]/Math.max(1, problemsSet["totalProblems"])*barLength)), backgroundColor: problemsSet["setColor"]}}></div>
+                            </div>
+                            <p className='text-black dark:text-white font-semibold'>{problemsSet["solvedProblems"]} / {problemsSet["totalProblems"]}</p>
                         </div>
-                        <p className='text-black dark:text-white font-semibold'>{problemsSet["solvedProblems"]} / {problemsSet["totalProblems"]}</p>
                     </div>
-                </div>
-            ))}
+                ))}
+            </div>
         </div>
     )
 }

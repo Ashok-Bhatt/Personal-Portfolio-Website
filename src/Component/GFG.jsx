@@ -88,7 +88,7 @@ function GFG() {
     }, [userData]);
 
   return (
-    <div className="flex flex-grow rounded-lg bg-gray-200 dark:bg-gray-800 overflow-hidden">
+    <div className="flex flex-grow rounded-lg bg-gray-200 dark:bg-gray-800 overflow-hidden ">
         <div className="flex flex-col w-1/4 h-full items-center justify-center gap-y-5 p-2">
             <div className='w-50 h-50 rounded-full overflow-hidden border-4 border-blue-400'>
                 <img src={userData["Profile Image"] || "/Images/coder_logo.png"} className='h-full w-full' alt="Leetcode Profile Image" />
@@ -122,13 +122,23 @@ function GFG() {
             <StatsBlock 
                 data={[
                     {title:"Total Problems", stats:`${userData["Basic Problems Solved"] + userData["Easy Problems Solved"] + userData["Medium Problems Solved"] + userData["Hard Problems Solved"]} / ${userData["Total Basic Problems"] + userData["Total Easy Problems"] + userData["Total Medium Problems"] + userData["Total Hard Problems"]}`},
-                    {title:"Institution Rank", stats:`${(userData["Institution Rank"]>=1 && userData["Institution Rank"]<=3) ? instituteRankMedals[userData["Institution Rank"]-1] : ""} ${userData["Institution Rank"]}`},
                     {title:"Coding Score", stats:`${userData["Coding Score"]}`},
+                    {title:"Institution Rank", stats:`${(userData["Institution Rank"]>=1 && userData["Institution Rank"]<=3) ? instituteRankMedals[userData["Institution Rank"]-1] : ""} ${userData["Institution Rank"]}`},
+                    {title:"Contest Level", stats:`${userData["Contest Level"]} ⭐`},
+                ]}
+                containerClasses = "col-span-2 bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
+                titleClasses = "text-blue-500"
+                statsClasses = "text-black dark:text-white"
+            />
+            {/* <StatsBlock 
+                data={[
+                    {title:"Institution Rank", stats:`${(userData["Institution Rank"]>=1 && userData["Institution Rank"]<=3) ? instituteRankMedals[userData["Institution Rank"]-1] : ""} ${userData["Institution Rank"]}`},
+                    {title:"Contest Level", stats:`${userData["Contest Level"]} ⭐`},
                 ]}
                 containerClasses = "bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
                 titleClasses = "text-blue-500"
                 statsClasses = "text-black dark:text-white"
-            />
+            /> */}
         </div>
     </div>
   )
