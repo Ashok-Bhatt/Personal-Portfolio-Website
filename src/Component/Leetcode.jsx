@@ -5,6 +5,7 @@ import ProblemsBlock from './ProblemsBlock';
 import LeetcodeBadge from './LeetcodeBadge';
 import Slider from './Slider';
 import StatsBlock from './StatsBlock';
+import OpenWebsite from './OpenWebsite';
 
 function Leetcode() {
 
@@ -198,6 +199,7 @@ function Leetcode() {
                 <p className='text-green-600 text-2xl'>Global Rank</p>
                 <p className='text-lg'>{userData["Global Rank"]} / 5M</p>
             </div>
+            <OpenWebsite text={"Open Website"} link={"https://leetcode.com/u/ashokbhatt2048/"}/>
         </div>
         <div className="grid grid-cols-2 gap-2 flex-grow h-full p-2">
             <ProblemsBlock 

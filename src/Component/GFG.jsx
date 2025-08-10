@@ -4,6 +4,7 @@ import ProblemsBlock from './ProblemsBlock';
 import StatsBlock from './StatsBlock.jsx';
 import {gfgContestData} from '../Constants/index.js'
 import LeetcodeContests from './LeetcodeContests';
+import OpenWebsite from './OpenWebsite.jsx';
 
 function GFG() {
 
@@ -101,14 +102,18 @@ function GFG() {
                 <p className='text-green-600 text-2xl'>Global Rank</p>
                 <p className='text-lg'>{userData["Global Rank"]} / 2M</p>
             </div>
+            <OpenWebsite text={"Open Website"} link={"https://www.geeksforgeeks.org/user/ashokbhacjou/"}/>
         </div>
         <div className="grid grid-cols-2 gap-2 flex-grow h-full p-2">
-            <ProblemsBlock className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800" problemsCount={[
+            <ProblemsBlock className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800" 
+                problemsCount = {[
                 {"problemsTag" : "Basic", "setColor" : "lightgreen", "solvedProblems" : userData["Basic Problems Solved"], "totalProblems" : userData["Total Basic Problems"]},
                 {"problemsTag" : "Easy", "setColor" : "green", "solvedProblems" : userData["Easy Problems Solved"], "totalProblems" : userData["Total Easy Problems"]},
                 {"problemsTag" : "Medium", "setColor" : "yellow", "solvedProblems" : userData["Medium Problems Solved"], "totalProblems" : userData["Total Medium Problems"]},
                 {"problemsTag" : "Hard", "setColor" : "red", "solvedProblems" : userData["Hard Problems Solved"], "totalProblems" : userData["Total Hard Problems"]}
-            ]}/>
+                ]}
+                title = "Problems Solved"
+            />
             <LeetcodeContests
                 contestAttended={userData["Contests Attended"]}
                 contestRating={userData["Contest Rating"]}
@@ -118,6 +123,7 @@ function GFG() {
                 contestBadges={userData["Contest Badges"]}
                 contestData={userData["Contests Data"]}
                 className = "bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
+                title = "Contest Stats"
             />
             <StatsBlock 
                 data={[
@@ -130,15 +136,6 @@ function GFG() {
                 titleClasses = "text-blue-500"
                 statsClasses = "text-black dark:text-white"
             />
-            {/* <StatsBlock 
-                data={[
-                    {title:"Institution Rank", stats:`${(userData["Institution Rank"]>=1 && userData["Institution Rank"]<=3) ? instituteRankMedals[userData["Institution Rank"]-1] : ""} ${userData["Institution Rank"]}`},
-                    {title:"Contest Level", stats:`${userData["Contest Level"]} ⭐`},
-                ]}
-                containerClasses = "bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
-                titleClasses = "text-blue-500"
-                statsClasses = "text-black dark:text-white"
-            /> */}
         </div>
     </div>
   )

@@ -10,7 +10,7 @@ function ProblemsBlock(props) {
     return (
         <div className={classNames(className, 'flex flex-col gap-2 p-2 h-full')}>
             {title && <div className="w-full text-2xl text-center text-blue-500">{title}</div>}
-            <div className='flex flex-col justify-center items-center p-5 gap-y-3 rounded'>
+            <div className='flex flex-col h-full justify-center items-center p-5 gap-y-3 rounded'>
                 {problemsCount.map((problemsSet)=>(
                     <div className='flex flex-col' key={problemsSet["problemsTag"]}>
                         <div className="text-lg" style={{color: problemsSet["setColor"]}}>{problemsSet["problemsTag"]}</div>

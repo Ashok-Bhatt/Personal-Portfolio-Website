@@ -6,7 +6,7 @@ import GitHub from './GitHub';
 
 function CodingProfiles() {
 
-    const [codingPlatformIndex, setCodingPlatformIndex] = useState(0);
+    const [codingPlatformIndex, setCodingPlatformIndex] = useState(localStorage.getItem("codingProfileIndex") || 0);
 
     const codingPlatforms = [
         {
@@ -17,6 +17,10 @@ function CodingProfiles() {
             platformName: "GFG",
             platformView: <GFG/>
         },
+        {
+            platformName : "Github",
+            platformView: <GitHub/>
+        }
     ];
 
   return (
@@ -26,9 +30,9 @@ function CodingProfiles() {
             <span className='text-black dark:text-white text-3xl font-bold'>Coding</span>
             <span className='text-yellow-300 text-3xl font-bold'>Profiles</span>
         </div>
-        <div className="flex border border-black dark:border-white w-max rounded-lg overflow-hidden">
+        <div className="flex p-2 gap-5 w-max overflow-hidden">
             {codingPlatforms.map((platform, index)=>(
-                <div className="text-2xl text-center min-w-40 py-1 px-3 font-semibold hover:cursor-pointer" style={{background:index==codingPlatformIndex?'green':'black'}} onClick={()=>setCodingPlatformIndex(index)} key={platform.platformName}>
+                <div className="text-2xl text-center min-w-40 py-1 px-3 rounded-full font-semibold hover:cursor-pointer border border-black dark:border-white" style={{background:index==codingPlatformIndex?'green':'black'}} onClick={()=>{setCodingPlatformIndex(index); localStorage.setItem("codingProfileIndex", index)}} key={platform.platformName}>
                     {platform.platformName}
                 </div>
             ))}

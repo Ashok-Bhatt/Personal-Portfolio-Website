@@ -188,7 +188,7 @@ const achievements = [
     achievementDate: new Date(2024, 10)
   },
   {
-    achievementTitle: "Global Rank 1698 - LeetCode BiWeekly 161",
+    achievementTitle: "Global Rank 1698 - LeetCode Biweekly 161",
     achievementDescription: "Achieved Global Rank 1698 out of 31670 participants in LeetCode BiWeekly Contest 161. Solved 3/4 problems within 80 minutes",
     achievementDate: new Date(2026, 7)
   },
