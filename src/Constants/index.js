@@ -112,7 +112,7 @@ const skills = {
         { name: "C", logoSrc: "/Images/Skills/c_logo.png" },
         { name: "C++", logoSrc: "/Images/Skills/cpp_logo.png" },
         { name: "Java", logoSrc: "/Images/Skills/java_logo.png" },
-        { name: "Javascript", logoSrc: "/Images/Skills/javascript_logo.png" }
+        { name: "Javascript", logoSrc: "/Images/Skills/javascript_logo.png" },
     ],
     "Frontend": [
         { name: "HTML", logoSrc: "/Images/Skills/html_logo.png" },

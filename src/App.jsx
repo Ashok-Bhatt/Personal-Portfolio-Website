@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 function App() {
 
   return (
-    <div className='w-screen'>
+    <div className='w-full flex flex-col'>
       <Navbar/>
       <Intro/>
       <About/>

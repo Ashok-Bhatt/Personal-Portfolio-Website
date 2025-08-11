@@ -74,15 +74,23 @@ function GitHub() {
         <OpenWebsite text={"Open Website"} link={"https://github.com/Ashok-Bhatt"}/>
       </div>
       <div className="grid grid-cols-2 gap-2 w-3/4 flex-grow h-full p-2">
-        <a href={`https://github-readme-stats.vercel.app/api?username=${userName}&theme=dracula`} className='w-full h-full'>
-          <img className="h-full w-full" src={`https://github-readme-stats.vercel.app/api?username=${userName}&theme=dracula`}/>
+        <a href={`https://github-readme-stats.vercel.app/api?username=${userName}&theme=onedark`} className='w-full h-full'>
+          <img className="h-full w-full" src={`https://github-readme-stats.vercel.app/api?username=${userName}&theme=onedark`}/>
         </a>
-        <a href={`https://github-readme-streak-stats.herokuapp.com?user=${userName}&theme=dracula`}  className='w-full h-full'>
-          <img className='h-full w-full' src={`https://github-readme-streak-stats.herokuapp.com?user=${userName}&theme=dracula`}/>
+        <a href={`https://github-readme-streak-stats.herokuapp.com?user=${userName}&theme=onedark`}  className='w-full h-full'>
+          <img className='h-full w-full' src={`https://github-readme-streak-stats.herokuapp.com?user=${userName}&theme=onedark`}/>
         </a>
-        <a href={`https://github-profile-trophy.vercel.app/?username=${userName}&theme=dracula`} className='col-span-2 w-full h-full'>
-          <img className='h-full w-full' src={`https://github-profile-trophy.vercel.app/?username=${userName}&theme=dracula`}/>
+        <a href={`https://github-contributor-stats.vercel.app/api?username=${userName}&limit=4&theme=onedark&combine_all_yearly_contributions=true`} className='w-full h-full'>
+          <img className='h-full w-full' src={`https://github-contributor-stats.vercel.app/api?username=${userName}&limit=4&theme=onedark&combine_all_yearly_contributions=true`}/>
         </a>
+        <a href={`https://github-readme-stats.vercel.app/api/top-langs?langs_count=6&layout=compact?username=${userName}&theme=onedark`} className='w-full h-full'>
+          <img className="h-full w-full" src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${userName}&langs_count=6&theme=onedark&layout=compact`}/>
+        </a>
+        <div className="col-span-2 w-full h-full">
+          <a href={`https://github-profile-trophy.vercel.app/?username=${userName}&theme=onedark`} className='w-full h-full'>
+            <img className='h-full w-full' src={`https://github-profile-trophy.vercel.app/?username=${userName}&theme=onedark`}/>
+          </a>
+        </div>
       </div>
     </div>
   )

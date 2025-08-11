@@ -34,7 +34,7 @@ function Skills() {
         <span className='text-yellow-300 text-3xl font-bold'>Abilities</span>
       </div>
       <div className='relative h-full min-h-[550px] flex flex-col gap-y-5'>
-        {Object.entries(skills).map((skillGroup, groupNo)=>(
+        {Object.entries(skills).sort((a, b)=>a[1].length-b[1].length).map((skillGroup, groupNo)=>(
             <div className='absolute border border-dashed border-blue-500 left-1/2 top-1/2 -translate-1/2 rounded-full' key={skillGroup} style={{height:innerRadius+groupNo*outerRadius, width:innerRadius+groupNo*outerRadius, zIndex:10-groupNo}}>
                 {skillGroup[1].map((skill, skillNo)=>(
                     <SkillBlock

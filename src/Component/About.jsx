@@ -8,9 +8,12 @@ function About() {
         <span className='text-black dark:text-white text-3xl font-bold'>About</span>
         <span className='text-purple-600 text-3xl font-bold'>Me</span>
       </div>
-      <div className='flex mt-10 justify-center gap-x-30'>
+      <div className='flex mt-10 justify-center gap-10 w-full'>
         <div className="rounded-2xl overflow-hidden">
-            <img src="Images/my_image.jpeg" alt="my image" style={{height:"400px"}}/>
+            <img src="Images/my_image.jpeg" 
+              alt="my image" 
+              className="max-w-full h-auto rounded-2xl" 
+              style={{height:"400px"}}/>
         </div>
         <div className="flex flex-col gap-y-4 max-w-[600px]">
             <p className="text-black dark:text-white font-bold text-3xl">I'm <span className='text-blue-500'>Ashok Bhatt</span></p>

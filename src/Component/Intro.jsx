@@ -38,7 +38,7 @@ function Intro() {
 
   return (
     <div className='flex h-screen w-full bg-gray-100 text-gray-900 dark:bg-gray-900 dark:gray-100' id="home">
-      <div className="flex flex-col justify-center items-start gap-y-3 h-full w-1/2 px-30">
+      <div className="flex flex-col justify-center items-start gap-y-3 h-full md:w-1/2 px-20">
         <p className='text-black dark:text-white text-5xl tracking-widest font-bold'>Hi There</p>
         <p className='text-black dark:text-white text-5xl tracking-widest font-bold'>I'm <span className='text-orange-400'>Ashok Bhatt</span></p>
         <div className='flex gap-x-2'>
