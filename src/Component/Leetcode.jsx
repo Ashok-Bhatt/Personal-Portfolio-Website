@@ -209,6 +209,8 @@ function Leetcode() {
                     {"problemsTag" : "Hard", "setColor" : "red", "solvedProblems" : userData["Problems"]["Hard"]["Solved"], "totalProblems" : userData["Problems"]["Hard"]["Total"]}
                 ]}
                 className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800" 
+                progressBodyClassName="bg-gray-100 dark:bg-gray-900"
+                progressBarClassName="bg-gray-200 dark:bg-gray-800"
                 title = "Problems Solved"
             />
             <Contests

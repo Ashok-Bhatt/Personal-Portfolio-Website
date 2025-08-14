@@ -111,11 +111,14 @@ function GFG() {
                 {"problemsTag" : "Medium", "setColor" : "yellow", "solvedProblems" : userData["Medium Problems Solved"], "totalProblems" : userData["Total Medium Problems"]},
                 {"problemsTag" : "Hard", "setColor" : "red", "solvedProblems" : userData["Hard Problems Solved"], "totalProblems" : userData["Total Hard Problems"]}
                 ]}
+                progressBodyClassName="bg-gray-100 dark:bg-gray-900"
+                progressBarClassName="bg-gray-200 dark:bg-gray-800"
                 title = "Problems Solved"
             />
             <Contests
                 contestAttended={userData["Contests Attended"]}
                 contestRating={userData["Contest Rating"]}
+                contestTopPercentage={userData["Contest Top Percentage"]}
                 contestData={userData["Contests Data"]}
                 className = "bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
                 title = "Contest Stats"

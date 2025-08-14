@@ -35,7 +35,9 @@ function Code360() {
                         {"problemsTag" : "Hard", "setColor" : "red", "solvedProblems" : code360Data["Problems"]["Hard"]["Solved"], "totalProblems" : code360Data["Problems"]["Hard"]["Total"]},
                         {"problemsTag" : "Ninja", "setColor" : "purple", "solvedProblems" : code360Data["Problems"]["Ninja"]["Solved"], "totalProblems" : code360Data["Problems"]["Ninja"]["Total"]}
                     ]}
-                    className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800" 
+                    className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
+                    progressBodyClassName="bg-gray-100 dark:bg-gray-900"
+                    progressBarClassName="bg-gray-200 dark:bg-gray-800" 
                     title = "Problems Solved"
                 />
                 <Contests
