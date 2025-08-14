@@ -156,7 +156,7 @@ function Leetcode() {
                 }
             }));
         } catch (error){
-            console.log("Error Occurred while fetching user data!", error.message);
+            log("Error Occurred while fetching user data!", error.message);
         } finally {
             setLoading(false);
         }

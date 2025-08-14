@@ -76,7 +76,6 @@ function GFG() {
                 localStorage.setItem("lastGfgRefresh", Date.now());
             })
             .catch((error)=>{
-                console.log(`Couldn't load user data : ${error}`)
                 setUserData(JSON.parse(localStorage.getItem("userGfgData")));
             })
         }

@@ -39,7 +39,6 @@ function GitHub() {
           localStorage.setItem("lastGithubRefresh", Date.now());
       })
       .catch((error)=>{
-          console.log(`Couldn't load user data : ${error}`)
           setUserData(JSON.parse(localStorage.getItem("userGithubData")));
       })
     }

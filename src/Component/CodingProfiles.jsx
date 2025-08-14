@@ -3,6 +3,7 @@ import {FaLaptopCode} from "react-icons/fa"
 import Leetcode from './Leetcode';
 import GFG from "./GFG"
 import GitHub from './GitHub';
+import Code360 from './Code360';
 
 function CodingProfiles() {
 
@@ -20,6 +21,10 @@ function CodingProfiles() {
         {
             platformName : "Github",
             platformView: <GitHub/>
+        }, 
+        {
+            platformName : "Code360",
+            platformView : <Code360/>
         }
     ];
 

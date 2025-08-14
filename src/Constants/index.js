@@ -120,14 +120,12 @@ const skills = {
         { name: "Bootstrap", logoSrc: "/Images/Skills/bootstrap_logo.png" },
         { name: "Tailwind", logoSrc: "/Images/Skills/tailwind_logo.png" },
         { name: "React", logoSrc: "/Images/Skills/react_logo.png" },
-        { name: "Redux", logoSrc: "/Images/Skills/redux_logo.png" },
     ],
     "Backend and Databases": [
         { name: "Node", logoSrc: "/Images/Skills/node_logo.png" },
         { name: "Express", logoSrc: "/Images/Skills/express_logo.png" },
         { name: "MongoDB", logoSrc: "/Images/Skills/mongodb_logo.png" },
         { name: "Firebase", logoSrc: "/Images/Skills/firebase_logo.png" },
-        { name: "Appwrite", logoSrc: "/Images/Skills/appwrite_logo.png" },
         { name: "Flask", logoSrc: "/Images/Skills/flask_logo.png" },
         { name: "JWT", logoSrc: "/Images/Skills/jwt_logo.png" },
     ],
@@ -223,6 +221,162 @@ const gfgContestData = [
   },
 ];
 
+const code360Data = {
+    "Full Name": "Ashok Bhatt",
+    "Profile Name": "AshokBhatt",
+    "Profile Image": "https://p.naukimg.com/jphotoV1/s244:LukcMTq83AocGLm2VwgEbps/wnQpb8w6zyYH1j9XoJyoGcrIOFTu79yg",
+    "Current Streak": "1 day",
+    "Longest Streak": "20 days",
+    "Total Exp": 17346,
+    "Profile Views": 29,
+    "Problems": {
+        "Easy": {
+            "Total": 1229,
+            "Solved": 156,
+        },
+        "Moderate": {
+            "Total": 1422,
+            "Solved": 31,
+        },
+        "Hard": {
+            "Total": 408,
+            "Solved": 6,
+        },
+        "Ninja": {
+            "Total": 41,
+            "Solved": 0,
+        },
+        "All": {
+            "Total": 3100,
+            "Solved": 193,
+        }
+    },
+    "Contests Attended": 5,
+    "Current Rating": 2301,
+    "Contest Ranking": "Master",
+    "Contest Top Percentage": 7,
+    "Contest Badge": "https://files.codingninjas.in/active_-badges_-contest-rating-5-1717001724.png",
+    "Contests Data": [
+        { "rating": 1687, "ranking": 832 },
+        { "rating": 1854, "ranking": 127 },
+        { "rating": 2010, "ranking": 310 },
+        { "rating": 2158, "ranking": 315 },
+        { "rating": 2301, "ranking": 962 }
+    ],
+    "Badges": [
+        {
+            "title": "Two Pointers",
+            "image": "https://files.codingninjas.in/ronin-30759.svg",
+            "type": "Achiever"
+        },
+        {
+            "title": "Tries",
+            "image": "https://files.codingninjas.in/ronin-30759.svg",
+            "type": "Achiever"
+        },
+        {
+            "title": "Strings",
+            "image": "https://files.codingninjas.in/ronin-30759.svg",
+            "type": "Achiever"
+        },
+        {
+            "title": "Stacks & Queues",
+            "image": "https://files.codingninjas.in/ronin-30759.svg",
+            "type": "Achiever"
+        },
+        {
+            "title": "Sorting",
+            "image": "https://files.codingninjas.in/ronin-30759.svg",
+            "type": "Achiever"
+        },
+        {
+            "title": "Recursion",
+            "image": "https://files.codingninjas.in/ronin-30759.svg",
+            "type": "Achiever"
+        },
+        {
+            "title": "Math",
+            "image": "https://files.codingninjas.in/ronin-30759.svg",
+            "type": "Achiever"
+        },
+        {
+            "title": "Linked List",
+            "image": "https://files.codingninjas.in/ronin-30759.svg",
+            "type": "Achiever"
+        },
+        {
+            "title": "Hash Table",
+            "image": "https://files.codingninjas.in/ronin-30759.svg",
+            "type": "Achiever"
+        },
+        {
+            "title": "Greedy",
+            "image": "https://files.codingninjas.in/ronin-30759.svg",
+            "type": "Achiever"
+        },
+        {
+            "title": "Binary Trees",
+            "image": "https://files.codingninjas.in/ronin-30759.svg",
+            "type": "Achiever"
+        },
+        {
+            "title": "Binary Search",
+            "image": "https://files.codingninjas.in/ronin-30759.svg",
+            "type": "Achiever"
+        },
+        {
+            "title": "Backtracking",
+            "image": "https://files.codingninjas.in/ronin-30759.svg",
+            "type": "Achiever"
+        },
+        {
+            "title": "Arrays",
+            "image": "https://files.codingninjas.in/ronin-30759.svg",
+            "type": "Achiever"
+        },
+        {
+            "title": "Hash Table",
+            "image": "https://files.codingninjas.in/samurai-30760.svg",
+            "type": "Specialist"
+        },
+        {
+            "title": "Backtracking",
+            "image": "https://files.codingninjas.in/samurai-30760.svg",
+            "type": "Specialist"
+        },
+        {
+            "title": "Arrays",
+            "image": "https://files.codingninjas.in/samurai-30760.svg",
+            "type": "Specialist"
+        },
+        {
+          "title": "Basics of C++",
+          "image": "https://files.codingninjas.in/gp-cat-1-23406.svg",
+          "type": "Achiever"
+        },
+        {
+          "title": "Pointers",
+          "image": "https://files.codingninjas.in/gp-cat-1-23406.svg",
+          "type": "Achiever"
+        },
+        {
+          "title": "Pointers",
+          "image": "https://files.codingninjas.in/gp-cat-2-23407.svg",
+          "type": "Specialist"
+        },
+        {
+          "title": "Basics of C++",
+          "image": "https://files.codingninjas.in/gp-cat-3-23408.svg",
+          "type": "Master"
+        },
+        {
+          "title": "Pointers",
+          "image": "https://files.codingninjas.in/gp-cat-3-23408.svg",
+          "type": "Master"
+        },
+    ]
+};
+
 
 export {
   navigation, 
@@ -230,5 +384,6 @@ export {
   skills,
   certificates,
   achievements,
-  gfgContestData
+  gfgContestData,
+  code360Data
 };
