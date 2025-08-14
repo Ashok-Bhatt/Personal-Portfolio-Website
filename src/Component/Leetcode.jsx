@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {useState, useEffect} from 'react'
-import LeetcodeContests from './LeetcodeContests';
+import Contests from './Contests';
 import ProblemsBlock from './ProblemsBlock';
 import LeetcodeBadge from './LeetcodeBadge';
 import Slider from './Slider';
@@ -211,7 +211,7 @@ function Leetcode() {
                 className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800" 
                 title = "Problems Solved"
             />
-            <LeetcodeContests
+            <Contests
                 contestAttended={userData["Contests Attended"]}
                 contestRating={userData["Contest Rating"]}
                 contestRanking={userData["Contest Ranking"]}

@@ -3,7 +3,7 @@ import axios from "axios"
 import ProblemsBlock from './ProblemsBlock';
 import StatsBlock from './StatsBlock.jsx';
 import {gfgContestData} from '../Constants/index.js'
-import LeetcodeContests from './LeetcodeContests';
+import Contests from './Contests';
 import OpenWebsite from './OpenWebsite.jsx';
 
 function GFG() {
@@ -28,16 +28,16 @@ function GFG() {
         "Total Easy Problems" : 1383,
         "Total Medium Problems" : 1141,
         "Total Hard Problems" : 211,
-        "Contests Attended" : 0,
-        "Contest Rating": 1754,
-        "Contest Ranking" : 5152,
-        "Total Participants" : 36062,
-        "Contest Top Percentage" : 14.29,
-        "Contest Level" : "",
         // Temporary static data setup for gfg contests
-        "Contest Badges" : [],
-        "Contests Data" : gfgContestData,
-        "Global Rank" : 21288
+        ["Contests Attended"] : 2,
+        ["Contest Rating"] : 1705,
+        ["Contest Ranking"] : 0,
+        ["Total Participants"] : 0,
+        ["Contest Top Percentage"] : 0,
+        ["Contest Level"] : 3,
+        ["Contest Badges"] : [],
+        ["Contests Data"] : gfgContestData,
+        ["Global Rank"] : 5976
     });
 
     useEffect(()=>{
@@ -62,16 +62,16 @@ function GFG() {
                     ["Easy Problems Solved"] : Number.parseInt(data["problemsSolved"]["easy"]),
                     ["Medium Problems Solved"] : Number.parseInt(data["problemsSolved"]["medium"]),
                     ["Hard Problems Solved"] : Number.parseInt(data["problemsSolved"]["hard"]),
-                    ["Contests Attended"] : Number.parseInt(data["contestAttended"]),
-                    ["Contest Rating"] : Number.parseInt(data["contestRating"]),
-                    ["Contest Ranking"] : Number.parseInt(data["contestRanking"]),
-                    ["Total Participants"] : Number.parseInt(data["contestTotalParticipants"]),
-                    ["Contest Top Percentage"] : Number.parseFloat(data["contestTopPercentage"]),
-                    ["Contest Level"] : Number.parseInt(data["contestLevel"]),
                     // Temporary static data setup for gfg contests
+                    ["Contests Attended"] : 2,
+                    ["Contest Rating"] : 1705,
+                    ["Contest Ranking"] : 0,
+                    ["Total Participants"] : 0,
+                    ["Contest Top Percentage"] : 0,
+                    ["Contest Level"] : 3,
                     ["Contest Badges"] : [],
                     ["Contests Data"] : gfgContestData,
-                    ["Global Rank"] : 21288
+                    ["Global Rank"] : 5976
                 });
                 localStorage.setItem("lastGfgRefresh", Date.now());
             })
@@ -113,13 +113,9 @@ function GFG() {
                 ]}
                 title = "Problems Solved"
             />
-            <LeetcodeContests
+            <Contests
                 contestAttended={userData["Contests Attended"]}
                 contestRating={userData["Contest Rating"]}
-                contestRanking={userData["Contest Ranking"]}
-                totalParticipants={userData["Total Participants"]}
-                contestTopPercentage={userData["Contest Top Percentage"]}
-                contestBadges={userData["Contest Badges"]}
                 contestData={userData["Contests Data"]}
                 className = "bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
                 title = "Contest Stats"

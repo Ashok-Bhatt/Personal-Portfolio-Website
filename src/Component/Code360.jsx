@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import LeetcodeContests from './LeetcodeContests';
+import Contests from './Contests';
 import ProblemsBlock from './ProblemsBlock';
 import Slider from './Slider';
 import StatsBlock from './StatsBlock';
@@ -9,15 +9,6 @@ import { code360Data } from '../Constants';
 
 function Code360() {
     const [badgePointer, setBadgePointer] = useState(0);
-
-    // const Code360Badge = ({ badge, isMiddleBadge }) => {
-    //     return (
-    //         <div className={`flex flex-col items-center justify-center p-2 rounded-lg transition-all duration-300 ${isMiddleBadge ? 'scale-110 bg-blue-100 dark:bg-blue-900' : 'bg-gray-100 dark:bg-gray-800'}`}>
-    //             <img src={badge.image} alt="Code360 Badge" className="w-16 h-16 rounded-full" />
-    //             <p className="text-xs text-center mt-1 text-gray-600 dark:text-gray-400">{badge.title}</p>
-    //         </div>
-    //     );
-    // };
 
     return (
         <>
@@ -47,7 +38,7 @@ function Code360() {
                     className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800" 
                     title = "Problems Solved"
                 />
-                <LeetcodeContests
+                <Contests
                     contestAttended={code360Data["Contests Attended"]}
                     contestRating={code360Data["Current Rating"]}
                     totalParticipants={10000}
