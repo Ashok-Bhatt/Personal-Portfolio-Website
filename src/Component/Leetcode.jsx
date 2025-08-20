@@ -156,7 +156,7 @@ function Leetcode() {
                 }
             }));
         } catch (error){
-            log("Error Occurred while fetching user data!", error.message);
+            console.log("Error Occurred while fetching user data!", error.message);
         } finally {
             setLoading(false);
         }
@@ -204,9 +204,9 @@ function Leetcode() {
         <div className="grid grid-cols-2 gap-2 flex-grow h-full p-2">
             <ProblemsBlock 
                 problemsCount={[
-                    {"problemsTag" : "Easy", "setColor" : "green", "solvedProblems" : userData["Problems"]["Easy"]["Solved"], "totalProblems" : userData["Problems"]["Easy"]["Total"]},
-                    {"problemsTag" : "Medium", "setColor" : "yellow", "solvedProblems" : userData["Problems"]["Medium"]["Solved"], "totalProblems" : userData["Problems"]["Medium"]["Total"]},
-                    {"problemsTag" : "Hard", "setColor" : "red", "solvedProblems" : userData["Problems"]["Hard"]["Solved"], "totalProblems" : userData["Problems"]["Hard"]["Total"]}
+                    {"problemsTag" : "Easy", "setColor" : "#28C244", "solvedProblems" : userData["Problems"]["Easy"]["Solved"], "totalProblems" : userData["Problems"]["Easy"]["Total"]},
+                    {"problemsTag" : "Medium", "setColor" : "#FFB700", "solvedProblems" : userData["Problems"]["Medium"]["Solved"], "totalProblems" : userData["Problems"]["Medium"]["Total"]},
+                    {"problemsTag" : "Hard", "setColor" : "#F63737", "solvedProblems" : userData["Problems"]["Hard"]["Solved"], "totalProblems" : userData["Problems"]["Hard"]["Total"]}
                 ]}
                 className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800" 
                 progressBodyClassName="bg-gray-100 dark:bg-gray-900"

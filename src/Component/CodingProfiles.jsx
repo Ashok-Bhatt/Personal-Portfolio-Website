@@ -19,13 +19,13 @@ function CodingProfiles() {
             platformView: <GFG/>
         },
         {
+            platformName : "Code360",
+            platformView : <Code360/>
+        },
+        {
             platformName : "Github",
             platformView: <GitHub/>
         }, 
-        {
-            platformName : "Code360",
-            platformView : <Code360/>
-        }
     ];
 
   return (

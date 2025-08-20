@@ -166,6 +166,11 @@ const certificates = [
 
 const achievements = [
   {
+    achievementTitle: "1000+ DSA Problems",
+    achievementDescription: "Solved 1000+ DSA Problems Combined on Leetcode and GFG",
+    achievementDate: new Date(2025, 6)
+  },
+  {
     achievementTitle: "Winner - Code Clash, Illuminati 2025",
     achievementDescription: "Secured 1st place in Code Clash at Illuminati 2025, the annual tech fest of ITM (SLS) Baroda University.",
     achievementDate: new Date(2025, 2)
@@ -224,7 +229,7 @@ const gfgContestData = [
 const code360Data = {
     "Full Name": "Ashok Bhatt",
     "Profile Name": "AshokBhatt",
-    "Profile Image": "https://p.naukimg.com/jphotoV1/s244:LukcMTq83AocGLm2VwgEbps/wnQpb8w6zyYH1j9XoJyoGcrIOFTu79yg",
+    "Profile Image": "https://media.naukri.com/media/jphotov1/l244%253ALukcMTq83AocGLm2VwgEbp0ywH0oask%252Bg1t73KQq7LoDQTA8j6g%252BGSwgrq01",
     "Current Streak": "1 day",
     "Longest Streak": "20 days",
     "Total Exp": 17346,
@@ -331,6 +336,11 @@ const code360Data = {
         },
         {
             "title": "Arrays",
+            "image": "https://files.codingninjas.in/ronin-30759.svg",
+            "type": "Achiever"
+        },
+        {
+            "title": "Matrices",
             "image": "https://files.codingninjas.in/ronin-30759.svg",
             "type": "Achiever"
         },

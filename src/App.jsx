@@ -8,12 +8,13 @@ import Contact from "./Component/Contact";
 import CodingProfiles from "./Component/CodingProfiles";
 import Certificates from "./Component/Certificates"
 import Achievements from './Component/Achievements';
+import Chatbot from './Component/Chatbot';
 import { useEffect, useState } from 'react';
 
 function App() {
 
   return (
-    <div className='w-full flex flex-col'>
+    <div className='relative w-full flex flex-col'>
       <Navbar/>
       <Intro/>
       <About/>
@@ -23,6 +24,7 @@ function App() {
       <Certificates/>
       <Achievements/>
       <Contact/>
+      <Chatbot/>
     </div>
   )
 }

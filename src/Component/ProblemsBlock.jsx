@@ -16,33 +16,10 @@ function ProblemsBlock(props) {
 
         const problemSet = problemsCount[i];
         const solvedForThisType = problemSet.solvedProblems;
-
         const typeStartAngle = currentAngle;
         const solvedEndAngle = typeStartAngle + (solvedForThisType / solvedProblems) * 360;
+        const color = problemSet.setColor;
         
-        // Map color names to valid CSS colors
-        let color;
-        switch(problemSet.setColor) {
-            case 'green':
-                color = '#10B981';
-                break;
-            case 'yellow':
-                color = '#F59E0B';
-                break;
-            case 'red':
-                color = '#EF4444';
-                break;
-            case 'purple':
-                color = '#8B5CF6';
-                break;
-            case 'lightgreen':
-                color = '#84CC16';
-                break;
-            default:
-                color = problemSet.setColor;
-        }
-        
-        // Add solved portion with color
         if (solvedForThisType > 0) {
             gradientStops.push(`${color} ${typeStartAngle}deg ${solvedEndAngle}deg`);
         }

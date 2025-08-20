@@ -33,7 +33,7 @@ function GFG() {
         ["Contest Rating"] : 1705,
         ["Contest Ranking"] : 0,
         ["Total Participants"] : 0,
-        ["Contest Top Percentage"] : 0,
+        ["Contest Top Percentage"] : 15,
         ["Contest Level"] : 3,
         ["Contest Badges"] : [],
         ["Contests Data"] : gfgContestData,
@@ -47,37 +47,41 @@ function GFG() {
         }
         
         if (!localStorage.getItem("lastGfgRefresh") || ((Number(localStorage.getItem("lastGfgRefresh")) + dataRefreshRateInSeconds*1000) < Date.now())) {
-            axios
-            .get(`${baseUrl}/${userName}`)
-            .then((res)=>{
-                const data = res.data;
-                setUserData({
-                    ...userData,
-                    ["Full Name"] : fullName,
-                    ["Profile Name"] : data["username"],
-                    ["Profile Image"] : data["avatar"],
-                    ["Institution Rank"] : Number.parseInt(data["institutionRank"]),
-                    ["Coding Score"] : Number.parseInt(data["codingScore"]),
-                    ["Basic Problems Solved"] : Number.parseInt(data["problemsSolved"]["school"]) + Number.parseInt(data["problemsSolved"]["basic"]),
-                    ["Easy Problems Solved"] : Number.parseInt(data["problemsSolved"]["easy"]),
-                    ["Medium Problems Solved"] : Number.parseInt(data["problemsSolved"]["medium"]),
-                    ["Hard Problems Solved"] : Number.parseInt(data["problemsSolved"]["hard"]),
-                    // Temporary static data setup for gfg contests
-                    ["Contests Attended"] : 2,
-                    ["Contest Rating"] : 1705,
-                    ["Contest Ranking"] : 0,
-                    ["Total Participants"] : 0,
-                    ["Contest Top Percentage"] : 0,
-                    ["Contest Level"] : 3,
-                    ["Contest Badges"] : [],
-                    ["Contests Data"] : gfgContestData,
-                    ["Global Rank"] : 5976
-                });
-                localStorage.setItem("lastGfgRefresh", Date.now());
-            })
-            .catch((error)=>{
-                setUserData(JSON.parse(localStorage.getItem("userGfgData")));
-            })
+            try{
+                axios
+                .get(`${baseUrl}/${userName}`)
+                .then((res)=>{
+                    const data = res.data;
+                    setUserData({
+                        ...userData,
+                        ["Full Name"] : fullName,
+                        ["Profile Name"] : data["username"],
+                        ["Profile Image"] : data["avatar"],
+                        ["Institution Rank"] : Number.parseInt(data["institutionRank"]),
+                        ["Coding Score"] : Number.parseInt(data["codingScore"]),
+                        ["Basic Problems Solved"] : Number.parseInt(data["problemsSolved"]["school"]) + Number.parseInt(data["problemsSolved"]["basic"]),
+                        ["Easy Problems Solved"] : Number.parseInt(data["problemsSolved"]["easy"]),
+                        ["Medium Problems Solved"] : Number.parseInt(data["problemsSolved"]["medium"]),
+                        ["Hard Problems Solved"] : Number.parseInt(data["problemsSolved"]["hard"]),
+                        // Temporary static data setup for gfg contests
+                        ["Contests Attended"] : 2,
+                        ["Contest Rating"] : 1705,
+                        ["Contest Ranking"] : 0,
+                        ["Total Participants"] : 0,
+                        ["Contest Top Percentage"] : 15,
+                        ["Contest Level"] : 3,
+                        ["Contest Badges"] : [],
+                        ["Contests Data"] : gfgContestData,
+                        ["Global Rank"] : 5976
+                    });
+                    localStorage.setItem("lastGfgRefresh", Date.now());
+                })
+                .catch((error)=>{
+                    setUserData(localStorage.getItem("userGfgData") ? JSON.parse(localStorage.getItem("userGfgData")) : userData);
+                })
+            }catch (error) {
+
+            }
         }
     }, []);
 
@@ -106,10 +110,10 @@ function GFG() {
         <div className="grid grid-cols-2 gap-2 flex-grow h-full p-2">
             <ProblemsBlock className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800" 
                 problemsCount = {[
-                {"problemsTag" : "Basic", "setColor" : "lightgreen", "solvedProblems" : userData["Basic Problems Solved"], "totalProblems" : userData["Total Basic Problems"]},
-                {"problemsTag" : "Easy", "setColor" : "green", "solvedProblems" : userData["Easy Problems Solved"], "totalProblems" : userData["Total Easy Problems"]},
-                {"problemsTag" : "Medium", "setColor" : "yellow", "solvedProblems" : userData["Medium Problems Solved"], "totalProblems" : userData["Total Medium Problems"]},
-                {"problemsTag" : "Hard", "setColor" : "red", "solvedProblems" : userData["Hard Problems Solved"], "totalProblems" : userData["Total Hard Problems"]}
+                {"problemsTag" : "Basic", "setColor" : "#C8FE5E", "solvedProblems" : userData["Basic Problems Solved"], "totalProblems" : userData["Total Basic Problems"]},
+                {"problemsTag" : "Easy", "setColor" : "#28C244", "solvedProblems" : userData["Easy Problems Solved"], "totalProblems" : userData["Total Easy Problems"]},
+                {"problemsTag" : "Medium", "setColor" : "#FFB700", "solvedProblems" : userData["Medium Problems Solved"], "totalProblems" : userData["Total Medium Problems"]},
+                {"problemsTag" : "Hard", "setColor" : "#F63737", "solvedProblems" : userData["Hard Problems Solved"], "totalProblems" : userData["Total Hard Problems"]}
                 ]}
                 progressBodyClassName="bg-gray-100 dark:bg-gray-900"
                 progressBarClassName="bg-gray-200 dark:bg-gray-800"

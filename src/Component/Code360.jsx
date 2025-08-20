@@ -30,10 +30,10 @@ function Code360() {
             <div className="grid grid-cols-2 gap-2 flex-grow h-full p-2">
                 <ProblemsBlock 
                     problemsCount={[
-                        {"problemsTag" : "Easy", "setColor" : "green", "solvedProblems" : code360Data["Problems"]["Easy"]["Solved"], "totalProblems" : code360Data["Problems"]["Easy"]["Total"]},
-                        {"problemsTag" : "Moderate", "setColor" : "yellow", "solvedProblems" : code360Data["Problems"]["Moderate"]["Solved"], "totalProblems" : code360Data["Problems"]["Moderate"]["Total"]},
-                        {"problemsTag" : "Hard", "setColor" : "red", "solvedProblems" : code360Data["Problems"]["Hard"]["Solved"], "totalProblems" : code360Data["Problems"]["Hard"]["Total"]},
-                        {"problemsTag" : "Ninja", "setColor" : "purple", "solvedProblems" : code360Data["Problems"]["Ninja"]["Solved"], "totalProblems" : code360Data["Problems"]["Ninja"]["Total"]}
+                        {"problemsTag" : "Easy", "setColor" : "#28C244", "solvedProblems" : code360Data["Problems"]["Easy"]["Solved"], "totalProblems" : code360Data["Problems"]["Easy"]["Total"]},
+                        {"problemsTag" : "Moderate", "setColor" : "#FFB700", "solvedProblems" : code360Data["Problems"]["Moderate"]["Solved"], "totalProblems" : code360Data["Problems"]["Moderate"]["Total"]},
+                        {"problemsTag" : "Hard", "setColor" : "#F63737", "solvedProblems" : code360Data["Problems"]["Hard"]["Solved"], "totalProblems" : code360Data["Problems"]["Hard"]["Total"]},
+                        {"problemsTag" : "Ninja", "setColor" : "#5341A0", "solvedProblems" : code360Data["Problems"]["Ninja"]["Solved"], "totalProblems" : code360Data["Problems"]["Ninja"]["Total"]}
                     ]}
                     className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
                     progressBodyClassName="bg-gray-100 dark:bg-gray-900"
