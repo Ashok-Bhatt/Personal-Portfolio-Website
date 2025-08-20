@@ -64,7 +64,7 @@ function GFG() {
     }, []);
 
     useEffect(()=>{
-        if (userData["default"] && userData["default"] === false) {
+        if (userData["default"] === false) {
             localStorage.setItem("userGfgData", JSON.stringify(userData));
         }
     }, [userData]);

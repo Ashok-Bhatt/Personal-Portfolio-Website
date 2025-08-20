@@ -138,7 +138,8 @@ function Leetcode() {
     }, []);
 
     useEffect(()=>{
-        if (userData["default"] && userData["default"]=== false) {
+        console.log(userData["default"]);
+        if (userData["default"]===false) {
             localStorage.setItem("userLeetcodeData", JSON.stringify(userData));
         }
     }, [userData]);
