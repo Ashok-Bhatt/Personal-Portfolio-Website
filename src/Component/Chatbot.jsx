@@ -21,6 +21,8 @@ function Chatbot() {
         const question = e.target[0].value;
         if (question.trim() === "") return;
 
+        console.log(import.meta.env.VITE_QUERY_FORGE_API);
+
         setChat((prevChat) => [...prevChat, { text : question, role: "user" }]);
         setResponseLoading(true);
 
@@ -28,8 +30,8 @@ function Chatbot() {
         .post(
             "https://queryforge-8cgm.onrender.com/api/v1/bot/ask"
             , {
+                qnaCode: import.meta.env.VITE_QUERY_FORGE_API,
                 question: question,
-                qnaCode: import.meta.env.VITE_QUERY_FORGE_API
             }
         )
         .then((res) => {
