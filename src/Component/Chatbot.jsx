@@ -21,8 +21,6 @@ function Chatbot() {
         const question = e.target[0].value;
         if (question.trim() === "") return;
 
-        console.log(import.meta.env.VITE_QUERY_FORGE_API);
-
         setChat((prevChat) => [...prevChat, { text : question, role: "user" }]);
         setResponseLoading(true);
 
