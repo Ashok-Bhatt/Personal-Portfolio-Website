@@ -3,6 +3,7 @@ import axios from "axios"
 import ProblemsBlock from './ProblemsBlock';
 import StatsBlock from './StatsBlock.jsx';
 import {gfgContestData} from '../Constants/index.js'
+import {gfgData} from "../Constants/index.js"
 import Contests from './Contests';
 import OpenWebsite from './OpenWebsite.jsx';
 
@@ -14,31 +15,7 @@ function GFG() {
     const dataRefreshRateInSeconds = 6 * 60 * 60;
     const baseUrl = "https://scrape-spidey.onrender.com/api/v1/gfg/user"
 
-    const [userData, setUserData] = useState({
-        "Profile Name" : "",
-        "Full Name" : "",
-        "Profile Image" : "",
-        "Institution Rank" : 0,
-        "Coding Score" : 0,
-        "Basic Problems Solved" : 0,
-        "Easy Problems Solved" : 0,
-        "Medium Problems Solved" : 0,
-        "Hard Problems Solved" : 0,
-        "Total Basic Problems" : 769,
-        "Total Easy Problems" : 1383,
-        "Total Medium Problems" : 1141,
-        "Total Hard Problems" : 211,
-        // Temporary static data setup for gfg contests
-        ["Contests Attended"] : 2,
-        ["Contest Rating"] : 1705,
-        ["Contest Ranking"] : 0,
-        ["Total Participants"] : 0,
-        ["Contest Top Percentage"] : 15,
-        ["Contest Level"] : 3,
-        ["Contest Badges"] : [],
-        ["Contests Data"] : gfgContestData,
-        ["Global Rank"] : 5976
-    });
+    const [userData, setUserData] = useState(gfgData);
 
     useEffect(()=>{
 
@@ -72,7 +49,8 @@ function GFG() {
                         ["Contest Level"] : 3,
                         ["Contest Badges"] : [],
                         ["Contests Data"] : gfgContestData,
-                        ["Global Rank"] : 5976
+                        ["Global Rank"] : 5976,
+                        ["default"] : false,
                     });
                     localStorage.setItem("lastGfgRefresh", Date.now());
                 })
@@ -86,7 +64,7 @@ function GFG() {
     }, []);
 
     useEffect(()=>{
-        if (userData["Profile Name"]){
+        if (userData["default"] && userData["default"] === false) {
             localStorage.setItem("userGfgData", JSON.stringify(userData));
         }
     }, [userData]);

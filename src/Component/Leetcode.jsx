@@ -6,6 +6,7 @@ import LeetcodeBadge from './LeetcodeBadge';
 import Slider from './Slider';
 import StatsBlock from './StatsBlock';
 import OpenWebsite from './OpenWebsite';
+import {LeetCodeData} from '../Constants/index.js';
 
 function Leetcode() {
 
@@ -15,146 +16,106 @@ function Leetcode() {
     const [loading, setLoading] = useState(false);
     const [badgePointer, setBadgePointer] = useState(1);
 
-    const [userData, setUserData] = useState({
-        "Full Name" : "Ashok Bhatt",
-        "Profile Name" : userName,
-        "Global Rank" : 0,
-        "Profile Image": "",
-        "Contribution Points" : 0,
-        "Problems" : {
-            "Easy" : {
-                "Total" : 0,
-                "Solved" : 0,
+    const [userData, setUserData] = useState(LeetCodeData);
+
+    const handleUserInfoResponse = (data) => {
+        setUserData((prev) => ({
+            ...prev,
+            ["Profile Image"]: data["avatar"],
+            ["default"]: false,
+        }));
+        localStorage.setItem("lastLeetcodeRefresh", Date.now());
+    };
+
+    const handleContestResponse = (data) => {
+        setUserData((prev) => ({
+            ...prev,
+            ["Contests Attended"]: data["contestAttend"],
+            ["Contest Rating"]: data["contestRating"],
+            ["Contest Ranking"]: data["contestGlobalRanking"],
+            ["Total Participants"]: data["totalParticipants"],
+            ["Contest Top Percentage"]: data["contestTopPercentage"],
+            ["Contest Badges"]: data["contestBadges"],
+            ["Contests Data"]: data["contestParticipation"],
+        }));
+    }
+
+    const handleBadgesResponse = (data) => {
+        setUserData((prev) => ({
+            ...prev,
+            ["Badge Count"]: data["badgesCount"],
+            ["Badges"]: data["badges"],
+            ["Active Badge"]: data["activeBadge"],
+        }));
+    }
+
+    const handleProfileResponse = (data) => {
+        setUserData((prev) => ({
+            ...prev,
+            ["Global Rank"]: data["ranking"],
+            ["Contribution Points"]: data["contributionPoint"],
+            "Problems": {
+                ...prev["Problems"],
+                "Easy": {
+                    ...prev["Problems"]["Easy"],
+                    "Total": data["totalEasy"],
+                    "Solved": data["easySolved"],
+                },
+                "Medium": {
+                    ...prev["Problems"]["Medium"],
+                    "Total": data["totalMedium"],
+                    "Solved": data["mediumSolved"],
+                },
+                "Hard": {
+                    ...prev["Problems"]["Hard"],
+                    "Total": data["totalHard"],
+                    "Solved": data["hardSolved"],
+                },
+                "All": {
+                    ...prev["Problems"]["All"],
+                    "Total": data["totalQuestions"],
+                    "Solved": data["totalSolved"],
+                },
             },
-            "Medium" : {
-                "Total" : 0,
-                "Solved" : 0,
+            "Submissions": {
+                ...prev["Submissions"],
+                "All": data["totalSubmissions"][0]["submissions"],
+                "Easy": data["totalSubmissions"][1]["submissions"],
+                "Medium": data["totalSubmissions"][2]["submissions"],
+                "Hard": data["totalSubmissions"][3]["submissions"],
             },
-            "Hard" : {
-                "Total" : 0,
-                "Solved" : 0,
-            },
-            "All" : {
-                "Total" : 0,
-                "Solved" : 0,
+        }));
+    }
+
+    const handleUserSessionBeatsResponse = (data) => {
+        setUserData((prev) => ({
+            ...prev,
+            ["userSessionBeatsPercentage"]: {
+                ...prev["userSessionBeatsPercentage"],
+                ["Easy"]: data["data"]["userProfileUserQuestionProgressV2"]["userSessionBeatsPercentage"][0],
+                ["Medium"]: data["data"]["userProfileUserQuestionProgressV2"]["userSessionBeatsPercentage"][1],
+                ["Hard"]: data["data"]["userProfileUserQuestionProgressV2"]["userSessionBeatsPercentage"][2],
             }
-        },
-        "Submissions" : {
-            "Easy" : 0,
-            "Medium" : 0,
-            "Hard" : 0,
-            "All" : 0,
-        },
-        "Badge Count" : 0,
-        "Badges" : [],
-        "Active Badge" : null,
-        "userSessionBeatsPercentage" : {
-            "Easy" : 0,
-            "Medium" : 0,
-            "Hard" : 0,
-        },
-        "Contests Attended" : 0,
-        "Contest Rating": 0,
-        "Contest Ranking" : 0,
-        "Total Participants" : 0,
-        "Contest Top Percentage" : 0,
-        "Contest Badges" : [],
-        "Contests Data" : [],
-    });
+        }));
+    }
 
     const fetchUserLeetcodeDetails = async ()=>{
 
         try{
-            
-            // 1️⃣ API Call to get user avatar
-            const userInfoResponse = await axios.get(`${apiUrl}/${userName}`);
-            const userInfoData = userInfoResponse.data;
-            setUserData((prev)=>({
-                ...prev,
-                ["Profile Image"] : userInfoData["avatar"]
-            }))
-            localStorage.setItem("lastLeetcodeRefresh", Date.now());
-            
+            const [userInfoResponse, contestResponse, badgesResponse, profileResponse, userSessionBeatsResponse] = await Promise.all([
+                axios.get(`${apiUrl}/${userName}`),
+                axios.get(`${apiUrl}/${userName}/contest`),
+                axios.get(`${apiUrl}/${userName}/badges`),
+                axios.get(`${apiUrl}/userProfile/${userName}`),
+                axios.get(`${apiUrl}/userProfileUserQuestionProgressV2/${userName}`)
+            ]);
 
-            // 2️⃣ API Call to get contest data
-            const contestResponse = await axios.get(`${apiUrl}/${userName}/contest`);
-            const contestData = contestResponse.data;
+            handleUserInfoResponse(userInfoResponse.data);
+            handleContestResponse(contestResponse.data);
+            handleBadgesResponse(badgesResponse.data);
+            handleProfileResponse(profileResponse.data);
+            handleUserSessionBeatsResponse(userSessionBeatsResponse.data);
 
-            setUserData((prev) => ({
-                ...prev,
-                ["Contests Attended"]: contestData["contestAttend"],
-                ["Contest Rating"]: contestData["contestRating"],
-                ["Contest Ranking"]: contestData["contestGlobalRanking"],
-                ["Total Participants"]: contestData["totalParticipants"],
-                ["Contest Top Percentage"]: contestData["contestTopPercentage"],
-                ["Contest Badges"]: contestData["contestBadges"],
-                ["Contests Data"]: contestData["contestParticipation"],
-            }));
-
-            // 3️⃣ API Call to get badges data
-            const badgesResponse = await axios.get(`${apiUrl}/${userName}/badges`);
-            const badgesData = badgesResponse.data;
-
-            setUserData((prev) => ({
-                ...prev,
-                ["Badge Count"]: badgesData["badgesCount"],
-                ["Badges"]: badgesData["badges"],
-                ["Active Badge"]: badgesData["activeBadge"],
-            }));
-
-            // 4️⃣ API Call to get user problem & submission data
-            const profileResponse = await axios.get(`${apiUrl}/userProfile/${userName}`);
-            const profileData = profileResponse.data;
-
-            setUserData((prev) => ({
-                ...prev,
-                ["Global Rank"]: profileData["ranking"],
-                ["Contribution Points"]: profileData["contributionPoint"],
-                "Problems": {
-                    ...prev["Problems"],
-                    "Easy": {
-                        ...prev["Problems"]["Easy"],
-                        "Total": profileData["totalEasy"],
-                        "Solved": profileData["easySolved"],
-                    },
-                    "Medium": {
-                        ...prev["Problems"]["Medium"],
-                        "Total": profileData["totalMedium"],
-                        "Solved": profileData["mediumSolved"],
-                    },
-                    "Hard": {
-                        ...prev["Problems"]["Hard"],
-                        "Total": profileData["totalHard"],
-                        "Solved": profileData["hardSolved"],
-                    },
-                    "All": {
-                        ...prev["Problems"]["All"],
-                        "Total": profileData["totalQuestions"],
-                        "Solved": profileData["totalSolved"],
-                    },
-                },
-                "Submissions": {
-                    ...prev["Submissions"],
-                    "All": profileData["totalSubmissions"][0]["submissions"],
-                    "Easy": profileData["totalSubmissions"][1]["submissions"],
-                    "Medium": profileData["totalSubmissions"][2]["submissions"],
-                    "Hard": profileData["totalSubmissions"][3]["submissions"],
-                },
-            }))
-
-            // 5️⃣ API Call to get data about percentage of users beaten per each difficulty level
-            const userSessionBeatsResponse = await axios.get(`${apiUrl}/userProfileUserQuestionProgressV2/${userName}`);
-            const userSessionBeatsData = userSessionBeatsResponse.data;
-
-            setUserData((prev) => ({
-                ...prev,
-                ["userSessionBeatsPercentage"] : {
-                    ...prev["userSessionBeatsPercentage"],
-                    ["Easy"] : userSessionBeatsData["data"]["userProfileUserQuestionProgressV2"]["userSessionBeatsPercentage"][0],
-                    ["Medium"] : userSessionBeatsData["data"]["userProfileUserQuestionProgressV2"]["userSessionBeatsPercentage"][1],
-                    ["Hard"] : userSessionBeatsData["data"]["userProfileUserQuestionProgressV2"]["userSessionBeatsPercentage"][2],
-                }
-            }));
         } catch (error){
             console.log("Error Occurred while fetching user data!", error.message);
         } finally {
@@ -177,8 +138,7 @@ function Leetcode() {
     }, []);
 
     useEffect(()=>{
-        // We are checking for global rank of user to ensure userData isn't assigned to empty object and at least one api call is resolved
-        if (userData["Global Rank"]){
+        if (userData["default"] && userData["default"]=== false) {
             localStorage.setItem("userLeetcodeData", JSON.stringify(userData));
         }
     }, [userData]);
