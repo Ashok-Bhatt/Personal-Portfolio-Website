@@ -4,11 +4,17 @@ import { FaGithub } from "react-icons/fa";
 import { SiGeeksforgeeks } from "react-icons/si";
 import { SiLeetcode } from "react-icons/si";
 import { BsTwitterX } from "react-icons/bs";
+import { useNavigation } from '../Context/navigationContext.jsx';
 
 function Intro() {
 
-    const description = ["Final Year B.Tech CSE Student", "Software Development Enthusiast", "Leetcoder", "MERN Stack Developer", "Hardcore DSA Lover"];
+    const description = ["Final Year B.Tech CSE Student", "Software Development Enthusiast", "Hardcore Leetcoder", "MERN Stack Developer"];
     const [descriptionPointer, setDescriptionPointer] = useState([0, 0]);
+
+    const iconStyle = "text-2xl text-white dark:text-black group-hover:text-blue-600 group-hover:dark:text-blue-400"
+    const iconDivStyle = "rounded-full bg-black dark:bg-white p-2 hover:cursor-pointer hover:bg-gray-100 hover:dark:bg-gray-900 group"
+
+    const {navigationRefs} = useNavigation();
 
     useEffect(()=>{
         
@@ -37,7 +43,7 @@ function Intro() {
     }, [])
 
   return (
-    <div className='flex h-screen w-full bg-gray-100 text-gray-900 dark:bg-gray-900 dark:gray-100' id="home">
+    <div className='flex h-screen w-full bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100' id={"home"} ref={el => (navigationRefs.current["home"] = el)}>
       <div className="flex flex-col justify-center items-start gap-y-3 h-full md:w-1/2 px-20">
         <p className='text-black dark:text-white text-5xl tracking-widest font-bold'>Hi There</p>
         <p className='text-black dark:text-white text-5xl tracking-widest font-bold'>I'm <span className='text-orange-400'>Ashok Bhatt</span></p>
@@ -46,23 +52,23 @@ function Intro() {
             <p className='text-blue-500 text-2xl font-semibold'>{description && descriptionPointer ? description[descriptionPointer[0]].slice(0, descriptionPointer[1]+1) + " |" : ""}</p>
         </div>
         <div className='flex gap-x-5 mt-5'>
-            <div className='rounded-full bg-black dark:bg-white p-2 hover:cursor-pointer group' onClick={()=>window.location.href="https://www.linkedin.com/in/ashokbhatt2048/"}>
-                <FaLinkedin className='text-2xl text-white dark:text-black group-hover:text-blue-600'/>
+            <div className={`${iconDivStyle}`} onClick={()=>window.location.href="https://www.linkedin.com/in/ashokbhatt2048/"}>
+                <FaLinkedin className={`${iconStyle}`}/>
             </div>
-            <div className='rounded-full bg-black dark:bg-white p-2 hover:cursor-pointer group' onClick={()=>window.location.href="https://github.com/Ashok-Bhatt/"}>
-                <FaGithub className='text-2xl text-white dark:text-black group-hover:text-red-600'/>
+            <div className={`${iconDivStyle}`} onClick={()=>window.location.href="https://github.com/Ashok-Bhatt/"}>
+                <FaGithub className={`${iconStyle}`}/>
             </div>
-            <div className='rounded-full bg-black dark:bg-white p-2 hover:cursor-pointer group' onClick={()=>window.location.href="https://www.geeksforgeeks.org/user/ashokbhacjou/"}>
-                <SiGeeksforgeeks className='text-2xl text-white dark:text-black group-hover:text-green-600'/>
+            <div className={`${iconDivStyle}`} onClick={()=>window.location.href="https://www.geeksforgeeks.org/user/ashokbhacjou/"}>
+                <SiGeeksforgeeks className={`${iconStyle}`}/>
             </div>
-            <div className='rounded-full bg-black dark:bg-white p-2 hover:cursor-pointer group' onClick={()=>window.location.href="https://leetcode.com/u/ashokbhatt2048/"}>
-                <SiLeetcode className='text-2xl text-white dark:text-black group-hover:text-orange-400'/>
+            <div className={`${iconDivStyle}`} onClick={()=>window.location.href="https://leetcode.com/u/ashokbhatt2048/"}>
+                <SiLeetcode className={`${iconStyle}`}/>
             </div>
-            <div className='rounded-full bg-black dark:bg-white p-2 hover:cursor-pointer group' onClick={()=>window.location.href="https://x.com/AshokBhatt619"}>
-                <BsTwitterX className='text-2xl text-white dark:text-black group-hover:text-pink-400'/>
+            <div className={`${iconDivStyle}`} onClick={()=>window.location.href="https://x.com/AshokBhatt619"}>
+                <BsTwitterX className={`${iconStyle}`}/>
             </div>
         </div>
-        <div className='bg-green-400 mt-5 py-2 px-10 hover:cursor-pointer rounded-xl text-lg font-bold' onClick={()=>window.location.href="https://drive.google.com/file/d/1Ui9lG7dAf6ztRzTT7kln_66mz0Jx7t6o/view?usp=sharing"}>Resume</div>
+        <div className='bg-green-400 text-gray-900 mt-5 py-2 px-10 hover:cursor-pointer rounded-xl text-lg font-bold' onClick={()=>window.location.href="https://drive.google.com/file/d/1Ui9lG7dAf6ztRzTT7kln_66mz0Jx7t6o/view?usp=sharing"}>Resume</div>
       </div>
       <div className="flex justify-center items-center h-full w-1/2">
         <img src="/Images/coder_logo.png" alt="coder image" className='rounded-full' style={{width: "300px"}}/>

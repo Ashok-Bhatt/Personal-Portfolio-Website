@@ -1,12 +1,16 @@
 import { FaUser } from "react-icons/fa";
+import {useNavigation} from "../Context/navigationContext.jsx"
 
 function About() {
+
+  const {navigationRefs} = useNavigation();
+
   return (
-    <div className='flex flex-col h-screen w-full items-center bg-white dark:bg-black pt-15' id="about">
-      <div className='flex gap-x-5 items-center'>
+    <div className='flex flex-col h-screen w-full items-center bg-white dark:bg-black pt-15' id={ "about"} ref={el => (navigationRefs.current["about"] = el)}>
+      <div className='flex gap-x-3 items-center'>
         <FaUser className='text-black dark:text-white text-3xl font-bold'/>
         <span className='text-black dark:text-white text-3xl font-bold'>About</span>
-        <span className='text-purple-600 text-3xl font-bold'>Me</span>
+        <span className='text-yellow-300 text-3xl font-bold'>Me</span>
       </div>
       <div className='flex mt-10 justify-center gap-10 w-full'>
         <div className="rounded-2xl overflow-hidden">
@@ -29,6 +33,12 @@ function About() {
             <p className='text-black dark:text-white text-lg  '>
               <span className='text-blue-400'>Top Skills :</span> Web Development, Python, C++, Data Structures and Algorithms, Problem Solving
             </p>
+            {/* <p className='text-black dark:text-white text-lg  '>
+              <span className='text-blue-400'>Relevant Coursework :</span> Data Structures And Algorithms, Computer Networks, Operating System, Database Management System, Object Oriented Programming, Machine Learning
+            </p> */}
+            {/* <p className='text-black dark:text-white text-lg  '>
+              <span className='text-blue-400'>Relevant Coursework :</span> DSA, CN, OS, DBMS, OOPS, ML
+            </p> */}
         </div>
       </div>
     </div>

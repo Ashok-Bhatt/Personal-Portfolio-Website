@@ -26,8 +26,10 @@ function Chatbot() {
     }, []);
 
     const askChatbot = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
+
         const question = e.target[0].value;
+        e.target.reset();
         if (question.trim() === "") return;
 
         setChat((prevChat) => [...prevChat, { text : question, role: "user" }]);
@@ -53,7 +55,6 @@ function Chatbot() {
             setChat((prevChat) => [...prevChat, { text :"Something went wrong! Ask again!", role: "bot" }]);
         })
         .finally(()=>{
-            e.target.reset();
             setResponseLoading(false);
         })
     }
@@ -94,7 +95,7 @@ function Chatbot() {
                 </form>
             </div>
         )}
-      <div className="rounded-full h-20 w-20 bg-white overflow-hidden cursor-pointer shadow-lg hover:shadow-xl transition-all duration-300 border-5 border-blue-500 hover:bg-green-500 duration-300" onClick={() => setShowChatbot((prev)=>!prev)}>
+      <div className="rounded-full h-20 w-20 bg-white overflow-hidden cursor-pointer shadow-lg hover:shadow-xl transition-all duration-300 border-5 border-blue-500 hover:bg-green-500" onClick={() => setShowChatbot((prev)=>!prev)}>
         <img className='h-full w-full' src="/Images/chatbot_logo.gif" alt="Logo for chatbot" />
       </div>
     </div>

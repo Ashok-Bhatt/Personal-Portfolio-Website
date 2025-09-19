@@ -2,34 +2,42 @@ const navigation = [
     {
         text : "Home",
         link: "#home",
+        id: "home"
     },
     {
         text : "About",
         link: "#about",
+        id: "about"
     },
     {
         text : "Skills",
         link: "#skills",
+        id: "skills"
     },
     {
         text : "Coding Profiles",
         link: "#coding_profiles",
+        id: "coding_profiles"
     },
     {
         text : "Projects",
         link: "#projects",
+        id: "projects"
     },
     {
        text : "Certificates",
-       link: "#certificates"
+       link: "#certificates",
+       id: "certificates"
     },
     {
         text : "Achievements",
         link: "#achievements",
+        id: "achievements"
     },
     {
         text : "Contact",
         link: "#contact",
+        id: "contact"
     },
 ]
 
@@ -40,6 +48,8 @@ const projects = [
       description : "A feature-rich recipe app providing an extensive collection of easy-to-follow and diverse recipes for every taste.",
       liveLink : "",
       repoLink : "https://github.com/Ashok-Bhatt/Flavour-Fusion---Recipe-App",
+      technologies : ["Android Studio", "Java", "XML", "Firebase"],
+      domain : ["Mobile App"],
     },
     {
       projectName : "Kaun Banega Crorepati",
@@ -47,6 +57,8 @@ const projects = [
       description : "An interactive quiz game inspired by Kaun Banega Crorepati, testing knowledge with progressive difficulty levels",
       liveLink : "https://ashok-bhatt.github.io/Kaun-Banega-Crorepati/",
       repoLink : "https://github.com/Ashok-Bhatt/Kaun-Banega-Crorepati",
+      technologies : ["HTML", "CSS", "Javascript", "Trivia API"],
+      domain : ["Website", "Game"],
     },
     {
       projectName : "Listify",
@@ -54,6 +66,8 @@ const projects = [
       description : "A list managing web app built to help users create and manage lists",
       liveLink : "",
       repoLink : "https://github.com/Ashok-Bhatt/Listify",
+      technologies : ["React", "Tailwind CSS", "Firebase"],
+      domain : ["Website"],
     },
     {
       projectName : "Path Finding Visualizer",
@@ -61,6 +75,8 @@ const projects = [
       description : "A visualizing tool built to visualize a set of path finding algorithms.",
       liveLink : "",
       repoLink : "https://github.com/Ashok-Bhatt/Path-Finding-Visualizer",
+      technologies : ["Python", "Tkinter"],
+      domain : ["Desktop App"],
     },
     {
       projectName : "Collab Horizon",
@@ -68,6 +84,8 @@ const projects = [
       description : "A team project management system where teammates can collaborate on a project",
       liveLink : "",
       repoLink : "https://github.com/Ashok-Bhatt/Collab-Horizon",
+      technologies : ["React", "Tailwind CSS", "Bcrypt", "JWT", "Cloudinary", "Express", "MongoDB"],
+      domain : ["Website"],
     },
     {
       projectName : "TechSagers",
@@ -75,13 +93,17 @@ const projects = [
       description : "A blog website where user can read, create and manage blogs",
       liveLink : "",
       repoLink : "https://github.com/Ashok-Bhatt/TechSagers---Blog-Website",
+      technologies: ["React", "Tailwind CSS", "Redux", "TinyMCE Editor", "Appwrite"],
+      domain : ["Website"],
     },
     {
       projectName : "Smart Attendance System",
       projectImage: "https://res.cloudinary.com/dvjkkh0tf/image/upload/v1751092810/Screenshot_2025-06-28_120006_pwzyww.webp",
       description : "A web prototype for an automated system to track attendance of students",
-      liveLink : "",
+      liveLink : "https://smart-attendance-system-mocha.vercel.app/",
       repoLink : "https://github.com/Ashok-Bhatt/Smart-Attendance-System",
+      technologies: ["React", "Tailwind CSS", "Face API", "React Webcam", "Flask", "Flask Pymongo", "Hugging Face", "Gradio", "Pillow", "Numpy", "Pandas", "Matplotlib", "Tensorflow"],
+      domain : ["Website", "Machine Learning"],
     },
     {
       projectName : "Draw Perfect Circle",
@@ -89,21 +111,36 @@ const projects = [
       description : "A fun game that challenges you to draw the perfect freehand circle",
       liveLink : "https://perfect-circle-two.vercel.app/",
       repoLink : "https://github.com/Ashok-Bhatt/PerfectCircle",
+      technologies: ["React", "CSS"],
+      domain : ["Website", "Game"],
     },
     {
       projectName : "Pong Game",
       projectImage : "https://res.cloudinary.com/dvjkkh0tf/image/upload/v1751080084/Screenshot_2025-06-28_083553_vugtsh.png",
       description : "A classic two-player arcade game where players aiming to score points by hitting the ball to past the opponent using paddles.",
       liveLink : "",
-      repoLink :"https://github.com/Ashok-Bhatt/Pong-Game"
+      repoLink :"https://github.com/Ashok-Bhatt/Pong-Game",
+      technologies: ["Python", "Turtle"],
+      domain : ["Desktop App", "Game"],
     },
     {
       projectName : "Scrape Spidey",
-      projectImage : "https://res.cloudinary.com/dvjkkh0tf/image/upload/v1753500148/images_vhz0bz.png",
-      description : "A public api that can fetch the user data from gfg profile",
-      liveLink : "https://scrape-spidey.onrender.com/",
-      repoLink :"https://github.com/Ashok-Bhatt/ScrapeSpidey"
-    }
+      projectImage : "https://res.cloudinary.com/dvjkkh0tf/image/upload/v1758253366/images_vhz0bz.png",
+      description : "A public api that can fetch the user profile data from different coding platforms like GFG, Interviewbit, Hackerrank and Codechef",
+      liveLink : "https://scrape-spidey-documentation.vercel.app/",
+      repoLink :"https://github.com/Ashok-Bhatt/ScrapeSpidey",
+      technologies: ["React", "Tailwind CSS", "Recharts", "Bcrypt", "JWT", "Express", "MongoDB", "Puppeteer", "Browserless API"],
+      domain : ["Public API"],
+    },
+    {
+      projectName : "Query Forge",
+      projectImage : "https://res.cloudinary.com/dvjkkh0tf/image/upload/v1758264264/Screenshot_2025-09-19_120948_y9otxv.png",
+      description : "A web service in which user can create chatbot and qna system and then integrate it to other websites using API Keys",
+      liveLink : "https://query-forge-five.vercel.app/",
+      repoLink :"https://github.com/Ashok-Bhatt/QueryForge",
+      technologies: ["React", "Tailwind CSS", "Gemini Flash 2.5", "Puppeteer", "Browserless API", "Express", "JWT", "Bcrypt"],
+      domain : ["Website", "Public API"],
+    },
 ]
 
 const skills = {
@@ -137,8 +174,10 @@ const skills = {
         { name: "Android Studio", logoSrc: "/Images/Skills/android_logo.png" },
         { name: "Replit", logoSrc: "/Images/Skills/replit_logo.png" },
         { name: "Vercel", logoSrc: "/Images/Skills/vercel_logo.png" },
+        { name: "Render", logoSrc: "/Images/Skills/render_logo.png" },
         { name: "Cursor", logoSrc: "/Images/Skills/cursor_logo.jpg" },
         { name: "Chatgpt", logoSrc: "/Images/Skills/chatgpt_logo.png" },
+        { name: "Gemini", logoSrc: "/Images/Skills/gemini_logo.png" },
         { name: "Vite", logoSrc: "/Images/Skills/vite_logo.jpg" },
     ],
 };

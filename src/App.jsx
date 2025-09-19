@@ -9,7 +9,6 @@ import CodingProfiles from "./Component/CodingProfiles";
 import Certificates from "./Component/Certificates"
 import Achievements from './Component/Achievements';
 import Chatbot from './Component/Chatbot';
-import { useEffect, useState } from 'react';
 
 function App() {
 
