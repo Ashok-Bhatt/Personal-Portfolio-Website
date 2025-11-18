@@ -6,117 +6,51 @@ import LeetcodeBadge from './LeetcodeBadge';
 import Slider from './Slider';
 import StatsBlock from './StatsBlock';
 import OpenWebsite from './OpenWebsite';
-import {LeetCodeData} from '../Constants/index.js';
 
 function Leetcode() {
 
     const userName = "ashokbhatt2048";
-    const apiUrl = "https://alfa-leetcode-api.onrender.com";
+    const apiUrl = "https://scrape-spidey.onrender.com/api/v1/leetcode";
+    const scrapeSpideyApiKey = import.meta.env.VITE_SCRAPE_SPIDEY_KEY;
     const dataRefreshRateInSeconds = 1*24*60*60;
     const [loading, setLoading] = useState(false);
     const [badgePointer, setBadgePointer] = useState(1);
 
-    const [userData, setUserData] = useState(LeetCodeData);
+    const [userData, setUserData] = useState(null);
 
-    const handleUserInfoResponse = (data) => {
-        setUserData((prev) => ({
-            ...prev,
-            ["Profile Image"]: data["avatar"],
-            ["default"]: false,
-        }));
-        localStorage.setItem("lastLeetcodeRefresh", Date.now());
-    };
-
-    const handleContestResponse = (data) => {
-        setUserData((prev) => ({
-            ...prev,
-            ["Contests Attended"]: data["contestAttend"],
-            ["Contest Rating"]: data["contestRating"],
-            ["Contest Ranking"]: data["contestGlobalRanking"],
-            ["Total Participants"]: data["totalParticipants"],
-            ["Contest Top Percentage"]: data["contestTopPercentage"],
-            ["Contest Badges"]: data["contestBadges"],
-            ["Contests Data"]: data["contestParticipation"],
-        }));
-    }
-
-    const handleBadgesResponse = (data) => {
-        setUserData((prev) => ({
-            ...prev,
-            ["Badge Count"]: data["badgesCount"],
-            ["Badges"]: data["badges"],
-            ["Active Badge"]: data["activeBadge"],
-        }));
-    }
-
-    const handleProfileResponse = (data) => {
-        setUserData((prev) => ({
-            ...prev,
-            ["Global Rank"]: data["ranking"],
-            ["Contribution Points"]: data["contributionPoint"],
-            "Problems": {
-                ...prev["Problems"],
-                "Easy": {
-                    ...prev["Problems"]["Easy"],
-                    "Total": data["totalEasy"],
-                    "Solved": data["easySolved"],
-                },
-                "Medium": {
-                    ...prev["Problems"]["Medium"],
-                    "Total": data["totalMedium"],
-                    "Solved": data["mediumSolved"],
-                },
-                "Hard": {
-                    ...prev["Problems"]["Hard"],
-                    "Total": data["totalHard"],
-                    "Solved": data["hardSolved"],
-                },
-                "All": {
-                    ...prev["Problems"]["All"],
-                    "Total": data["totalQuestions"],
-                    "Solved": data["totalSolved"],
-                },
-            },
-            "Submissions": {
-                ...prev["Submissions"],
-                "All": data["totalSubmissions"][0]["submissions"],
-                "Easy": data["totalSubmissions"][1]["submissions"],
-                "Medium": data["totalSubmissions"][2]["submissions"],
-                "Hard": data["totalSubmissions"][3]["submissions"],
-            },
-        }));
-    }
-
-    const handleUserSessionBeatsResponse = (data) => {
-        setUserData((prev) => ({
-            ...prev,
-            ["userSessionBeatsPercentage"]: {
-                ...prev["userSessionBeatsPercentage"],
-                ["Easy"]: data["data"]["userProfileUserQuestionProgressV2"]["userSessionBeatsPercentage"][0],
-                ["Medium"]: data["data"]["userProfileUserQuestionProgressV2"]["userSessionBeatsPercentage"][1],
-                ["Hard"]: data["data"]["userProfileUserQuestionProgressV2"]["userSessionBeatsPercentage"][2],
-            }
-        }));
-    }
-
-    const fetchUserLeetcodeDetails = async ()=>{
-
-        try{
-            const [userInfoResponse, contestResponse, badgesResponse, profileResponse, userSessionBeatsResponse] = await Promise.all([
-                axios.get(`${apiUrl}/${userName}`),
-                axios.get(`${apiUrl}/${userName}/contest`),
-                axios.get(`${apiUrl}/${userName}/badges`),
-                axios.get(`${apiUrl}/userProfile/${userName}`),
-                axios.get(`${apiUrl}/userProfileUserQuestionProgressV2/${userName}`)
+    const fetchUserLeetcodeDetails = async () => {
+        try {
+            const [profileResponse, contestResponse, badgesResponse, activeBadgeResponse, questionProgressResponse, sessionProgressResponse] = await Promise.all([
+                axios.get(`${apiUrl}/user/profile?user=${userName}&apiKey=${scrapeSpideyApiKey}`),
+                axios.get(`${apiUrl}/user/contest-ranking?user=${userName}&apiKey=${scrapeSpideyApiKey}`),
+                axios.get(`${apiUrl}/user/badges?user=${userName}&apiKey=${scrapeSpideyApiKey}`),
+                axios.get(`${apiUrl}/user/active-badge?user=${userName}&apiKey=${scrapeSpideyApiKey}`),
+                axios.get(`${apiUrl}/user/question-progress?user=${userName}&apiKey=${scrapeSpideyApiKey}`),
+                axios.get(`${apiUrl}/user/session-progress?user=${userName}&apiKey=${scrapeSpideyApiKey}`),
             ]);
 
-            handleUserInfoResponse(userInfoResponse.data);
-            handleContestResponse(contestResponse.data);
-            handleBadgesResponse(badgesResponse.data);
-            handleProfileResponse(profileResponse.data);
-            handleUserSessionBeatsResponse(userSessionBeatsResponse.data);
+            // Store each field separately in userData
+            const newData = {
+                profile: profileResponse.data.matchedUser,
+                contest: {
+                    userContestRanking: contestResponse.data.userContestRanking,
+                    userContestRankingHistory: contestResponse.data.userContestRankingHistory
+                },
+                badges: {
+                    badges: badgesResponse.data.matchedUser.badges,
+                    upcomingBadges: badgesResponse.data.matchedUser.upcomingBadges
+                },
+                activeBadge: activeBadgeResponse.data.matchedUser.activeBadge,
+                questionProgress: questionProgressResponse.data.userProfileUserQuestionProgressV2,
+                sessionProgress: {
+                    allQuestionsCount: sessionProgressResponse.data.allQuestionsCount,
+                    submitStats: sessionProgressResponse.data.matchedUser.submitStats
+                },
+                default: false,
+            };
 
-        } catch (error){
+            setUserData(newData);
+        } catch (error) {
             console.log("Error Occurred while fetching user data!", error.message);
         } finally {
             setLoading(false);
@@ -129,7 +63,7 @@ function Leetcode() {
             setUserData(JSON.parse(localStorage.getItem("userLeetcodeData")));
         }
         
-        if (!localStorage.getItem("lastGfgRefresh") || ((Number(localStorage.getItem("lastGfgRefresh")) + dataRefreshRateInSeconds*1000) < Date.now())) {
+        if (!localStorage.getItem("lastLeetcodeRefresh") || ((Number(localStorage.getItem("lastLeetcodeRefresh")) + dataRefreshRateInSeconds*1000) < Date.now())) {
             setLoading(true);
             fetchUserLeetcodeDetails();
             setLoading(false);
@@ -138,78 +72,100 @@ function Leetcode() {
     }, []);
 
     useEffect(()=>{
-        if (userData["default"]===false) {
+        if (userData && userData?.default===false) {
             localStorage.setItem("userLeetcodeData", JSON.stringify(userData));
         }
     }, [userData]);
 
-  return (
-    loading ? <>Loading</> :
-    <>
-    <div className="flex h-full rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-800">
-        <div className="flex flex-col w-1/4 h-full items-center justify-center gap-y-5 p-2">
-            <div className='w-50 h-50 rounded-full overflow-hidden border-4 border-blue-400'>
-                <img src={userData["Profile Image"] || "/Images/coder_logo.png"} className='h-full w-full' alt="Leetcode Profile Image" />
+    return (
+        loading || !userData ? <>Loading</> :
+        <>
+            <div className="flex h-full rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-800">
+                <div className="flex flex-col w-1/4 h-full items-center justify-center gap-y-5 p-2">
+                    <div className='w-50 h-50 rounded-full overflow-hidden border-4 border-blue-400'>
+                        {console.log(userData)}
+                        <img src={userData.profile?.profile?.userAvatar || "/Images/coder_logo.png"} className='h-full w-full' alt="Leetcode Profile Image" />
+                    </div>
+                    <div className="flex flex-col w-full items-center">
+                        <p className='text-black dark:text-white text-3xl'>{userData.profile?.profile?.realName}</p>
+                        <p className='text-yellow-600'>{userData.profile?.username}</p>
+                    </div>
+                    <div className="flex flex-col min-w-[200px] w-max rounded p-2 items-center">
+                        <p className='text-green-600 text-2xl'>Global Rank</p>
+                        <p className='text-lg'>{userData.profile?.profile?.ranking} / 5M</p>
+                    </div>
+                    <OpenWebsite text={"Open Website"} link={`https://leetcode.com/u/${userData.profile?.username}/`} />
+                </div>
+                <div className="grid grid-cols-2 gap-2 flex-grow h-full p-2">
+                    <ProblemsBlock
+                        problemsCount={[
+                            {
+                                problemsTag: "Easy",
+                                setColor: "#28C244",
+                                solvedProblems: userData.questionProgress?.numAcceptedQuestions?.find(q => q.difficulty === "EASY")?.count || 0,
+                                totalProblems: userData.sessionProgress?.allQuestionsCount?.find(q => q.difficulty === "Easy")?.count || 0
+                            },
+                            {
+                                problemsTag: "Medium",
+                                setColor: "#FFB700",
+                                solvedProblems: userData.questionProgress?.numAcceptedQuestions?.find(q => q.difficulty === "MEDIUM")?.count || 0,
+                                totalProblems: userData.sessionProgress?.allQuestionsCount?.find(q => q.difficulty === "Medium")?.count || 0
+                            },
+                            {
+                                problemsTag: "Hard",
+                                setColor: "#F63737",
+                                solvedProblems: userData.questionProgress?.numAcceptedQuestions?.find(q => q.difficulty === "HARD")?.count || 0,
+                                totalProblems: userData.sessionProgress?.allQuestionsCount?.find(q => q.difficulty === "Hard")?.count || 0
+                            }
+                        ]}
+                        className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
+                        progressBodyClassName="bg-gray-100 dark:bg-gray-900"
+                        progressBarClassName="bg-gray-200 dark:bg-gray-800"
+                        title="Problems Solved"
+                    />
+                    <Contests
+                        contestAttended={userData.contest?.userContestRanking?.attendedContestsCount}
+                        contestRating={userData.contest?.userContestRanking?.rating}
+                        contestRanking={userData.contest?.userContestRanking?.globalRanking}
+                        totalParticipants={userData.contest?.userContestRanking?.totalParticipants}
+                        contestTopPercentage={userData.contest?.userContestRanking?.topPercentage}
+                        contestBadges={userData.contest?.userContestRanking?.badge}
+                        contestData={userData.contest?.userContestRankingHistory?.filter((contest)=>contest["attended"]==true)}
+                        className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
+                        title="Contest Stats"
+                    />
+                    <Slider
+                        cards={
+                            (userData.badges?.badges || []).map((badge, index) => (
+                                <LeetcodeBadge badge={badge} isMiddleBadge={index === badgePointer} key={badge.id} />
+                            ))
+                        }
+                        cardClasses="h-full w-[130px]"
+                        containerClasses="rounded flex-grow rounded bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
+                        scrollTrigger="card"
+                        defaultPointer={1}
+                        setParentPointer={setBadgePointer}
+                        title="Leetcode Badges"
+                    />
+                    <StatsBlock
+                        data={[
+                            {
+                                title: "Total Problems",
+                                stats: `${userData.sessionProgress?.allQuestionsCount?.find(q => q.difficulty === "All")?.count || 0}`
+                            },
+                            {
+                                title: "Total Submissions",
+                                stats: `${userData.sessionProgress?.submitStats?.totalSubmissionNum?.find(q => q.difficulty === "All")?.submissions || 0}`
+                            }
+                        ]}
+                        containerClasses="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
+                        titleClasses="text-blue-500"
+                        statsClasses="text-black dark:text-white"
+                    />
+                </div>
             </div>
-            <div className="flex flex-col w-full items-center">
-                <p className='text-black dark:text-white text-3xl'>{userData["Full Name"]}</p>
-                <p className='text-yellow-600'>{userData["Profile Name"]}</p>
-            </div>
-            <div className="flex flex-col min-w-[200px] w-max rounded p-2 items-center">
-                <p className='text-green-600 text-2xl'>Global Rank</p>
-                <p className='text-lg'>{userData["Global Rank"]} / 5M</p>
-            </div>
-            <OpenWebsite text={"Open Website"} link={"https://leetcode.com/u/ashokbhatt2048/"}/>
-        </div>
-        <div className="grid grid-cols-2 gap-2 flex-grow h-full p-2">
-            <ProblemsBlock 
-                problemsCount={[
-                    {"problemsTag" : "Easy", "setColor" : "#28C244", "solvedProblems" : userData["Problems"]["Easy"]["Solved"], "totalProblems" : userData["Problems"]["Easy"]["Total"]},
-                    {"problemsTag" : "Medium", "setColor" : "#FFB700", "solvedProblems" : userData["Problems"]["Medium"]["Solved"], "totalProblems" : userData["Problems"]["Medium"]["Total"]},
-                    {"problemsTag" : "Hard", "setColor" : "#F63737", "solvedProblems" : userData["Problems"]["Hard"]["Solved"], "totalProblems" : userData["Problems"]["Hard"]["Total"]}
-                ]}
-                className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800" 
-                progressBodyClassName="bg-gray-100 dark:bg-gray-900"
-                progressBarClassName="bg-gray-200 dark:bg-gray-800"
-                title = "Problems Solved"
-            />
-            <Contests
-                contestAttended={userData["Contests Attended"]}
-                contestRating={userData["Contest Rating"]}
-                contestRanking={userData["Contest Ranking"]}
-                totalParticipants={userData["Total Participants"]}
-                contestTopPercentage={userData["Contest Top Percentage"]}
-                contestBadges={userData["Contest Badges"]}
-                contestData={userData["Contests Data"]}
-                className = "bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
-                title = "Contest Stats"
-            />
-            <Slider 
-                cards={
-                    userData["Badges"].map((_, index)=>(
-                        <LeetcodeBadge badge={userData["Badges"][index]} isMiddleBadge={index==badgePointer}/>
-                    ))
-                }
-                cardClasses = "h-full w-[130px]"
-                containerClasses = "rounded flex-grow rounded bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
-                scrollTrigger="card"
-                defaultPointer = {1}
-                setParentPointer = {setBadgePointer}
-                title = "Leetcode Badges"
-            />
-            <StatsBlock 
-                data={[
-                    {title:"Total Problems", stats:`${userData["Problems"]["All"]["Solved"]} / ${userData["Problems"]["All"]["Total"]}`},
-                    {title:"Total Submissions", stats:`${userData["Submissions"]["All"]}`},
-                ]}
-                containerClasses = "bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
-                titleClasses = "text-blue-500"
-                statsClasses = "text-black dark:text-white"
-            />
-        </div>
-    </div>
-    </>
-  )
+        </>
+    );
 }
 
 export default Leetcode

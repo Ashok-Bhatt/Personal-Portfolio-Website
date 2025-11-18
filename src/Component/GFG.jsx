@@ -13,7 +13,7 @@ function GFG() {
     const fullName = "Ashok Bhatt";
     const instituteRankMedals = ["🥇", "🥈", "🥉"];
     const dataRefreshRateInSeconds = 6 * 60 * 60;
-    const baseUrl = "https://scrape-spidey.onrender.com/api/v1/gfg/user"
+    const baseUrl = "https://scrape-spidey.onrender.com/api/v1/gfg/user/profile"
 
     const [userData, setUserData] = useState(gfgData);
 
@@ -26,7 +26,7 @@ function GFG() {
         if (!localStorage.getItem("lastGfgRefresh") || ((Number(localStorage.getItem("lastGfgRefresh")) + dataRefreshRateInSeconds*1000) < Date.now())) {
             try{
                 axios
-                .get(`${baseUrl}/${userName}`)
+                .get(`${baseUrl}?user=${userName}`)
                 .then((res)=>{
                     const data = res.data;
                     setUserData({

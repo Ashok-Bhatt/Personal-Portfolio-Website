@@ -44,7 +44,7 @@ function ProblemsBlock(props) {
                         style={{ background: progressClass }}
                     >
                         <div className={classNames(progressBodyClassName, "flex justify-center items-center h-full w-full rounded-full border border-gray-500")}>
-                            {solvedProblems} / {totalProblems}
+                            {solvedProblems} {totalProblems!=0 && `/ ${totalProblems}`}
                         </div>
                     </div>
                 </div>
