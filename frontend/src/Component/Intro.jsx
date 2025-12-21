@@ -68,7 +68,7 @@ function Intro() {
                 <BsTwitterX className={`${iconStyle}`}/>
             </div>
         </div>
-        <div className='bg-green-400 text-gray-900 mt-5 py-2 px-10 hover:cursor-pointer rounded-xl text-lg font-bold' onClick={()=>window.location.href="https://drive.google.com/file/d/1Ui9lG7dAf6ztRzTT7kln_66mz0Jx7t6o/view?usp=sharing"}>Resume</div>
+        <div className='bg-green-400 text-gray-900 mt-5 py-2 px-10 hover:cursor-pointer rounded-xl text-lg font-bold' onClick={()=>window.location.href="https://drive.google.com/file/d/1K3UYAB9CjsQTzWY60D-TTFwos34uE3qW/view?usp=drive_link"}>Resume</div>
       </div>
       <div className="flex justify-center items-center h-full w-1/2">
         <img src="/Images/coder_logo.png" alt="coder image" className='rounded-full' style={{width: "300px"}}/>

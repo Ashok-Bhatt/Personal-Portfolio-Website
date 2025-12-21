@@ -53,7 +53,7 @@ function ProblemsBlock(props) {
                         <div className='flex flex-col w-full' key={problemsSet["problemsTag"]}>
                             <div className="flex justify-between text-lg">
                                 <p>{problemsSet["problemsTag"]}</p>
-                                <p className='text-black dark:text-white font-semibold'>{problemsSet["solvedProblems"]} / {problemsSet["totalProblems"]}</p>
+                                {problemsCount["totalProblems"] ? (<p className='text-black dark:text-white font-semibold'>{problemsSet["solvedProblems"]} / {problemsSet["totalProblems"]}</p>) : (<p className='text-black dark:text-white font-semibold'>{problemsSet["solvedProblems"]}</p>)}
                             </div>
                             <div className='flex gap-x-2 items-center w-full'>
                                 <div className='rounded-full overflow-hidden bg-gray-200 dark:bg-gray-800' style={{height:barHeight, width:'100%'}}>
