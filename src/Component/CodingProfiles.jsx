@@ -36,15 +36,14 @@ function CodingProfiles() {
     ];
 
     return (
-        <div className='flex flex-col bg-white dark:bg-black text-black dark:text-white min-h-screen w-full p-4' id="coding_profiles" ref={el => (navigationRefs.current["coding_profiles"] = el)}>
-            <div className='flex gap-x-3 w-full justify-center items-center mb-6 min-h-[50px]'>
-                <FaLaptopCode className='text-black dark:text-white text-3xl font-bold' />
-                <span className='text-black dark:text-white text-3xl font-bold'>Coding</span>
-                <span className='text-yellow-300 text-3xl font-bold'>Profiles</span>
+        <div className='flex flex-col bg-white dark:bg-black text-black dark:text-white min-h-screen w-full py-20 px-4 md:px-8 box-border' id="coding_profiles" ref={el => (navigationRefs.current["coding_profiles"] = el)}>
+            <div className='flex gap-x-3 w-full justify-center items-center mb-10'>
+                <FaLaptopCode className='text-black dark:text-white text-xl md:text-4xl font-bold' />
+                <span className='text-black dark:text-white text-xl md:text-4xl font-bold text-center'>Coding <span className='text-yellow-300'>Profiles</span></span>
             </div>
 
-            <div className="flex flex-grow gap-x-4 overflow-hidden h-[calc(100vh-120px)]">
-                <div className="h-full">
+            <div className="flex flex-col lg:flex-row flex-grow gap-6 w-full max-w-7xl mx-auto">
+                <div className="w-full lg:w-auto overflow-x-auto lg:overflow-x-visible no-scrollbar">
                     <Sidebar
                         activePlatform={codingPlatformIndex}
                         setActivePlatform={(index) => {
@@ -55,8 +54,10 @@ function CodingProfiles() {
                     />
                 </div>
 
-                <div className="flex-grow overflow-y-auto rounded-lg">
-                    {codingPlatforms[codingPlatformIndex].platformView}
+                <div className="flex-grow rounded-lg overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800">
+                    <div className="h-full overflow-y-auto">
+                        {codingPlatforms[codingPlatformIndex].platformView}
+                    </div>
                 </div>
             </div>
         </div>

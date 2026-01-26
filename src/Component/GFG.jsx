@@ -56,52 +56,59 @@ function GFG() {
     }
 
     return (
-        <div className="flex flex-grow rounded-lg bg-gray-200 dark:bg-gray-800 overflow-hidden ">
-            <div className="flex flex-col w-1/4 h-full items-center justify-center gap-y-5 p-2">
-                <div className='w-50 h-50 rounded-full overflow-hidden border-4 border-blue-400'>
-                    <img src={userData.avatar || "/Images/coder_logo.png"} className='h-full w-full' alt="GFG Profile Image" />
+        <div className="flex flex-col lg:flex-row flex-grow rounded-lg bg-gray-200 dark:bg-gray-800 overflow-hidden ">
+            <div className="flex flex-col w-full lg:w-1/4 items-center justify-center gap-y-5 p-6 bg-gray-300 dark:bg-gray-700/30">
+                <div className='w-40 h-40 md:w-50 md:h-50 rounded-full overflow-hidden border-4 border-blue-400 shadow-md'>
+                    <img src={userData.avatar || "/Images/coder_logo.png"} className='h-full w-full object-cover' alt="GFG Profile Image" />
                 </div>
-                <div className="flex flex-col w-full items-center">
-                    <p className='text-black dark:text-white text-3xl'>{fullName}</p>
-                    <p className='text-yellow-600'>{userData.username}</p>
+                <div className="flex flex-col w-full items-center text-center">
+                    <p className='text-black dark:text-white text-2xl md:text-3xl font-bold'>{fullName}</p>
+                    <p className='text-yellow-600 font-semibold'>@{userData.username}</p>
                 </div>
                 <OpenWebsite text={"Open Website"} link={`https://www.geeksforgeeks.org/user/${userName}/`} />
             </div>
-            <div className="grid grid-cols-2 gap-2 flex-grow h-full p-2">
-                <ProblemsBlock className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
-                    problemsCount={[
-                        { "problemsTag": "School", "setColor": "#C8FE5E", "solvedProblems": getSolvedCount("School") + getSolvedCount("Basic"), "totalProblems": 0 },
-                        { "problemsTag": "Easy", "setColor": "#28C244", "solvedProblems": getSolvedCount("Easy"), "totalProblems": 0 },
-                        { "problemsTag": "Medium", "setColor": "#FFB700", "solvedProblems": getSolvedCount("Medium"), "totalProblems": 0 },
-                        { "problemsTag": "Hard", "setColor": "#F63737", "solvedProblems": getSolvedCount("Hard"), "totalProblems": 0 }
-                    ]}
-                    progressBodyClassName="bg-gray-100 dark:bg-gray-900"
-                    progressBarClassName="bg-gray-200 dark:bg-gray-800"
-                    title="Problems Solved"
-                />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow p-4 md:p-6 bg-gray-100 dark:bg-gray-900 overflow-y-auto">
+                <div className="col-span-1">
+                    <ProblemsBlock className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl"
+                        problemsCount={[
+                            { "problemsTag": "School", "setColor": "#C8FE5E", "solvedProblems": getSolvedCount("School") + getSolvedCount("Basic"), "totalProblems": 0 },
+                            { "problemsTag": "Easy", "setColor": "#28C244", "solvedProblems": getSolvedCount("Easy"), "totalProblems": 0 },
+                            { "problemsTag": "Medium", "setColor": "#FFB700", "solvedProblems": getSolvedCount("Medium"), "totalProblems": 0 },
+                            { "problemsTag": "Hard", "setColor": "#F63737", "solvedProblems": getSolvedCount("Hard"), "totalProblems": 0 }
+                        ]}
+                        progressBodyClassName="bg-gray-100 dark:bg-gray-900"
+                        progressBarClassName="bg-gray-200 dark:bg-gray-800"
+                        title="Problems Solved"
+                    />
+                </div>
 
-                <StatsBlock
-                    data={[
-                        { title: "Current Streak", stats: `${userData.currentStreak || 0}` },
-                        { title: "Max Streak", stats: `${userData.maxStreak || 0}` },
-                    ]}
-                    containerClasses="flex-col bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
-                    blockClasses="w-full h-max"
-                    titleClasses="text-blue-500"
-                    statsClasses="text-black dark:text-white"
-                />
+                <div className="col-span-1">
+                    <StatsBlock
+                        data={[
+                            { title: "Current Streak", stats: `${userData.currentStreak || 0}` },
+                            { title: "Max Streak", stats: `${userData.maxStreak || 0}` },
+                        ]}
+                        containerClasses="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl"
+                        blockClasses="w-full"
+                        titleClasses="text-blue-500 font-bold"
+                        statsClasses="text-black dark:text-white"
+                    />
+                </div>
 
-                <StatsBlock
-                    data={[
-                        { title: "Total Problems", stats: `${getSolvedCount("School") + getSolvedCount("Basic") + getSolvedCount("Easy") + getSolvedCount("Medium") + getSolvedCount("Hard")}` },
-                        { title: "Coding Score", stats: `${userData.codingScore || 0}` },
-                        { title: "Institution Rank", stats: `${(userData.instituteRank >= 1 && userData.instituteRank <= 3) ? instituteRankMedals[userData.instituteRank - 1] : ""} ${userData.instituteRank || "NA"}` },
-                        { title: "Articles Published", stats: `${userData.articlesPublished || 0}` },
-                    ]}
-                    containerClasses="col-span-2 bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
-                    titleClasses="text-blue-500"
-                    statsClasses="text-black dark:text-white"
-                />
+                <div className="col-span-1 md:col-span-2">
+                    <StatsBlock
+                        data={[
+                            { title: "Total Problems", stats: `${getSolvedCount("School") + getSolvedCount("Basic") + getSolvedCount("Easy") + getSolvedCount("Medium") + getSolvedCount("Hard")}` },
+                            { title: "Coding Score", stats: `${userData.codingScore || 0}` },
+                            { title: "Institution Rank", stats: `${(userData.instituteRank >= 1 && userData.instituteRank <= 3) ? instituteRankMedals[userData.instituteRank - 1] : ""} ${userData.instituteRank || "NA"}` },
+                            { title: "Articles Published", stats: `${userData.articlesPublished || 0}` },
+                        ]}
+                        containerClasses="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl"
+                        blockClasses="min-w-[120px] sm:min-w-[150px]"
+                        titleClasses="text-blue-500 font-bold text-sm md:text-lg"
+                        statsClasses="text-black dark:text-white text-xl md:text-3xl"
+                    />
+                </div>
             </div>
         </div>
     )

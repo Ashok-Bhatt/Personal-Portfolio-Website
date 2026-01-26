@@ -12,20 +12,19 @@ function Certificates() {
     const [certificatePointer, setCertificatePointer] = useState(1);
 
     return (
-        <div className='flex flex-col w-full hover:cursor-pointer gap-y-10 bg-white dark:bg-black pt-15 pb-30 z-5' id="certificates" ref={el => (navigationRefs.current["certificates"] = el)}>
+        <div className='flex flex-col w-full hover:cursor-pointer gap-y-10 bg-white dark:bg-black py-20 px-6 z-5 box-border' id="certificates" ref={el => (navigationRefs.current["certificates"] = el)}>
             <div className='flex gap-x-3 w-full justify-center items-center'>
-                <LiaCertificateSolid className='text-black dark:text-white text-3xl font-bold' />
-                <span className='text-black dark:text-white text-3xl font-bold'>Certificates</span>
-                <span className='text-yellow-300 text-3xl font-bold'>Obtained</span>
+                <LiaCertificateSolid className='text-black dark:text-white text-xl md:text-4xl font-bold' />
+                <span className='text-black dark:text-white text-xl md:text-4xl font-bold text-center'>Certificates <span className="text-yellow-300">Obtained</span></span>
             </div>
-            <div className="flex relative gap-x-2 w-full justify-center">
+            <div className="flex relative w-full justify-center overflow-x-hidden">
                 <Slider
                     cards={
                         certificates.map((_, index) => (
-                            <CertificateBlock certificate={certificates[index]} eventListeners={index == certificatePointer} className={index == certificatePointer ? "w-[400px] h-[250px] hover:shadow-white/50 hover:shadow-lg" : "w-[300px] h-[200px]"} />
+                            <CertificateBlock certificate={certificates[index]} key={`cert-${index}`} eventListeners={index == certificatePointer} />
                         ))
                     }
-                    cardClasses="h-full w-[400px]"
+                    cardClasses="w-full max-w-sm md:max-w-xl"
                     scrollTrigger="card"
                     defaultPointer={1}
                     setParentPointer={setCertificatePointer}
