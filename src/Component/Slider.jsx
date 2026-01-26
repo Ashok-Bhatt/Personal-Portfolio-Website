@@ -30,7 +30,7 @@ function Slider(props) {
   return (
     <div className={classNames(containerClasses, 'flex flex-col gap-4 p-4 w-full')}>
       {title && <div className="w-full text-2xl md:text-3xl font-bold text-center text-blue-500 mb-4">{title}</div>}
-      <div className='flex relative gap-x-4 justify-center items-center w-full'>
+      <div className='flex relative gap-x-0 justify-center items-center w-full'>
 
         {/* Side Cards - Hidden on Mobile */}
         <div className={classNames(cardClasses, "hidden xl:flex flex-col items-center justify-center opacity-40 grayscale scale-90 cursor-pointer hover:opacity-60 transition-all")} onClick={() => scrollLeft("card")}>

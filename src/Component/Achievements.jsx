@@ -11,7 +11,7 @@ function Achievements() {
     const [achievementPointer, setAchievementPointer] = useState(1);
 
     return (
-        <div className='flex flex-col min-h-screen w-full gap-y-10 bg-gray-100 dark:bg-gray-900 py-20 px-6 box-border z-5' id="achievements" ref={el => (navigationRefs.current["achievements"] = el)}>
+        <div className='flex flex-col w-full gap-y-10 bg-gray-100 dark:bg-gray-900 py-20 px-6 box-border z-5' id="achievements" ref={el => (navigationRefs.current["achievements"] = el)}>
             <div className='flex gap-x-3 w-full justify-center items-center'>
                 <GrAchievement className='text-black dark:text-white text-xl md:text-4xl font-bold' />
                 <span className='text-black dark:text-white text-xl md:text-4xl font-bold text-center'>Achievements <span className='text-yellow-300'>Unlocked</span></span>
@@ -20,7 +20,7 @@ function Achievements() {
             <div className="flex relative w-full justify-center overflow-x-hidden">
                 <Slider
                     cards={
-                        achievements.sort((x, y) => (x["achievementDate"] - y["achievementDate"])).map((_, index) => (
+                        achievements.sort((x, y) => (x.date - y.date)).map((_, index) => (
                             <AchievementBlock achievement={achievements[index]} key={`ach-${index}`} isMiddle={achievementPointer == index ? true : false} />
                         ))
                     }

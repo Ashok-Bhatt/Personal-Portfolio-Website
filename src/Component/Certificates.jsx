@@ -1,6 +1,5 @@
 
 import { LiaCertificateSolid } from "react-icons/lia";
-import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 import { useState } from 'react';
 import { certificates } from "../Constants/index.js";
 import CertificateBlock from "./CertificateBlock.jsx";
@@ -24,7 +23,7 @@ function Certificates() {
                             <CertificateBlock certificate={certificates[index]} key={`cert-${index}`} eventListeners={index == certificatePointer} />
                         ))
                     }
-                    cardClasses="w-full max-w-sm md:max-w-xl"
+                    cardClasses=""
                     scrollTrigger="card"
                     defaultPointer={1}
                     setParentPointer={setCertificatePointer}

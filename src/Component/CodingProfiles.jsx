@@ -43,7 +43,7 @@ function CodingProfiles() {
             </div>
 
             <div className="flex flex-col lg:flex-row flex-grow gap-6 w-full max-w-7xl mx-auto">
-                <div className="w-full lg:w-auto overflow-x-auto lg:overflow-x-visible no-scrollbar">
+                <div className="w-full lg:w-32 overflow-x-auto lg:overflow-x-visible no-scrollbar">
                     <Sidebar
                         activePlatform={codingPlatformIndex}
                         setActivePlatform={(index) => {

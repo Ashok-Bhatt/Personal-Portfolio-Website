@@ -1,4 +1,4 @@
-
+import { useState } from 'react';
 import { FaLaptopCode } from 'react-icons/fa';
 import ProjectBlock from './ProjectBlock';
 import { projects } from '../Constants';
@@ -7,6 +7,8 @@ import { useNavigation } from '../Context/navigationContext.jsx';
 
 function Projects() {
     const { navigationRefs } = useNavigation();
+    const [projectPointer, setProjectPointer] = useState(1);
+
     return (
         <div className='flex flex-col w-full gap-y-10 bg-gray-100 dark:bg-gray-900 py-20 px-6 box-border z-5' id="projects" ref={el => (navigationRefs.current["projects"] = el)}>
             <div className='flex gap-x-3 w-full justify-center items-center'>
@@ -17,12 +19,13 @@ function Projects() {
                 <Slider
                     cards={
                         projects.map((_, index) => (
-                            <ProjectBlock project={projects[index]} key={index} />
+                            <ProjectBlock project={projects[index]} key={index} isActive={index === projectPointer} />
                         ))
                     }
-                    cardClasses="w-full max-w-[400px]"
-                    scrollTrigger="button"
+                    cardClasses="max-w-[500px]"
+                    scrollTrigger="card"
                     defaultPointer={1}
+                    setParentPointer={setProjectPointer}
                 />
             </div>
         </div>
