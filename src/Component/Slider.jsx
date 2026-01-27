@@ -6,9 +6,14 @@ function Slider(props) {
 
   const { cards, cardClasses = "", containerClasses = "", scrollTrigger = "button", defaultPointer = 0, setParentPointer = null, title = "" } = props;
   const [pointer, setPointer] = useState(defaultPointer);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+
+  // Minimum swipe distance (in px) to trigger navigation
+  const minSwipeDistance = 50;
 
   const scrollLeft = (triggerEvent) => {
-    if (scrollTrigger == triggerEvent) {
+    if (scrollTrigger == triggerEvent || triggerEvent === "swipe") {
       const newPointer = Math.max(0, pointer - 1);
       setPointer(newPointer);
       if (setParentPointer) {
@@ -18,7 +23,7 @@ function Slider(props) {
   }
 
   const scrollRight = (triggerEvent) => {
-    if (scrollTrigger == triggerEvent) {
+    if (scrollTrigger == triggerEvent || triggerEvent === "swipe") {
       const newPointer = Math.min(cards.length - 1, pointer + 1);
       setPointer(newPointer);
       if (setParentPointer) {
@@ -27,10 +32,39 @@ function Slider(props) {
     }
   }
 
+  const onTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  }
+
+  const onTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  }
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      scrollRight("swipe");
+    }
+    if (isRightSwipe) {
+      scrollLeft("swipe");
+    }
+  }
+
   return (
     <div className={classNames(containerClasses, 'flex flex-col gap-4 p-4 w-full')}>
       {title && <div className="w-full text-2xl md:text-3xl font-bold text-center text-blue-500 mb-4">{title}</div>}
-      <div className='flex relative gap-x-0 justify-center items-center w-full'>
+      <div
+        className='flex relative gap-x-0 justify-center items-center w-full'
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
 
         {/* Side Cards - Hidden on Mobile */}
         <div className={classNames(cardClasses, "hidden xl:flex flex-col items-center justify-center opacity-40 grayscale scale-90 cursor-pointer hover:opacity-60 transition-all")} onClick={() => scrollLeft("card")}>

@@ -33,6 +33,7 @@ function Code360() {
                 try {
                     const response = await axios.get(apiUrl);
                     setUserData(response.data);
+                    localStorage.setItem("userCode360Data", JSON.stringify(response.data));
                     localStorage.setItem("lastCode360Refresh", Date.now());
                 } catch (error) {
                     console.error("Error fetching Code360 data:", error);
@@ -93,7 +94,7 @@ function Code360() {
 
     if (loading) {
         return (
-            <div className="flex h-full items-center justify-center bg-gray-200 dark:bg-gray-800 rounded-lg">
+            <div className="flex min-h-screen items-center justify-center bg-gray-200 dark:bg-gray-800 rounded-lg">
                 <div className="text-xl font-semibold text-gray-600 dark:text-gray-300">Loading...</div>
             </div>
         );
@@ -101,8 +102,8 @@ function Code360() {
 
     if (!userData) {
         return (
-            <div className="flex h-full items-center justify-center bg-gray-200 dark:bg-gray-800 rounded-lg">
-                <div className="text-xl font-semibold text-gray-600 dark:text-gray-300 text-red-500">Failed to load data</div>
+            <div className="flex min-h-screen items-center justify-center bg-gray-200 dark:bg-gray-800 rounded-lg">
+                <div className="text-xl font-semibold text-red-500">Data not available</div>
             </div>
         );
     }

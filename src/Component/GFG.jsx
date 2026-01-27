@@ -48,8 +48,21 @@ function GFG() {
         }
     }, []);
 
-    if (loading) return <div>Loading...</div>;
-    if (!userData) return <div>Failed to load data</div>;
+    if (loading) {
+        return (
+            <div className="flex min-h-screen items-center justify-center bg-gray-200 dark:bg-gray-800 rounded-lg">
+                <div className="text-xl font-semibold text-gray-600 dark:text-gray-300">Loading...</div>
+            </div>
+        );
+    }
+
+    if (!userData) {
+        return (
+            <div className="flex min-h-screen items-center justify-center bg-gray-200 dark:bg-gray-800 rounded-lg">
+                <div className="text-xl font-semibold text-red-500">Data not available</div>
+            </div>
+        );
+    }
 
     const getSolvedCount = (difficulty) => {
         return userData.problemsSolved ? (userData.problemsSolved[difficulty] || 0) : 0;
