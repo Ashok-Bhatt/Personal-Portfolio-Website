@@ -9,15 +9,36 @@ import MessageBox from './MessageBox.jsx';
 import { useCode360Data } from '../Hooks/useCodingProfiles.js';
 import SubmissionHeatmap from './SubmissionHeatmap.jsx';
 import { getStreaksAndActiveDays } from '../Utils/calendar.js';
+import { CODE360_DATA_REFRESH_INTERVAL } from '../Constants';
 
 function Code360() {
     const userName = "AshokBhatt";
-    const { data: code360Data, isLoading: loading } = useCode360Data(userName);
+    const cachedData = JSON.parse(localStorage.getItem("code360Data"));
+    const { data: refreshedData, isLoading: loading, refetch: refetchData } = useCode360Data(userName);
     const [badgePointer, setBadgePointer] = useState(0);
     const [badges, setBadges] = useState([]);
 
-    const userData = code360Data?.profile;
-    const { currentStreak, maxStreak, activeDays, totalContributions } = getStreaksAndActiveDays(code360Data?.submissions);
+    // Persistence Logic
+    useEffect(() => {
+        const isMissing = !localStorage.getItem("code360Data");
+        const isStale = (Date.now() - Number(localStorage.getItem("code360LastRefresh"))) > CODE360_DATA_REFRESH_INTERVAL;
+
+        if (isMissing || isStale) {
+            refetchData();
+        }
+    }, []);
+
+    useEffect(() => {
+        if (refreshedData) {
+            localStorage.setItem("code360Data", JSON.stringify(refreshedData));
+            localStorage.setItem("code360LastRefresh", Date.now().toString());
+        }
+    }, [refreshedData]);
+
+    const userData = refreshedData || cachedData;
+
+    const code360UserData = userData?.profile;
+    const { currentStreak, maxStreak, activeDays, totalContributions } = getStreaksAndActiveDays(userData?.submissions);
 
     const getCode360Badges = (badgesData) => {
         const badges = [];
@@ -58,18 +79,18 @@ function Code360() {
     };
 
     useEffect(() => {
-        if (userData?.dsa_domain_data?.badges_hash) getCode360Badges(userData?.dsa_domain_data?.badges_hash);
+        if (code360UserData?.dsa_domain_data?.badges_hash) getCode360Badges(code360UserData?.dsa_domain_data?.badges_hash);
     }, [badgePointer]);
 
-    if (loading) return <MessageBox text="Loading..." textClassname="text-gray-600 dark:text-gray-300" />;
-    if (!code360Data || !userData) return <MessageBox text="Data not available" textClassname="text-red-500" />;
+    if (loading && !userData) return <MessageBox text="Loading..." textClassname="text-gray-600 dark:text-gray-300" />;
+    if (!userData || !code360UserData) return <MessageBox text="Data not available" textClassname="text-red-500" />;
 
     const getProblemCount = (level) => {
-        return userData.dsa_domain_data?.problem_count_data?.difficulty_data?.find(d => d.level === level)?.count || 0;
+        return code360UserData.dsa_domain_data?.problem_count_data?.difficulty_data?.find(d => d.level === level)?.count || 0;
     };
 
     // Contests logic based on new data structure
-    const contestDetails = userData.contests || {};
+    const contestDetails = code360UserData.contests || {};
     const attendedContests = contestDetails.user_rating_data ? contestDetails.user_rating_data.length : 0;
     const currentRating = contestDetails.current_user_rating ? Math.round(contestDetails.current_user_rating) : 0;
 
@@ -80,15 +101,15 @@ function Code360() {
         <div className="flex flex-col lg:flex-row h-full rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-800">
             <div className="flex flex-col w-full lg:w-1/4 h-full items-center justify-center gap-y-5 p-6 bg-gray-300 dark:bg-gray-700/30">
                 <div className='w-40 h-40 md:w-50 md:h-50 rounded-full overflow-hidden border-4 border-blue-400 shadow-md'>
-                    <img src={"/Images/my_image.jpeg" || userData.image || "/Images/coder_logo.png"} className='h-full w-full object-cover' alt="Code360 Profile Image" />
+                    <img src={"/Images/my_image.jpeg" || code360UserData.image || "/Images/coder_logo.png"} className='h-full w-full object-cover' alt="Code360 Profile Image" />
                 </div>
                 <div className="flex flex-col w-full items-center text-center">
-                    <p className='text-black dark:text-white text-2xl md:text-3xl font-bold'>{userData.profile?.name}</p>
-                    <p className='text-yellow-600 font-semibold'>@{userData.name}</p>
+                    <p className='text-black dark:text-white text-2xl md:text-3xl font-bold'>{code360UserData.profile?.name}</p>
+                    <p className='text-yellow-600 font-semibold'>@{code360UserData.name}</p>
                 </div>
                 <div className="flex flex-col min-w-[200px] w-max rounded p-2 items-center bg-white/5 border border-white/5">
                     <p className='text-green-600 text-xl font-bold'>Longest Streak</p>
-                    <p className='text-lg font-mono'>{userData.streaks?.longest_streak || 0}</p>
+                    <p className='text-lg font-mono'>{code360UserData.streaks?.longest_streak || 0}</p>
                 </div>
                 <OpenWebsite text={"Open Website"} link={`https://www.naukri.com/code360/profile/${userName}`} />
             </div>
@@ -140,7 +161,7 @@ function Code360() {
                     }} />
                 </div>
                 <SubmissionHeatmap
-                    calendar={code360Data.submissions}
+                    calendar={userData.submissions}
                     className="md:col-span-2"
                 />
             </div>

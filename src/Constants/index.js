@@ -226,12 +226,6 @@ const certificates = [
 
 const achievements = [
   {
-    title: "1000+ DSA Problems",
-    description: "Solved 1000+ DSA Problems Combined on Leetcode and GFG",
-    date: new Date(2025, 5),
-    logo: "/Images/award.png",
-  },
-  {
     title: "Winner - Code Clash, Illuminati 2025",
     description: "Secured 1st place in Code Clash at Illuminati 2025, the annual tech fest of ITM (SLS) Baroda University.",
     date: new Date(2025, 1),
@@ -257,6 +251,10 @@ const achievements = [
   },
 ];
 
+const GFG_DATA_REFRESH_INTERVAL = 60 * 1000;
+const CODE360_DATA_REFRESH_INTERVAL = 60 * 1000;
+const LEETCODE_DATA_REFRESH_INTERVAL = 60 * 1000;
+const GITHUB_DATA_REFRESH_INTERVAL = 60 * 1000;
 
 export {
   navigation,
@@ -264,4 +262,8 @@ export {
   skills,
   certificates,
   achievements,
+  GFG_DATA_REFRESH_INTERVAL,
+  CODE360_DATA_REFRESH_INTERVAL,
+  LEETCODE_DATA_REFRESH_INTERVAL,
+  GITHUB_DATA_REFRESH_INTERVAL
 };

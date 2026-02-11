@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Contests from './Contests';
 import ProblemsBlock from './ProblemsBlock';
 import LeetcodeBadge from './LeetcodeBadge';
@@ -9,15 +9,39 @@ import { useLeetcodeData } from '../Hooks/useCodingProfiles.js';
 import MessageBox from './MessageBox.jsx';
 import SubmissionHeatmap from './SubmissionHeatmap.jsx';
 import { getStreaksAndActiveDays } from '../Utils/calendar.js';
+import { LEETCODE_DATA_REFRESH_INTERVAL } from '../Constants';
 
 function Leetcode() {
 
     const userName = "ashokbhatt2048";
-    const { data: userData, isLoading: loading } = useLeetcodeData(userName);
+    const cachedData = JSON.parse(localStorage.getItem("leetcodeData"));
+    const { data: refreshedData, isLoading: loading, refetch: refetchData } = useLeetcodeData(userName);
     const [badgePointer, setBadgePointer] = useState(0);
 
-    if (loading) return <MessageBox text="Loading..." textClassname="text-gray-600 dark:text-gray-300" />;
-    if (!userData) return <MessageBox text="Data not available" textClassname="text-red-500" />;
+    // Issue 1 Fix: Move refetch into useEffect
+    useEffect(() => {
+        const isMissing = !localStorage.getItem("leetcodeData");
+        const isStale = (Date.now() - Number(localStorage.getItem("leetcodeLastRefresh"))) > LEETCODE_DATA_REFRESH_INTERVAL;
+
+        if (isMissing || isStale) {
+            refetchData();
+        }
+    }, []);
+
+    // Issue 3 Fix: Save fresh data to localStorage
+    useEffect(() => {
+        if (refreshedData) {
+            localStorage.setItem("leetcodeData", JSON.stringify(refreshedData));
+            localStorage.setItem("leetcodeLastRefresh", Date.now().toString());
+        }
+    }, [refreshedData]);
+
+    if (!cachedData) {
+        if (loading) return <MessageBox text="Loading..." textClassname="text-gray-600 dark:text-gray-300" />;
+        else if (!refreshedData) return <MessageBox text="Data not available" textClassname="text-red-500" />;
+    }
+
+    const userData = refreshedData || cachedData;
 
     const { currentStreak, maxStreak, activeDays, totalContributions } = getStreaksAndActiveDays(userData.submissions);
 

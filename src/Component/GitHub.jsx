@@ -3,12 +3,35 @@ import OpenWebsite from './OpenWebsite';
 import { useGithubData } from '../Hooks/useCodingProfiles.js';
 import MessageBox from './MessageBox.jsx';
 
+import { GITHUB_DATA_REFRESH_INTERVAL } from '../Constants';
+import { useEffect } from 'react';
+
 function GitHub() {
 
   const userName = "Ashok-Bhatt";
-  const { data: userData, isLoading: loading } = useGithubData(userName);
+  const cachedData = JSON.parse(localStorage.getItem("githubData"));
+  const { data: refreshedData, isLoading: loading, refetch: refetchData } = useGithubData(userName);
 
-  if (loading) return <MessageBox text="Loading..." textClassname="text-gray-600 dark:text-gray-300" />;
+  // Persistence Logic
+  useEffect(() => {
+    const isMissing = !localStorage.getItem("githubData");
+    const isStale = (Date.now() - Number(localStorage.getItem("githubLastRefresh"))) > GITHUB_DATA_REFRESH_INTERVAL;
+
+    if (isMissing || isStale) {
+      refetchData();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (refreshedData) {
+      localStorage.setItem("githubData", JSON.stringify(refreshedData));
+      localStorage.setItem("githubLastRefresh", Date.now().toString());
+    }
+  }, [refreshedData]);
+
+  const userData = refreshedData || cachedData;
+
+  if (loading && !userData) return <MessageBox text="Loading..." textClassname="text-gray-600 dark:text-gray-300" />;
   if (!userData) return <MessageBox text="Data not available" textClassname="text-red-500" />;
 
   return (

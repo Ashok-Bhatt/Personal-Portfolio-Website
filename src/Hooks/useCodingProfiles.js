@@ -5,9 +5,14 @@ const SCRAPE_SPIDEY_URL_V1 = "https://scrape-spidey.onrender.com/api/v1";
 const SCRAPE_SPIDEY_URL_V2 = "https://scrape-spidey.onrender.com/api/v2";
 const SCRAPE_SPIDEY_KEY = import.meta.env.VITE_SCRAPE_SPIDEY_KEY;
 const CODING_PROFILES_START_YEAR = 2022;
+const GFG_DATA_REFRESH_INTERVAL = 6 * 60 * 60 * 1000;
+const CODE360_DATA_REFRESH_INTERVAL = 6 * 60 * 60 * 1000;
+const LEETCODE_DATA_REFRESH_INTERVAL = 6 * 60 * 60 * 1000;
+const GITHUB_DATA_REFRESH_INTERVAL = 6 * 60 * 60 * 1000;
 
 // Hook for GFG data
 export const useGfgData = (userName) => {
+
     return useQuery({
         queryKey: ['gfgData', userName],
         queryFn: async () => {
@@ -29,7 +34,7 @@ export const useGfgData = (userName) => {
                 submissions: submissionData
             };
         },
-        staleTime: 6 * 60 * 60 * 1000, // 6 hours
+        staleTime: GFG_DATA_REFRESH_INTERVAL
     });
 };
 
@@ -74,7 +79,7 @@ export const useLeetcodeData = (userName) => {
                 default: false,
             };
         },
-        staleTime: 3 * 60 * 60 * 1000, // 3 hours
+        staleTime: LEETCODE_DATA_REFRESH_INTERVAL
     });
 };
 
@@ -101,7 +106,7 @@ export const useCode360Data = (userName) => {
                 submissions: submissionData
             };
         },
-        staleTime: 6 * 60 * 60 * 1000, // 6 hours
+        staleTime: CODE360_DATA_REFRESH_INTERVAL
     });
 };
 
@@ -121,6 +126,6 @@ export const useGithubData = (userName) => {
                 ["Profile Name"]: userName
             };
         },
-        staleTime: 24 * 60 * 60 * 1000, // 24 hours
+        staleTime: GITHUB_DATA_REFRESH_INTERVAL,
     });
 };

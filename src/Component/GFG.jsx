@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import ProblemsBlock from './ProblemsBlock';
 import OpenWebsite from './OpenWebsite.jsx';
 import ContributionCard from './ContributionCard.jsx';
@@ -6,32 +6,53 @@ import MessageBox from './MessageBox.jsx';
 import { useGfgData } from '../Hooks/useCodingProfiles.js';
 import SubmissionHeatmap from './SubmissionHeatmap.jsx';
 import { getStreaksAndActiveDays } from '../Utils/calendar.js';
+import { GFG_DATA_REFRESH_INTERVAL } from '../Constants';
 
 function GFG() {
 
     const userName = "ashokbhacjou";
     const fullName = "Ashok Bhatt";
-    const { data: gfgData, isLoading: loading } = useGfgData(userName);
+    const cachedData = JSON.parse(localStorage.getItem("gfgData"));
+    const { data: refreshedData, isLoading: loading, refetch: refetchData } = useGfgData(userName);
 
-    if (loading) return <MessageBox text="Loading..." textClassname="text-gray-600 dark:text-gray-300" />;
-    if (!gfgData || !gfgData.profile) return <MessageBox text="Data not available" textClassname="text-red-500" />;
+    // Persistence Logic
+    useEffect(() => {
+        const isMissing = !localStorage.getItem("gfgData");
+        const isStale = (Date.now() - Number(localStorage.getItem("gfgLastRefresh"))) > GFG_DATA_REFRESH_INTERVAL;
 
-    const userData = gfgData.profile;
-    const { currentStreak, maxStreak, activeDays, totalContributions } = getStreaksAndActiveDays(gfgData.submissions);
+        if (isMissing || isStale) {
+            refetchData();
+        }
+    }, []);
+
+    useEffect(() => {
+        if (refreshedData) {
+            localStorage.setItem("gfgData", JSON.stringify(refreshedData));
+            localStorage.setItem("gfgLastRefresh", Date.now().toString());
+        }
+    }, [refreshedData]);
+
+    const userData = refreshedData || cachedData;
+
+    if (loading && !userData) return <MessageBox text="Loading..." textClassname="text-gray-600 dark:text-gray-300" />;
+    if (!userData || !userData.profile) return <MessageBox text="Data not available" textClassname="text-red-500" />;
+
+    const gfgUserData = userData.profile;
+    const { currentStreak, maxStreak, activeDays, totalContributions } = getStreaksAndActiveDays(userData.submissions);
 
     const getSolvedCount = (difficulty) => {
-        return userData.problemsSolved ? (userData.problemsSolved[difficulty] || 0) : 0;
+        return gfgUserData.problemsSolved ? (gfgUserData.problemsSolved[difficulty] || 0) : 0;
     }
 
     return (
         <div className="flex flex-col lg:flex-row flex-grow rounded-lg bg-gray-200 dark:bg-gray-800 overflow-hidden ">
             <div className="flex flex-col w-full lg:w-1/4 items-center justify-center gap-y-5 p-6 bg-gray-300 dark:bg-gray-700/30">
                 <div className='w-40 h-40 md:w-50 md:h-50 rounded-full overflow-hidden border-4 border-blue-400 shadow-md'>
-                    <img src={userData.avatar || "/Images/coder_logo.png"} className='h-full w-full object-cover' alt="GFG Profile Image" />
+                    <img src={gfgUserData.avatar || "/Images/coder_logo.png"} className='h-full w-full object-cover' alt="GFG Profile Image" />
                 </div>
                 <div className="flex flex-col w-full items-center text-center">
                     <p className='text-black dark:text-white text-2xl md:text-3xl font-bold'>{fullName}</p>
-                    <p className='text-yellow-600 font-semibold'>@{userData.username}</p>
+                    <p className='text-yellow-600 font-semibold'>@{gfgUserData.username}</p>
                 </div>
                 <OpenWebsite text={"Open Website"} link={`https://www.geeksforgeeks.org/user/${userName}/`} />
             </div>
@@ -63,7 +84,7 @@ function GFG() {
                     }} />
                 </div>
 
-                <SubmissionHeatmap calendar={gfgData.submissions} className="col-span-2" />
+                <SubmissionHeatmap calendar={userData.submissions} className="col-span-2" />
             </div>
         </div>
     )
