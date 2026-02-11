@@ -1,55 +1,46 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios';
 import Contests from './Contests';
+import ContributionCard from './ContributionCard';
 import ProblemsBlock from './ProblemsBlock';
-import StatsBlock from './StatsBlock';
 import OpenWebsite from './OpenWebsite';
 import Code360Badge from './Code360Badge';
 import Slider from './Slider';
+import MessageBox from './MessageBox.jsx';
+import { useCode360Data } from '../Hooks/useCodingProfiles.js';
+import SubmissionHeatmap from './SubmissionHeatmap.jsx';
+import { getStreaksAndActiveDays } from '../Utils/calendar.js';
+import { CODE360_DATA_REFRESH_INTERVAL } from '../Constants';
 
 function Code360() {
-    const [userData, setUserData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [badgePointer, setBadgePointer] = useState(1);
+    const userName = "AshokBhatt";
+    const cachedData = JSON.parse(localStorage.getItem("code360Data"));
+    const { data: refreshedData, isLoading: loading, refetch: refetchData } = useCode360Data(userName);
+    const [badgePointer, setBadgePointer] = useState(0);
     const [badges, setBadges] = useState([]);
 
-    const userName = "AshokBhatt";
-    const apiUrl = `https://scrape-spidey.onrender.com/api/v1/code360/user/profile?user=${userName}&apiKey=${import.meta.env.VITE_SCRAPE_SPIDEY_KEY}&includeContests=true&includeAchievements=true`;
-    const dataRefreshRateInSeconds = 24 * 60 * 60;
-
+    // Persistence Logic
     useEffect(() => {
-        const fetchData = async () => {
-            const cachedData = localStorage.getItem("userCode360Data");
-            const lastRefresh = localStorage.getItem("lastCode360Refresh");
-            const isStale = !lastRefresh || (Number(lastRefresh) + dataRefreshRateInSeconds * 1000 < Date.now());
+        const isMissing = !localStorage.getItem("code360Data");
+        const isStale = (Date.now() - Number(localStorage.getItem("code360LastRefresh"))) > CODE360_DATA_REFRESH_INTERVAL;
 
-            if (cachedData) {
-                setUserData(JSON.parse(cachedData));
-                setLoading(false);
-            }
-
-            if (!cachedData || isStale) {
-                if (!cachedData) setLoading(true);
-                try {
-                    const response = await axios.get(apiUrl);
-                    setUserData(response.data);
-                    localStorage.setItem("lastCode360Refresh", Date.now());
-                } catch (error) {
-                    console.error("Error fetching Code360 data:", error);
-                } finally {
-                    setLoading(false);
-                }
-            }
-        };
-
-        fetchData();
+        if (isMissing || isStale) {
+            refetchData();
+        }
     }, []);
 
-    const getProblemCount = (level) => {
-        return userData.dsa_domain_data?.problem_count_data?.difficulty_data?.find(d => d.level === level)?.count || 0;
-    };
+    useEffect(() => {
+        if (refreshedData) {
+            localStorage.setItem("code360Data", JSON.stringify(refreshedData));
+            localStorage.setItem("code360LastRefresh", Date.now().toString());
+        }
+    }, [refreshedData]);
 
-    const getCode360Badges = (badgesData, badgePointer) => {
+    const userData = refreshedData || cachedData;
+
+    const code360UserData = userData?.profile;
+    const { currentStreak, maxStreak, activeDays, totalContributions } = getStreaksAndActiveDays(userData?.submissions);
+
+    const getCode360Badges = (badgesData) => {
         const badges = [];
         let badgeIndex = 0;
         const categories = {
@@ -88,51 +79,39 @@ function Code360() {
     };
 
     useEffect(() => {
-        if (userData?.dsa_domain_data?.badges_hash) getCode360Badges(userData?.dsa_domain_data?.badges_hash, badgePointer);
-    }, [badgePointer, userData]);
+        if (code360UserData?.dsa_domain_data?.badges_hash) getCode360Badges(code360UserData?.dsa_domain_data?.badges_hash);
+    }, [badgePointer]);
 
-    if (loading) {
-        return (
-            <div className="flex h-full items-center justify-center bg-gray-200 dark:bg-gray-800 rounded-lg">
-                <div className="text-xl font-semibold text-gray-600 dark:text-gray-300">Loading...</div>
-            </div>
-        );
-    }
+    if (loading && !userData) return <MessageBox text="Loading..." textClassname="text-gray-600 dark:text-gray-300" />;
+    if (!userData || !code360UserData) return <MessageBox text="Data not available" textClassname="text-red-500" />;
 
-    if (!userData) {
-        return (
-            <div className="flex h-full items-center justify-center bg-gray-200 dark:bg-gray-800 rounded-lg">
-                <div className="text-xl font-semibold text-gray-600 dark:text-gray-300 text-red-500">Failed to load data</div>
-            </div>
-        );
-    }
-
-
+    const getProblemCount = (level) => {
+        return code360UserData.dsa_domain_data?.problem_count_data?.difficulty_data?.find(d => d.level === level)?.count || 0;
+    };
 
     // Contests logic based on new data structure
-    const contestDetails = userData.contests || {};
+    const contestDetails = code360UserData.contests || {};
     const attendedContests = contestDetails.user_rating_data ? contestDetails.user_rating_data.length : 0;
     const currentRating = contestDetails.current_user_rating ? Math.round(contestDetails.current_user_rating) : 0;
 
     // Attempt to map contest badges from rating_group
     const contestBadge = contestDetails.rating_group?.icon ? [contestDetails.rating_group.icon] : [];
 
-
     return (
         <div className="flex flex-col lg:flex-row h-full rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-800">
             <div className="flex flex-col w-full lg:w-1/4 h-full items-center justify-center gap-y-5 p-6 bg-gray-300 dark:bg-gray-700/30">
                 <div className='w-40 h-40 md:w-50 md:h-50 rounded-full overflow-hidden border-4 border-blue-400 shadow-md'>
-                    <img src={userData.image || "/Images/coder_logo.png"} className='h-full w-full object-cover' alt="Code360 Profile Image" />
+                    <img src={"/Images/my_image.jpeg" || code360UserData.image || "/Images/coder_logo.png"} className='h-full w-full object-cover' alt="Code360 Profile Image" />
                 </div>
                 <div className="flex flex-col w-full items-center text-center">
-                    <p className='text-black dark:text-white text-2xl md:text-3xl font-bold'>{userData.profile?.name}</p>
-                    <p className='text-yellow-600 font-semibold'>@{userData.name}</p>
+                    <p className='text-black dark:text-white text-2xl md:text-3xl font-bold'>{code360UserData.profile?.name}</p>
+                    <p className='text-yellow-600 font-semibold'>@{code360UserData.name}</p>
                 </div>
                 <div className="flex flex-col min-w-[200px] w-max rounded p-2 items-center bg-white/5 border border-white/5">
                     <p className='text-green-600 text-xl font-bold'>Longest Streak</p>
-                    <p className='text-lg font-mono'>{userData.streaks?.longest_streak || 0}</p>
+                    <p className='text-lg font-mono'>{code360UserData.streaks?.longest_streak || 0}</p>
                 </div>
-                <OpenWebsite text={"Open Website"} link={`https://www.naukri.com/code360/profile/${userName}}`} />
+                <OpenWebsite text={"Open Website"} link={`https://www.naukri.com/code360/profile/${userName}`} />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow h-full p-4 md:p-6 bg-gray-100 dark:bg-gray-900 overflow-y-auto">
                 <ProblemsBlock
@@ -160,7 +139,7 @@ function Code360() {
                 <div className="md:col-span-2 lg:col-span-1">
                     <Slider
                         cards={badges}
-                        cardClasses="h-full w-[130px]"
+                        cardClasses="h-full w-24 sm:w-28 md:w-[130px]"
                         containerClasses="rounded-xl flex-grow bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
                         scrollTrigger="card"
                         defaultPointer={badgePointer}
@@ -170,16 +149,21 @@ function Code360() {
                 </div>
 
                 <div className="md:col-span-2 lg:col-span-1">
-                    <StatsBlock
-                        data={[
-                            { title: "Total Problems", stats: `${userData.dsa_domain_data?.problem_count_data?.total_count || 0}` },
-                            { title: "Level", stats: `${userData.user_level} (${userData.user_level_name})` },
-                        ]}
-                        containerClasses="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl h-full"
-                        titleClasses="text-blue-500 font-bold"
-                        statsClasses="text-black dark:text-white"
-                    />
+                    <ContributionCard currentStreak={{
+                        count: currentStreak,
+                        text: "Current Streak",
+                    }} maxStreak={{
+                        count: maxStreak,
+                        text: "Max Streak",
+                    }} totalContributions={{
+                        count: totalContributions,
+                        text: "Total Submissions",
+                    }} />
                 </div>
+                <SubmissionHeatmap
+                    calendar={userData.submissions}
+                    className="md:col-span-2"
+                />
             </div>
         </div>
     )

@@ -5,7 +5,7 @@ function SkillBlock(props) {
   const { skillName, skillLogo, xPos, yPos, labelPos } = props;
 
   return (
-    <div className='absolute group flex p-0.5 sm:p-1 rounded-full items-center justify-center border bg-gray-100 dark:bg-gray-900 -translate-1/2 hover:cursor-pointer hover:border-3 aspect-square' style={{
+    <div className='absolute group flex rounded-full items-center justify-center border bg-gray-100 dark:bg-gray-900 -translate-1/2 hover:cursor-pointer hover:border-3 aspect-square' style={{
       top: `${yPos}px`,
       left: `${xPos}px`,
       borderColor: (labelPos == 'left') ? 'green' : 'blue',

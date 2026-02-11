@@ -6,9 +6,9 @@ ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Tooltip,
 
 function Contests(props) {
 
-  const {contestAttended, contestRating, contestRanking, totalParticipants, contestTopPercentage, contestBadges, contestData, className, title} = props;
-  const maxRating = contestData.reduce((accumulator, contest)=>Math.max(accumulator, contest["rating"]), 0);
-  const minRating = contestData.reduce((accumulator, contest)=>Math.min(accumulator, contest["rating"]), 1500);
+  const { contestAttended, contestRating, contestRanking, totalParticipants, contestTopPercentage, contestBadges, contestData, className, title } = props;
+  const maxRating = contestData.reduce((accumulator, contest) => Math.max(accumulator, contest["rating"]), 0);
+  const minRating = contestData.reduce((accumulator, contest) => Math.min(accumulator, contest["rating"]), 1500);
 
   const data = {
     labels: contestData.map(contest => " "),
@@ -30,15 +30,15 @@ function Contests(props) {
       tooltip: { enabled: true },
     },
     scales: {
-     y: {
-      beginAtZero: true,
-      min: minRating,
-      max: Math.ceil(maxRating/50)*50,
-      title: {
-        display: true,
-        text: 'Contest Rating',
+      y: {
+        beginAtZero: true,
+        min: minRating,
+        max: Math.ceil(maxRating / 50) * 50,
+        title: {
+          display: true,
+          text: 'Contest Rating',
+        },
       },
-    },
     },
   };
 
@@ -65,7 +65,7 @@ function Contests(props) {
           </div>}
         </div>
         <div className='flex-grow w-full'>
-          {contestData.length > 0 ? <Line data={data} options={options} style={{maxHeight:'200px', width:'100%'}}/> : null}
+          {contestData.length > 0 ? <Line data={data} options={options} style={{ maxHeight: '200px', width: '100%' }} /> : null}
         </div>
       </div>
     </div>

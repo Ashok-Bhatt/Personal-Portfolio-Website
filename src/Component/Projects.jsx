@@ -7,7 +7,7 @@ import { useNavigation } from '../Context/navigationContext.jsx';
 
 function Projects() {
     const { navigationRefs } = useNavigation();
-    const [projectPointer, setProjectPointer] = useState(1);
+    const [projectPointer, setProjectPointer] = useState(0);
 
     return (
         <div className='flex flex-col w-full gap-y-10 bg-gray-100 dark:bg-gray-900 py-20 px-6 box-border z-5' id="projects" ref={el => (navigationRefs.current["projects"] = el)}>
@@ -22,9 +22,9 @@ function Projects() {
                             <ProjectBlock project={projects[index]} key={index} isActive={index === projectPointer} />
                         ))
                     }
-                    cardClasses="max-w-[500px]"
+                    cardClasses="w-full max-w-[320px] md:max-w-[400px] lg:max-w-[500px] p-1 sm:p-2 md:p-4"
                     scrollTrigger="card"
-                    defaultPointer={1}
+                    defaultPointer={projectPointer}
                     setParentPointer={setProjectPointer}
                 />
             </div>

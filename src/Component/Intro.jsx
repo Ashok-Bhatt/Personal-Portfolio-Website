@@ -71,7 +71,7 @@ function Intro() {
                 <div className='bg-green-400 text-gray-900 mt-8 py-3 px-10 hover:cursor-pointer rounded-xl text-lg font-bold hover:bg-green-300 transition-colors' onClick={() => window.location.href = "https://drive.google.com/file/d/1K3UYAB9CjsQTzWY60D-TTFwos34uE3qW/view?usp=drive_link"}>Resume</div>
             </div>
             <div className="flex justify-center items-center w-full md:w-1/2 order-1 md:order-2 mb-10 md:mb-0">
-                <img src="/Images/coder_logo.png" alt="coder image" className='rounded-full w-48 h-48 md:w-[300px] md:h-[300px] lg:w-[400px] lg:h-[400px] border-4 border-blue-500/10 object-cover shadow-2xl' />
+                <img src="/Images/my_image.jpeg" alt="coder image" className='rounded-full w-48 h-48 md:w-[300px] md:h-[300px] lg:w-[400px] lg:h-[400px] border-4 border-blue-500/10 object-cover shadow-2xl' />
             </div>
         </div>
     )

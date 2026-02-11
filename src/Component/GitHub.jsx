@@ -1,54 +1,38 @@
-import React, { useState, useEffect } from 'react'
-import axios from "axios"
+import React from 'react'
 import OpenWebsite from './OpenWebsite';
+import { useGithubData } from '../Hooks/useCodingProfiles.js';
+import MessageBox from './MessageBox.jsx';
+
+import { GITHUB_DATA_REFRESH_INTERVAL } from '../Constants';
+import { useEffect } from 'react';
 
 function GitHub() {
 
   const userName = "Ashok-Bhatt";
-  const baseUrl = "https://api.github.com/users";
-  const dataRefreshRateInSeconds = 1 * 24 * 60 * 60;
-  const [contributionTable, setContributionTable] = useState(null);
+  const cachedData = JSON.parse(localStorage.getItem("githubData"));
+  const { data: refreshedData, isLoading: loading, refetch: refetchData } = useGithubData(userName);
 
-  const [userData, setUserData] = useState({
-    "Profile Name": userName,
-    "Profile Image": "",
-    "Public Repos": "",
-    "Followers": 0,
-    "Followings": 0,
-  });
-
+  // Persistence Logic
   useEffect(() => {
+    const isMissing = !localStorage.getItem("githubData");
+    const isStale = (Date.now() - Number(localStorage.getItem("githubLastRefresh"))) > GITHUB_DATA_REFRESH_INTERVAL;
 
-    if (localStorage.getItem("userGithubData")) {
-      setUserData(JSON.parse(localStorage.getItem("userGithubData")));
-    }
-
-    if (!localStorage.getItem("lastGithubRefresh") || ((Number(localStorage.getItem("lastGithubRefresh")) + dataRefreshRateInSeconds * 1000) < Date.now())) {
-      axios
-        .get(`${baseUrl}/${userName}`)
-        .then((res) => {
-          const data = res.data;
-          setUserData({
-            ...userData,
-            ["Full Name"]: data.name,
-            ["Profile Image"]: data.avatar_url,
-            ["Public Repos"]: data.public_repos,
-            ["Followers"]: data.followers,
-            ["Followings"]: data.following,
-          });
-          localStorage.setItem("lastGithubRefresh", Date.now());
-        })
-        .catch((error) => {
-          setUserData(JSON.parse(localStorage.getItem("userGithubData")));
-        })
+    if (isMissing || isStale) {
+      refetchData();
     }
   }, []);
 
   useEffect(() => {
-    if (userData["Profile Image"]) {
-      localStorage.setItem("userGithubData", JSON.stringify(userData));
+    if (refreshedData) {
+      localStorage.setItem("githubData", JSON.stringify(refreshedData));
+      localStorage.setItem("githubLastRefresh", Date.now().toString());
     }
-  }, [userData]);
+  }, [refreshedData]);
+
+  const userData = refreshedData || cachedData;
+
+  if (loading && !userData) return <MessageBox text="Loading..." textClassname="text-gray-600 dark:text-gray-300" />;
+  if (!userData) return <MessageBox text="Data not available" textClassname="text-red-500" />;
 
   return (
     <div className='flex flex-col lg:flex-row flex-grow rounded-lg bg-gray-200 dark:bg-gray-800 overflow-hidden '>
