@@ -5,7 +5,6 @@ function AchievementBlock(props) {
 
   const { achievement, isMiddle } = props;
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  console.log(achievement.title, months[achievement.date.getMonth() - 1], achievement.date.getFullYear())
   const achievementDateString = `${months[achievement.date.getMonth()]} ${achievement.date.getFullYear()}`
 
   return (

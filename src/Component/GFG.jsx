@@ -1,68 +1,25 @@
-import React, { useEffect, useState } from 'react'
-import axios from "axios"
+import React from 'react'
 import ProblemsBlock from './ProblemsBlock';
-import StatsBlock from './StatsBlock.jsx';
-import Contests from './Contests';
 import OpenWebsite from './OpenWebsite.jsx';
+import ContributionCard from './ContributionCard.jsx';
+import MessageBox from './MessageBox.jsx';
+import { useGfgData } from '../Hooks/useCodingProfiles.js';
+import SubmissionHeatmap from './SubmissionHeatmap.jsx';
+import { getStreaksAndActiveDays } from '../Utils/calendar.js';
 
 function GFG() {
 
     const userName = "ashokbhacjou";
     const fullName = "Ashok Bhatt";
     const instituteRankMedals = ["🥇", "🥈", "🥉"];
-    const dataRefreshRateInSeconds = 6 * 60 * 60;
-    const baseUrl = "https://scrape-spidey.onrender.com/api/v1/gfg/user/profile"
+    const { data: gfgData, isLoading: loading } = useGfgData(userName);
 
-    const [userData, setUserData] = useState(null);
-    const [loading, setLoading] = useState(true);
+    if (loading) return <MessageBox text="Loading..." textClassname="text-gray-600 dark:text-gray-300" />;
+    if (!gfgData || !gfgData.profile) return <MessageBox text="Data not available" textClassname="text-red-500" />;
 
-    useEffect(() => {
-
-        if (localStorage.getItem("userGfgData")) {
-            setUserData(JSON.parse(localStorage.getItem("userGfgData")));
-            setLoading(false);
-        }
-
-        if (!localStorage.getItem("lastGfgRefresh") || ((Number(localStorage.getItem("lastGfgRefresh")) + dataRefreshRateInSeconds * 1000) < Date.now())) {
-            if (!localStorage.getItem("userGfgData")) setLoading(true);
-
-            try {
-                axios
-                    .get(`${baseUrl}?user=${userName}&apiKey=${import.meta.env.VITE_SCRAPE_SPIDEY_KEY}`)
-                    .then((res) => {
-                        const data = res.data;
-                        setUserData(data);
-                        localStorage.setItem("userGfgData", JSON.stringify(data));
-                        localStorage.setItem("lastGfgRefresh", Date.now());
-                        setLoading(false);
-                    })
-                    .catch((error) => {
-                        console.error("GFG Fetch Error", error);
-                        setLoading(false);
-                    })
-            } catch (error) {
-                console.error(error);
-                console.log(error.response.data.message);
-                setLoading(false);
-            }
-        }
-    }, []);
-
-    if (loading) {
-        return (
-            <div className="flex min-h-screen items-center justify-center bg-gray-200 dark:bg-gray-800 rounded-lg">
-                <div className="text-xl font-semibold text-gray-600 dark:text-gray-300">Loading...</div>
-            </div>
-        );
-    }
-
-    if (!userData) {
-        return (
-            <div className="flex min-h-screen items-center justify-center bg-gray-200 dark:bg-gray-800 rounded-lg">
-                <div className="text-xl font-semibold text-red-500">Data not available</div>
-            </div>
-        );
-    }
+    const userData = gfgData.profile;
+    const { currentStreak, maxStreak, activeDays, totalContributions } = getStreaksAndActiveDays(gfgData.submissions);
+    console.log(currentStreak, maxStreak, activeDays, totalContributions)
 
     const getSolvedCount = (difficulty) => {
         return userData.problemsSolved ? (userData.problemsSolved[difficulty] || 0) : 0;
@@ -96,32 +53,19 @@ function GFG() {
                 </div>
 
                 <div className="col-span-1">
-                    <StatsBlock
-                        data={[
-                            { title: "Current Streak", stats: `${userData.currentStreak || 0}` },
-                            { title: "Max Streak", stats: `${userData.maxStreak || 0}` },
-                        ]}
-                        containerClasses="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl"
-                        blockClasses="w-full"
-                        titleClasses="text-blue-500 font-bold"
-                        statsClasses="text-black dark:text-white"
-                    />
+                    <ContributionCard currentStreak={{
+                        count: currentStreak,
+                        text: "Current Streak",
+                    }} maxStreak={{
+                        count: maxStreak,
+                        text: "Max Streak",
+                    }} totalContributions={{
+                        count: totalContributions,
+                        text: "Total Submissions",
+                    }} />
                 </div>
 
-                <div className="col-span-1 md:col-span-2">
-                    <StatsBlock
-                        data={[
-                            { title: "Total Problems", stats: `${getSolvedCount("School") + getSolvedCount("Basic") + getSolvedCount("Easy") + getSolvedCount("Medium") + getSolvedCount("Hard")}` },
-                            { title: "Coding Score", stats: `${userData.codingScore || 0}` },
-                            { title: "Institution Rank", stats: `${(userData.instituteRank >= 1 && userData.instituteRank <= 3) ? instituteRankMedals[userData.instituteRank - 1] : ""} ${userData.instituteRank || "NA"}` },
-                            { title: "Articles Published", stats: `${userData.articlesPublished || 0}` },
-                        ]}
-                        containerClasses="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl"
-                        blockClasses="min-w-[120px] sm:min-w-[150px]"
-                        titleClasses="text-blue-500 font-bold text-sm md:text-lg"
-                        statsClasses="text-black dark:text-white text-xl md:text-3xl"
-                    />
-                </div>
+                <SubmissionHeatmap calendar={gfgData.submissions} className="col-span-2" />
             </div>
         </div>
     )

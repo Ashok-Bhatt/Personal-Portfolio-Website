@@ -1,96 +1,24 @@
-import axios from 'axios';
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Contests from './Contests';
 import ProblemsBlock from './ProblemsBlock';
 import LeetcodeBadge from './LeetcodeBadge';
 import Slider from './Slider';
-import StatsBlock from './StatsBlock';
+import ContributionCard from './ContributionCard';
 import OpenWebsite from './OpenWebsite';
+import { useLeetcodeData } from '../Hooks/useCodingProfiles.js';
+import MessageBox from './MessageBox.jsx';
+import SubmissionHeatmap from './SubmissionHeatmap.jsx';
+import { getStreaksAndActiveDays } from '../Utils/calendar.js';
 
 function Leetcode() {
 
     const userName = "ashokbhatt2048";
-    const apiUrl = "https://scrape-spidey.onrender.com/api/v1/leetcode";
-    const scrapeSpideyApiKey = import.meta.env.VITE_SCRAPE_SPIDEY_KEY;
-    const dataRefreshRateInSeconds = 3 * 60 * 60;
-    const [loading, setLoading] = useState(false);
-    const [badgePointer, setBadgePointer] = useState(1);
+    const { data: userData, isLoading: loading } = useLeetcodeData(userName);
 
-    const [userData, setUserData] = useState(null);
+    if (loading) return <MessageBox text="Loading..." textClassname="text-gray-600 dark:text-gray-300" />;
+    if (!userData) return <MessageBox text="Data not available" textClassname="text-red-500" />;
 
-    const fetchUserLeetcodeDetails = async () => {
-        try {
-            const [profileResponse, contestResponse, badgesResponse, questionProgressResponse, sessionProgressResponse] = await Promise.all([
-                axios.get(`${apiUrl}/user/profile?user=${userName}&apiKey=${scrapeSpideyApiKey}`),
-                axios.get(`${apiUrl}/user/contest-ranking?user=${userName}&apiKey=${scrapeSpideyApiKey}`),
-                axios.get(`${apiUrl}/user/badges?user=${userName}&apiKey=${scrapeSpideyApiKey}`),
-                axios.get(`${apiUrl}/user/question-progress?user=${userName}&apiKey=${scrapeSpideyApiKey}`),
-                axios.get(`${apiUrl}/user/session-progress?user=${userName}&apiKey=${scrapeSpideyApiKey}`),
-            ]);
-
-            // Store each field separately in userData
-            const newData = {
-                profile: profileResponse.data.matchedUser,
-                contest: {
-                    userContestRanking: contestResponse.data.userContestRanking,
-                    userContestRankingHistory: contestResponse.data.userContestRankingHistory
-                },
-                badges: {
-                    badges: badgesResponse.data.matchedUser.badges,
-                    upcomingBadges: badgesResponse.data.matchedUser.upcomingBadges
-                },
-                questionProgress: questionProgressResponse.data.userProfileUserQuestionProgressV2,
-                sessionProgress: {
-                    allQuestionsCount: sessionProgressResponse.data.allQuestionsCount,
-                    submitStats: sessionProgressResponse.data.matchedUser.submitStats
-                },
-                default: false,
-            };
-
-            setUserData(newData);
-            localStorage.setItem("lastLeetcodeRefresh", Date.now());
-        } catch (error) {
-            console.log("Error Occurred while fetching user data!", error.message);
-        } finally {
-            setLoading(false);
-        }
-    }
-
-    useEffect(() => {
-
-        if (localStorage.getItem("userLeetcodeData")) {
-            setUserData(JSON.parse(localStorage.getItem("userLeetcodeData")));
-            setLoading(false);
-        }
-
-        if (!localStorage.getItem("lastLeetcodeRefresh") || ((Number(localStorage.getItem("lastLeetcodeRefresh")) + dataRefreshRateInSeconds * 1000) < Date.now())) {
-            if (!localStorage.getItem("userLeetcodeData")) setLoading(true);
-            fetchUserLeetcodeDetails();
-        }
-
-    }, []);
-
-    useEffect(() => {
-        if (userData && userData?.default === false) {
-            localStorage.setItem("userLeetcodeData", JSON.stringify(userData));
-        }
-    }, [userData]);
-
-    if (loading) {
-        return (
-            <div className="flex min-h-screen items-center justify-center bg-gray-200 dark:bg-gray-800 rounded-lg">
-                <div className="text-xl font-semibold text-gray-600 dark:text-gray-300">Loading...</div>
-            </div>
-        );
-    }
-
-    if (!userData) {
-        return (
-            <div className="flex min-h-screen items-center justify-center bg-gray-200 dark:bg-gray-800 rounded-lg">
-                <div className="text-xl font-semibold text-red-500">Data not available</div>
-            </div>
-        );
-    }
+    const { currentStreak, maxStreak, activeDays, totalContributions } = getStreaksAndActiveDays(userData.submissions);
 
     return (
         <div className="flex flex-col lg:flex-row h-full rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-800">
@@ -150,34 +78,32 @@ function Leetcode() {
                     <Slider
                         cards={
                             (userData.badges?.badges || []).map((badge, index) => (
-                                <LeetcodeBadge badge={badge} isMiddleBadge={index === badgePointer} key={badge.id} />
+                                <LeetcodeBadge badge={badge} isMiddleBadge={false} key={badge.id} />
                             ))
                         }
                         cardClasses="h-full w-[130px]"
                         containerClasses="rounded-xl flex-grow bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
                         scrollTrigger="card"
                         defaultPointer={1}
-                        setParentPointer={setBadgePointer}
                         title="Leetcode Badges"
                     />
                 </div>
                 <div className="md:col-span-2 lg:col-span-1">
-                    <StatsBlock
-                        data={[
-                            {
-                                title: "Total Problems",
-                                stats: `${userData.sessionProgress?.submitStats?.totalSubmissionNum?.find(q => q.difficulty === "All")?.count || 0}`
-                            },
-                            {
-                                title: "Total Submissions",
-                                stats: `${userData.sessionProgress?.submitStats?.acSubmissionNum?.find(q => q.difficulty === "All")?.count || 0}`
-                            }
-                        ]}
-                        containerClasses="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl h-full"
-                        titleClasses="text-blue-500 font-bold"
-                        statsClasses="text-black dark:text-white"
-                    />
+                    <ContributionCard currentStreak={{
+                        count: currentStreak,
+                        text: "Current Streak",
+                    }} maxStreak={{
+                        count: maxStreak,
+                        text: "Max Streak",
+                    }} totalContributions={{
+                        count: totalContributions,
+                        text: "Total Submissions",
+                    }} />
                 </div>
+                <SubmissionHeatmap
+                    calendar={userData.submissions}
+                    className="md:col-span-2"
+                />
             </div>
         </div>
     )
