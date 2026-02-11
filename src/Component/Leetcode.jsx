@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Contests from './Contests';
 import ProblemsBlock from './ProblemsBlock';
 import LeetcodeBadge from './LeetcodeBadge';
@@ -14,6 +14,7 @@ function Leetcode() {
 
     const userName = "ashokbhatt2048";
     const { data: userData, isLoading: loading } = useLeetcodeData(userName);
+    const [badgePointer, setBadgePointer] = useState(0);
 
     if (loading) return <MessageBox text="Loading..." textClassname="text-gray-600 dark:text-gray-300" />;
     if (!userData) return <MessageBox text="Data not available" textClassname="text-red-500" />;
@@ -78,13 +79,14 @@ function Leetcode() {
                     <Slider
                         cards={
                             (userData.badges?.badges || []).map((badge, index) => (
-                                <LeetcodeBadge badge={badge} isMiddleBadge={false} key={badge.id} />
+                                <LeetcodeBadge badge={badge} isMiddleBadge={index === badgePointer} key={badge.id} />
                             ))
                         }
-                        cardClasses="h-full w-[130px]"
+                        cardClasses="h-full w-24 sm:w-28 md:w-[130px]"
                         containerClasses="rounded-xl flex-grow bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
                         scrollTrigger="card"
-                        defaultPointer={1}
+                        defaultPointer={badgePointer}
+                        setParentPointer={setBadgePointer}
                         title="Leetcode Badges"
                     />
                 </div>

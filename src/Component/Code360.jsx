@@ -13,24 +13,13 @@ import { getStreaksAndActiveDays } from '../Utils/calendar.js';
 function Code360() {
     const userName = "AshokBhatt";
     const { data: code360Data, isLoading: loading } = useCode360Data(userName);
-    const [badgePointer, setBadgePointer] = useState(1);
+    const [badgePointer, setBadgePointer] = useState(0);
     const [badges, setBadges] = useState([]);
 
     const userData = code360Data?.profile;
     const { currentStreak, maxStreak, activeDays, totalContributions } = getStreaksAndActiveDays(code360Data?.submissions);
 
-    useEffect(() => {
-        if (userData?.dsa_domain_data?.badges_hash) getCode360Badges(userData?.dsa_domain_data?.badges_hash);
-    }, [userData]);
-
-    if (loading) return <MessageBox text="Loading..." textClassname="text-gray-600 dark:text-gray-300" />;
-    if (!code360Data || !userData) return <MessageBox text="Data not available" textClassname="text-red-500" />;
-
-    const getProblemCount = (level) => {
-        return userData.dsa_domain_data?.problem_count_data?.difficulty_data?.find(d => d.level === level)?.count || 0;
-    };
-
-    const getCode360Badges = (badgesData, badgePointer) => {
+    const getCode360Badges = (badgesData) => {
         const badges = [];
         let badgeIndex = 0;
         const categories = {
@@ -55,7 +44,7 @@ function Code360() {
                                         title: badgeTitle.split("(")[0],
                                         type: level.charAt(0).toUpperCase() + level.slice(1)
                                     }}
-                                    isMiddleBadge={false}
+                                    isMiddleBadge={badgeIndex === badgePointer}
                                 />
                             );
                             badgeIndex++;
@@ -66,6 +55,17 @@ function Code360() {
         });
 
         setBadges(badges);
+    };
+
+    useEffect(() => {
+        if (userData?.dsa_domain_data?.badges_hash) getCode360Badges(userData?.dsa_domain_data?.badges_hash);
+    }, [badgePointer]);
+
+    if (loading) return <MessageBox text="Loading..." textClassname="text-gray-600 dark:text-gray-300" />;
+    if (!code360Data || !userData) return <MessageBox text="Data not available" textClassname="text-red-500" />;
+
+    const getProblemCount = (level) => {
+        return userData.dsa_domain_data?.problem_count_data?.difficulty_data?.find(d => d.level === level)?.count || 0;
     };
 
     // Contests logic based on new data structure
@@ -118,11 +118,11 @@ function Code360() {
                 <div className="md:col-span-2 lg:col-span-1">
                     <Slider
                         cards={badges}
-                        cardClasses="h-full w-[130px]"
+                        cardClasses="h-full w-24 sm:w-28 md:w-[130px]"
                         containerClasses="rounded-xl flex-grow bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
                         scrollTrigger="card"
                         defaultPointer={badgePointer}
-                        setBadgePointer={setBadgePointer}
+                        setParentPointer={setBadgePointer}
                         title="Code360 Badges"
                     />
                 </div>

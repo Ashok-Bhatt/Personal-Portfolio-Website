@@ -8,7 +8,7 @@ import { useNavigation } from '../Context/navigationContext.jsx';
 
 function Achievements() {
     const { navigationRefs } = useNavigation();
-    const [achievementPointer, setAchievementPointer] = useState(1);
+    const [achievementPointer, setAchievementPointer] = useState(0);
 
     return (
         <div className='flex flex-col w-full gap-y-10 bg-gray-100 dark:bg-gray-900 py-20 px-6 box-border z-5' id="achievements" ref={el => (navigationRefs.current["achievements"] = el)}>
@@ -24,9 +24,9 @@ function Achievements() {
                             <AchievementBlock achievement={achievements[index]} key={`ach-${index}`} isMiddle={achievementPointer == index ? true : false} />
                         ))
                     }
-                    cardClasses="w-full max-w-sm"
+                    cardClasses="w-full max-w-[280px] md:max-w-sm p-1 sm:p-2 md:p-4"
                     scrollTrigger="card"
-                    defaultPointer={1}
+                    defaultPointer={achievementPointer}
                     setParentPointer={setAchievementPointer}
                 />
             </div>

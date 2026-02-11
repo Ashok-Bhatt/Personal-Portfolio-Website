@@ -11,7 +11,6 @@ function GFG() {
 
     const userName = "ashokbhacjou";
     const fullName = "Ashok Bhatt";
-    const instituteRankMedals = ["🥇", "🥈", "🥉"];
     const { data: gfgData, isLoading: loading } = useGfgData(userName);
 
     if (loading) return <MessageBox text="Loading..." textClassname="text-gray-600 dark:text-gray-300" />;
@@ -19,7 +18,6 @@ function GFG() {
 
     const userData = gfgData.profile;
     const { currentStreak, maxStreak, activeDays, totalContributions } = getStreaksAndActiveDays(gfgData.submissions);
-    console.log(currentStreak, maxStreak, activeDays, totalContributions)
 
     const getSolvedCount = (difficulty) => {
         return userData.problemsSolved ? (userData.problemsSolved[difficulty] || 0) : 0;

@@ -65,11 +65,11 @@ const groupDataByMonth = (days) => {
 };
 
 const getColorClass = (count) => {
-  if (count === 0) return 'bg-gray-900';
-  if (count <= 2) return 'bg-green-900';
-  if (count <= 4) return 'bg-green-800';
-  if (count <= 8) return 'bg-green-700';
-  return 'bg-green-600';
+    if (count === 0) return 'bg-gray-900';
+    if (count <= 2) return 'bg-green-900';
+    if (count <= 4) return 'bg-green-800';
+    if (count <= 8) return 'bg-green-700';
+    return 'bg-green-600';
 };
 
 const calculateOverallStats = (calendar) => {
@@ -223,7 +223,7 @@ const SubmissionHeatmap = ({
                 </div>
             </div>
 
-            <div className="w-full overflow-x-auto pb-4 hide-scrollbar">
+            <div className="w-full overflow-x-auto pb-4 no-scrollbar">
                 <div className="flex gap-4 min-w-max">
                     <div className="flex flex-col justify-between py-1 mr-1 text-[10px] text-gray-400 dark:text-gray-500 font-black h-[112px] uppercase">
                         <span>Mon</span><span className="invisible">Tue</span><span>Wed</span><span className="invisible">Thu</span><span>Fri</span><span className="invisible">Sat</span><span>Sun</span>
