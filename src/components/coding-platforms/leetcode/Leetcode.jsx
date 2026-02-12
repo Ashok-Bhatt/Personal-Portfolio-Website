@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import Contests from './Contests';
-import ProblemsBlock from './ProblemsBlock';
+import Contests from '../Contests';
+import ProblemsCard from '../../cards/ProblemsCard';
 import LeetcodeBadge from './LeetcodeBadge';
-import Slider from './Slider';
-import ContributionCard from './ContributionCard';
-import OpenWebsite from './OpenWebsite';
-import { useLeetcodeData } from '../Hooks/useCodingProfiles.js';
-import MessageBox from './MessageBox.jsx';
-import SubmissionHeatmap from './SubmissionHeatmap.jsx';
-import { getStreaksAndActiveDays } from '../Utils/calendar.js';
-import { LEETCODE_DATA_REFRESH_INTERVAL } from '../Constants';
+import Slider from '../../Slider';
+import ContributionCard from '../../cards/ContributionCard';
+import OpenWebsite from '../../OpenWebsite';
+import { useLeetcodeData } from '../../../hooks/useCodingProfiles.js';
+import MessageBox from '../../MessageBox.jsx';
+import SubmissionHeatmap from '../SubmissionHeatmap.jsx';
+import { getStreaksAndActiveDays } from '../../../utils/calendar.js';
+import { REFRESH_INTERVAL } from '../../../constants/index.js';
 
 function Leetcode() {
 
@@ -21,7 +21,7 @@ function Leetcode() {
     // Issue 1 Fix: Move refetch into useEffect
     useEffect(() => {
         const isMissing = !localStorage.getItem("leetcodeData");
-        const isStale = (Date.now() - Number(localStorage.getItem("leetcodeLastRefresh"))) > LEETCODE_DATA_REFRESH_INTERVAL;
+        const isStale = (Date.now() - Number(localStorage.getItem("leetcodeLastRefresh"))) > REFRESH_INTERVAL.LEETCODE;
 
         if (isMissing || isStale) {
             refetchData();
@@ -62,7 +62,7 @@ function Leetcode() {
                 <OpenWebsite text={"Open Website"} link={`https://leetcode.com/u/${userData.profile?.username}/`} />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow h-full p-4 md:p-6 bg-gray-100 dark:bg-gray-900 overflow-y-auto">
-                <ProblemsBlock
+                <ProblemsCard
                     problemsCount={[
                         {
                             problemsTag: "Easy",

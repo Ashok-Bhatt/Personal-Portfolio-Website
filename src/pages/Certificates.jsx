@@ -1,10 +1,10 @@
 
 import { LiaCertificateSolid } from "react-icons/lia";
 import { useState } from 'react';
-import { certificates } from "../Constants/index.js";
-import CertificateBlock from "./CertificateBlock.jsx";
-import Slider from "./Slider.jsx";
-import { useNavigation } from '../Context/navigationContext.jsx';
+import { certificates } from "../constants/index.js";
+import CertificateCard from "../components/cards/CertificateCard.jsx";
+import Slider from "../components/Slider.jsx";
+import { useNavigation } from '../context/navigationContext.jsx';
 
 function Certificates() {
     const { navigationRefs } = useNavigation();

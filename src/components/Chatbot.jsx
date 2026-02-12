@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useState, useRef, useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
 import ReactMarkdown from "react-markdown";
+import { ENV } from '../config/env.js';
 
 function Chatbot() {
 
@@ -39,7 +40,7 @@ function Chatbot() {
             .post(
                 "https://queryforge-8cgm.onrender.com/api/v1/bot/ask"
                 , {
-                    qnaCode: import.meta.env.VITE_QUERY_FORGE_API,
+                    qnaCode: ENV.QUERY_FORGE_API,
                     question: question,
                 }
             )
@@ -65,7 +66,7 @@ function Chatbot() {
                 <div className='flex flex-col bg-gray-300 dark:bg-gray-700 text-white dark:text-black border-2 border-gray-500 p-4 rounded-xl shadow-2xl w-[calc(100vw-48px)] sm:w-[400px] md:w-[500px] lg:w-[600px] h-[500px] max-h-[70vh] gap-2 transition-all duration-300 transform scale-100 origin-bottom-right'>
                     <div ref={chatContainerRef} className='flex flex-col w-full flex-grow overflow-y-auto no-scrollbar gap-3 p-1'>
                         <div className="flex flex-start w-full gap-2">
-                            <img className='h-8 w-8 md:h-10 md:w-10 border rounded-full shrink-0' src="/Images/chatbot_logo_3.jpg" alt="Charlotte" />
+                            <img className='h-8 w-8 md:h-10 md:w-10 border rounded-full shrink-0' src="/Images/chatbot_logo_2.jpg" alt="Charlotte" />
                             <div className='max-w-[85%] text-left h-max rounded-2xl bg-gray-200 dark:bg-gray-800 text-black dark:text-white py-2 px-4 text-sm md:text-base shadow-sm'>
                                 Hi I'm Charlotte, You can ask me anything regarding Ashok Bhatt and his coding journey
                             </div>
@@ -73,7 +74,7 @@ function Chatbot() {
 
                         {chat.map((chatItem) => (
                             <div className="flex w-full gap-2" style={{ flexDirection: chatItem.role == "user" ? "row-reverse" : "row" }} key={uuid()}>
-                                <img className='h-8 w-8 md:h-10 md:w-10 border rounded-full shrink-0' src={chatItem.role == "bot" ? "/Images/chatbot_logo_3.jpg" : "/Images/coder_logo.png"} alt="Role Image" />
+                                <img className='h-8 w-8 md:h-10 md:w-10 border rounded-full shrink-0' src={chatItem.role == "bot" ? "/Images/chatbot_logo_2.jpg" : "/Images/coder_logo.png"} alt="Role Image" />
                                 <div className={`max-w-[85%] h-max rounded-2xl py-2 px-4 text-sm md:text-base shadow-sm ${chatItem.role === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-800 text-black dark:text-white'}`}>
                                     <ReactMarkdown className="prose prose-sm dark:prose-invert max-w-none">{chatItem.text}</ReactMarkdown>
                                 </div>
@@ -82,7 +83,7 @@ function Chatbot() {
 
                         {responseLoading && (
                             <div className="flex flex-start w-full gap-2">
-                                <img className='h-8 w-8 md:h-10 md:w-10 border rounded-full shrink-0' src="/Images/chatbot_logo_3.jpg" alt="Charlotte" />
+                                <img className='h-8 w-8 md:h-10 md:w-10 border rounded-full shrink-0' src="/Images/chatbot_logo_2.jpg" alt="Charlotte" />
                                 <div className='max-w-[85%] text-left h-max rounded-2xl bg-gray-200 dark:bg-gray-800 text-black dark:text-white py-2 px-4 shadow-sm text-sm'>
                                     Loading{".".repeat(loadingDotsCount)}
                                     {Array.from({ length: 3 - loadingDotsCount }, () => "\u00A0").join("")}

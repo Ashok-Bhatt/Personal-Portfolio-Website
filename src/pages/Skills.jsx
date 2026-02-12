@@ -1,8 +1,8 @@
 import { FaLaptopCode } from 'react-icons/fa';
-import SkillBlock from './SkillBlock';
+import SkillCard from '../components/cards/SkillCard';
 import { useEffect, useState } from 'react';
-import { skills } from '../Constants';
-import { useNavigation } from '../Context/navigationContext.jsx';
+import { skills } from '../constants/index.js';
+import { useNavigation } from '../context/navigationContext.jsx';
 
 function Skills() {
   const { navigationRefs } = useNavigation();
@@ -55,7 +55,7 @@ function Skills() {
               }}
             >
               {skillGroup[1].map((skill, skillNo) => (
-                <SkillBlock
+                <SkillCard
                   skillName={skill.name}
                   xPos={size / 2 + (Math.cos(2 * Math.PI * skillNo / skillGroup[1].length + angleBuffer * (groupNo % 2 == 0 ? 1 : -1))).toFixed(6) * size / 2}
                   yPos={size / 2 + (Math.sin(2 * Math.PI * skillNo / skillGroup[1].length + angleBuffer * (groupNo % 2 == 0 ? 1 : -1))).toFixed(6) * size / 2}

@@ -1,15 +1,15 @@
 import React from 'react'
-import OpenWebsite from './OpenWebsite';
-import { useGithubData } from '../Hooks/useCodingProfiles.js';
-import MessageBox from './MessageBox.jsx';
-import SubmissionHeatmap from './SubmissionHeatmap.jsx';
-import { GITHUB_DATA_REFRESH_INTERVAL } from '../Constants';
+import OpenWebsite from '../../OpenWebsite';
+import { useGithubData } from '../../../hooks/useCodingProfiles.js';
+import MessageBox from '../../MessageBox.jsx';
+import SubmissionHeatmap from '../SubmissionHeatmap.jsx';
+import { REFRESH_INTERVAL } from '../../../constants/index.js';
 import { useEffect } from 'react';
-import { getStreaksAndActiveDays } from '../Utils/calendar.js';
-import ContributionCard from './ContributionCard.jsx';
-import LanguageStatsCard from './LanguageStatsCard.jsx';
-import PlatformStatsCard from './PlatformStatsCard.jsx';
-import Slider from './Slider.jsx';
+import { getStreaksAndActiveDays } from '../../../utils/calendar.js';
+import ContributionCard from '../../cards/ContributionCard.jsx';
+import LanguageStatsCard from '../../cards/LanguageStatsCard.jsx';
+import PlatformStatsCard from '../../cards/PlatformStatsCard.jsx';
+import Slider from '../../Slider.jsx';
 import GithubBadge from './GithubBadge.jsx';
 import { GoStar, GoGitCommit, GoGitPullRequest, GoIssueOpened } from "react-icons/go";
 import { useState } from 'react';
@@ -24,7 +24,7 @@ function GitHub() {
   // Persistence Logic
   useEffect(() => {
     const isMissing = !localStorage.getItem("githubData");
-    const isStale = (Date.now() - Number(localStorage.getItem("githubLastRefresh"))) > GITHUB_DATA_REFRESH_INTERVAL;
+    const isStale = (Date.now() - Number(localStorage.getItem("githubLastRefresh"))) > REFRESH_INTERVAL.GITHUB;
 
     if (isMissing || isStale) {
       refetchData();

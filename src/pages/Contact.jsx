@@ -2,9 +2,9 @@ import { MdOutlineMail, MdOutlineLocalPhone, MdOutlineLocationOn, MdCopyAll } fr
 import { FaPaperPlane } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { ToastContainer, Zoom } from 'react-toastify';
-import { useNavigation } from '../Context/navigationContext.jsx';
-import { showSuccessToast, showErrorToast } from "../Utils/toastUtils.js"
-import { useContactMutation } from "../Hooks/useContact.js";
+import { useNavigation } from '../context/navigationContext.jsx';
+import { showSuccessToast, showErrorToast } from "../utils/toastUtils.js"
+import { useContactMutation } from "../hooks/useContact.js";
 
 function Contact() {
     const { navigationRefs } = useNavigation();

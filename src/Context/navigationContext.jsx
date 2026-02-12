@@ -1,5 +1,5 @@
 import { createContext, useContext, useRef, useState, useEffect } from "react";
-import { navigation } from "../Constants/index.js";
+import { navigation } from "../constants/index.js";
 
 const NavigationContext = createContext();
 

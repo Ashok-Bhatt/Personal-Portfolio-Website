@@ -1,5 +1,5 @@
 import { FaUser } from "react-icons/fa";
-import { useNavigation } from "../Context/navigationContext.jsx"
+import { useNavigation } from "../context/navigationContext.jsx"
 
 function About() {
 

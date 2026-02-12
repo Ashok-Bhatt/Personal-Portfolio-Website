@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { FaLaptopCode } from 'react-icons/fa';
-import ProjectBlock from './ProjectBlock';
-import { projects } from '../Constants';
-import Slider from './Slider';
-import { useNavigation } from '../Context/navigationContext.jsx';
+import ProjectCard from '../components/cards/ProjectCard';
+import { projects } from '../constants/index.js';
+import Slider from '../components/Slider';
+import { useNavigation } from '../context/navigationContext.jsx';
 
 function Projects() {
     const { navigationRefs } = useNavigation();
@@ -19,7 +19,7 @@ function Projects() {
                 <Slider
                     cards={
                         projects.map((_, index) => (
-                            <ProjectBlock project={projects[index]} key={index} isActive={index === projectPointer} />
+                            <ProjectCard project={projects[index]} key={index} isActive={index === projectPointer} />
                         ))
                     }
                     cardClasses="w-full max-w-[320px] md:max-w-[400px] lg:max-w-[500px] p-1 sm:p-2 md:p-4"

@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import Contests from './Contests';
-import ContributionCard from './ContributionCard';
-import ProblemsBlock from './ProblemsBlock';
-import OpenWebsite from './OpenWebsite';
+import Contests from '../Contests';
+import ContributionCard from '../../cards/ContributionCard';
+import ProblemsCard from '../../cards/ProblemsCard';
+import OpenWebsite from '../../OpenWebsite';
 import Code360Badge from './Code360Badge';
-import Slider from './Slider';
-import MessageBox from './MessageBox.jsx';
-import { useCode360Data } from '../Hooks/useCodingProfiles.js';
-import SubmissionHeatmap from './SubmissionHeatmap.jsx';
-import { getStreaksAndActiveDays } from '../Utils/calendar.js';
-import { CODE360_DATA_REFRESH_INTERVAL } from '../Constants';
+import Slider from '../../Slider';
+import MessageBox from '../../MessageBox.jsx';
+import { useCode360Data } from '../../../hooks/useCodingProfiles.js';
+import SubmissionHeatmap from '../SubmissionHeatmap.jsx';
+import { getStreaksAndActiveDays } from '../../../utils/calendar.js';
+import { REFRESH_INTERVAL } from '../../../constants/index.js';
 
 function Code360() {
     const userName = "AshokBhatt";
@@ -21,7 +21,7 @@ function Code360() {
     // Persistence Logic
     useEffect(() => {
         const isMissing = !localStorage.getItem("code360Data");
-        const isStale = (Date.now() - Number(localStorage.getItem("code360LastRefresh"))) > CODE360_DATA_REFRESH_INTERVAL;
+        const isStale = (Date.now() - Number(localStorage.getItem("code360LastRefresh"))) > REFRESH_INTERVAL.CODE360;
 
         if (isMissing || isStale) {
             refetchData();
@@ -114,7 +114,7 @@ function Code360() {
                 <OpenWebsite text={"Open Website"} link={`https://www.naukri.com/code360/profile/${userName}`} />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow h-full p-4 md:p-6 bg-gray-100 dark:bg-gray-900 overflow-y-auto">
-                <ProblemsBlock
+                <ProblemsCard
                     problemsCount={[
                         { "problemsTag": "Easy", "setColor": "#28C244", "solvedProblems": getProblemCount("Easy"), "totalProblems": 0 },
                         { "problemsTag": "Moderate", "setColor": "#FFB700", "solvedProblems": getProblemCount("Moderate"), "totalProblems": 0 },

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigation } from "../Context/navigationContext.jsx";
+import { useNavigation } from "../context/navigationContext.jsx";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 function Navbar() {

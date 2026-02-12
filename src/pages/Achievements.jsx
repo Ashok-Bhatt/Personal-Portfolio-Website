@@ -1,10 +1,9 @@
-
 import React, { useState } from 'react';
 import { GrAchievement } from "react-icons/gr";
-import AchievementBlock from './AchievementBlock';
-import { achievements } from '../Constants';
-import Slider from './Slider';
-import { useNavigation } from '../Context/navigationContext.jsx';
+import AchievementCard from '../components/cards/AchievementCard';
+import { achievements } from '../constants/index.js';
+import Slider from '../components/Slider';
+import { useNavigation } from '../context/navigationContext.jsx';
 
 function Achievements() {
     const { navigationRefs } = useNavigation();
@@ -21,7 +20,7 @@ function Achievements() {
                 <Slider
                     cards={
                         achievements.sort((x, y) => (x.date - y.date)).map((_, index) => (
-                            <AchievementBlock achievement={achievements[index]} key={`ach-${index}`} isMiddle={achievementPointer == index ? true : false} />
+                            <AchievementCard achievement={achievements[index]} key={`ach-${index}`} isMiddle={achievementPointer == index ? true : false} />
                         ))
                     }
                     cardClasses="w-full max-w-[280px] md:max-w-sm p-1 sm:p-2 md:p-4"

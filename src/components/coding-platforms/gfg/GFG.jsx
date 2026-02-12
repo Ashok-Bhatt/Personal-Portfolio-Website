@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import ProblemsBlock from './ProblemsBlock';
-import OpenWebsite from './OpenWebsite.jsx';
-import ContributionCard from './ContributionCard.jsx';
-import MessageBox from './MessageBox.jsx';
-import { useGfgData } from '../Hooks/useCodingProfiles.js';
-import SubmissionHeatmap from './SubmissionHeatmap.jsx';
-import { getStreaksAndActiveDays } from '../Utils/calendar.js';
-import { GFG_DATA_REFRESH_INTERVAL } from '../Constants';
+import ProblemsCard from '../../cards/ProblemsCard';
+import OpenWebsite from '../../OpenWebsite.jsx';
+import ContributionCard from '../../cards/ContributionCard.jsx';
+import MessageBox from '../../MessageBox.jsx';
+import { useGfgData } from '../../../hooks/useCodingProfiles.js';
+import SubmissionHeatmap from '../SubmissionHeatmap.jsx';
+import { getStreaksAndActiveDays } from '../../../utils/calendar.js';
+import { REFRESH_INTERVAL } from '../../../constants/index.js';
 
 function GFG() {
 
@@ -18,7 +18,7 @@ function GFG() {
     // Persistence Logic
     useEffect(() => {
         const isMissing = !localStorage.getItem("gfgData");
-        const isStale = (Date.now() - Number(localStorage.getItem("gfgLastRefresh"))) > GFG_DATA_REFRESH_INTERVAL;
+        const isStale = (Date.now() - Number(localStorage.getItem("gfgLastRefresh"))) > REFRESH_INTERVAL.GFG;
 
         if (isMissing || isStale) {
             refetchData();
@@ -58,7 +58,7 @@ function GFG() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow p-4 md:p-6 bg-gray-100 dark:bg-gray-900 overflow-y-auto">
                 <div className="col-span-1">
-                    <ProblemsBlock className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl"
+                    <ProblemsCard className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl"
                         problemsCount={[
                             { "problemsTag": "School", "setColor": "#C8FE5E", "solvedProblems": getSolvedCount("School") + getSolvedCount("Basic"), "totalProblems": 0 },
                             { "problemsTag": "Easy", "setColor": "#28C244", "solvedProblems": getSolvedCount("Easy"), "totalProblems": 0 },

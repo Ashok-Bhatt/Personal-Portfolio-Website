@@ -1,14 +1,14 @@
 import axios from "axios";
+import { ENV } from "../config/env.js";
 
 // Helper for GitHub GraphQL queries
 const githubGraphQlQuery = async (query, variables = {}) => {
-    const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
     try {
         const response = await axios.post("https://api.github.com/graphql",
             { query, variables },
             {
                 headers: {
-                    Authorization: `token ${GITHUB_TOKEN}`,
+                    Authorization: `token ${ENV.GITHUB_TOKEN}`,
                     Accept: "application/vnd.github+json"
                 }
             }
@@ -22,11 +22,10 @@ const githubGraphQlQuery = async (query, variables = {}) => {
 
 // Helper for GitHub REST API queries
 const githubRestApiQuery = async (endpoint) => {
-    const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
     try {
         const response = await axios.get(`https://api.github.com/${endpoint}`, {
             headers: {
-                Authorization: GITHUB_TOKEN ? `token ${GITHUB_TOKEN}` : "",
+                Authorization: `token ${ENV.GITHUB_TOKEN}`,
                 Accept: "application/vnd.github+json",
             }
         });

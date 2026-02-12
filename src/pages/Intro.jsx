@@ -4,7 +4,7 @@ import { FaGithub } from "react-icons/fa";
 import { SiGeeksforgeeks } from "react-icons/si";
 import { SiLeetcode } from "react-icons/si";
 import { BsTwitterX } from "react-icons/bs";
-import { useNavigation } from '../Context/navigationContext.jsx';
+import { useNavigation } from '../context/navigationContext.jsx';
 
 function Intro() {
 

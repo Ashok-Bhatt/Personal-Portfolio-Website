@@ -1,12 +1,12 @@
 
 import React, { useState } from 'react';
 import { FaLaptopCode } from "react-icons/fa";
-import Leetcode from './Leetcode';
-import GFG from "./GFG";
-import GitHub from './GitHub';
-import Code360 from './Code360';
-import Sidebar from './Sidebar';
-import { useNavigation } from '../Context/navigationContext.jsx';
+import Leetcode from '../components/coding-platforms/leetcode/Leetcode';
+import GFG from "../components/coding-platforms/gfg/GFG";
+import GitHub from '../components/coding-platforms/github/GitHub';
+import Code360 from '../components/coding-platforms/code360/Code360';
+import Sidebar from '../components/coding-platforms/Sidebar';
+import { useNavigation } from '../context/navigationContext.jsx';
 
 function CodingProfiles() {
     const { navigationRefs } = useNavigation();

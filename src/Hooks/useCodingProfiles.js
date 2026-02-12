@@ -1,17 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { GITHUB_API_QUERIES } from '../Constants/github.js';
-import { getPolishedGithubHeatmap } from '../Utils/calendar.js';
-import { githubGraphQlQuery, githubRestApiQuery } from '../Utils/githubApi.js';
+import { GITHUB_API_QUERIES } from '../constants/github.js';
+import { getPolishedGithubHeatmap } from '../utils/calendar.js';
+import { githubGraphQlQuery, githubRestApiQuery } from '../utils/githubApi.js';
+import { ENV } from '../config/env.js';
+import { REFRESH_INTERVAL } from '../constants/index.js';
 
 const SCRAPE_SPIDEY_URL_V1 = "https://scrape-spidey.onrender.com/api/v1";
 const SCRAPE_SPIDEY_URL_V2 = "https://scrape-spidey.onrender.com/api/v2";
-const SCRAPE_SPIDEY_KEY = import.meta.env.VITE_SCRAPE_SPIDEY_KEY;
+const SCRAPE_SPIDEY_KEY = ENV.SCRAPE_SPIDEY_KEY;
 const CODING_PROFILES_START_YEAR = 2022;
-const GFG_DATA_REFRESH_INTERVAL = 6 * 60 * 60 * 1000;
-const CODE360_DATA_REFRESH_INTERVAL = 6 * 60 * 60 * 1000;
-const LEETCODE_DATA_REFRESH_INTERVAL = 6 * 60 * 60 * 1000;
-const GITHUB_DATA_REFRESH_INTERVAL = 6 * 60 * 60 * 1000;
 
 // Hook for GFG data
 export const useGfgData = (userName) => {
@@ -37,7 +35,7 @@ export const useGfgData = (userName) => {
                 submissions: submissionData
             };
         },
-        staleTime: GFG_DATA_REFRESH_INTERVAL
+        staleTime: REFRESH_INTERVAL.GFG
     });
 };
 
@@ -82,7 +80,7 @@ export const useLeetcodeData = (userName) => {
                 default: false,
             };
         },
-        staleTime: LEETCODE_DATA_REFRESH_INTERVAL
+        staleTime: REFRESH_INTERVAL.LEETCODE
     });
 };
 
@@ -109,7 +107,7 @@ export const useCode360Data = (userName) => {
                 submissions: submissionData
             };
         },
-        staleTime: CODE360_DATA_REFRESH_INTERVAL
+        staleTime: REFRESH_INTERVAL.CODE360
     });
 };
 
@@ -203,6 +201,6 @@ export const useGithubData = (userName) => {
                 totalStarsAndForks
             };
         },
-        staleTime: GITHUB_DATA_REFRESH_INTERVAL,
+        staleTime: REFRESH_INTERVAL.GITHUB,
     });
 };
