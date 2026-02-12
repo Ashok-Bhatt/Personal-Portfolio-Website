@@ -6,7 +6,7 @@ const ContributionCard = ({
     currentStreak,
     maxStreak,
     totalContributions,
-    containerClasses = "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl",
+    containerClasses,
     titleClasses = "text-blue-500 font-bold",
     statsClasses = "text-black dark:text-white"
 }) => {
@@ -55,7 +55,7 @@ const ContributionCard = ({
     return (
         <div className={classNames(
             containerClasses,
-            "w-full flex items-center justify-between py-2 sm:py-4 px-1 sm:px-2 shadow-sm transition-all h-full overflow-hidden"
+            "w-full flex items-center justify-between py-2 sm:py-4 px-1 sm:px-2 shadow-sm transition-all h-full overflow-hidden bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl"
         )}>
             {/* Total Contributions */}
             <StatItem data={totalContributions} />

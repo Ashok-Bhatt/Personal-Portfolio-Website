@@ -1,5 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { GITHUB_API_QUERIES } from '../Constants/github.js';
+import { getPolishedGithubHeatmap } from '../Utils/calendar.js';
+import { githubGraphQlQuery, githubRestApiQuery } from '../Utils/githubApi.js';
 
 const SCRAPE_SPIDEY_URL_V1 = "https://scrape-spidey.onrender.com/api/v1";
 const SCRAPE_SPIDEY_URL_V2 = "https://scrape-spidey.onrender.com/api/v2";
@@ -115,15 +118,89 @@ export const useGithubData = (userName) => {
     return useQuery({
         queryKey: ['githubData', userName],
         queryFn: async () => {
-            const res = await axios.get(`https://api.github.com/users/${userName}`);
-            const data = res.data;
+
+            // 1. Fetch Basic Profile
+            const profile = await githubRestApiQuery(`users/${userName}`);
+            if (!profile) throw new Error("GitHub profile not found");
+
+            // 2. Fetch Badges from ScrapeSpidey
+            const badgesRes = await axios.get(`${SCRAPE_SPIDEY_URL_V1}/github/user/badges?user=${userName}&apiKey=${SCRAPE_SPIDEY_KEY}`).catch(() => ({ data: [] }));
+            const badges = badgesRes.data;
+
+            // 3. Fetch All Repos (Handle Pagination)
+            let repos = [];
+            let page = 1;
+            while (true) {
+                const reposData = await githubRestApiQuery(`users/${userName}/repos?per_page=100&page=${page}`);
+                if (!reposData || reposData.length === 0) break;
+                repos = [...repos, ...reposData];
+                if (reposData.length < 100) break;
+                page++;
+            }
+
+            // 4. Calculate Stars and Forks
+            const totalStarsAndForks = repos.reduce((acc, repo) => ({
+                stars: acc.stars + repo.stargazers_count,
+                forks: acc.forks + repo.forks_count
+            }), { stars: 0, forks: 0 });
+
+            // 5. Language Stats
+            const languageStats = {};
+            const repoLanguages = await Promise.all(
+                repos.map(async (repo) => {
+                    const endpoint = repo.languages_url.replace("https://api.github.com/", "");
+                    return await githubRestApiQuery(endpoint).then(data => data || {}).catch(() => ({}));
+                })
+            );
+
+            repoLanguages.forEach(stats => {
+                Object.entries(stats).forEach(([lang, bytes]) => {
+                    languageStats[lang] = (languageStats[lang] || 0) + bytes;
+                });
+            });
+
+            // 6. Multi-year Contributions and Submissions (GraphQL)
+            const startYear = new Date(profile.created_at).getFullYear();
+            const currentYear = new Date().getFullYear();
+            const years = Array.from({ length: currentYear - startYear + 1 }, (_, i) => startYear + i);
+
+            const contributions = { pullRequestsCount: 0, issuesCount: 0, commitsCount: 0, pullRequestReviewsCount: 0, repositoriesCount: 0, restrictedContributionsCount: 0 };
+            const submissions = {};
+
+            const contributionPromises = years.map(async (year) => {
+                const from = `${year}-01-01T00:00:00Z`;
+                const to = `${year}-12-31T23:59:59Z`;
+
+                const [countData, submissionData] = await Promise.all([
+                    githubGraphQlQuery(GITHUB_API_QUERIES.GITHUB_CONTRIBUTION_COUNT_QUERY, { username: userName, from, to }),
+                    githubGraphQlQuery(GITHUB_API_QUERIES.GITHUB_YEARLY_CONTRIBUTION_CALENDAR_QUERY, { username: userName, from, to })
+                ]);
+
+                if (countData?.data?.user?.contributionsCollection) {
+                    const collection = countData.data.user.contributionsCollection;
+                    contributions.pullRequestsCount += collection.pullRequestContributions.totalCount;
+                    contributions.issuesCount += collection.issueContributions.totalCount;
+                    contributions.commitsCount += collection.totalCommitContributions;
+                    contributions.pullRequestReviewsCount += collection.pullRequestReviewContributions.totalCount;
+                    contributions.repositoriesCount += collection.repositoryContributions.totalCount;
+                    contributions.restrictedContributionsCount += collection.restrictedContributionsCount;
+                }
+
+                if (submissionData?.data?.user?.contributionsCollection?.contributionCalendar) {
+                    submissions[year] = getPolishedGithubHeatmap(submissionData.data.user.contributionsCollection.contributionCalendar.weeks);
+                }
+            });
+
+            await Promise.all(contributionPromises);
+
             return {
-                ["Full Name"]: data.name,
-                ["Profile Image"]: data.avatar_url,
-                ["Public Repos"]: data.public_repos,
-                ["Followers"]: data.followers,
-                ["Followings"]: data.following,
-                ["Profile Name"]: userName
+                profile,
+                badges,
+                repos,
+                languageStats,
+                contributions,
+                submissions,
+                totalStarsAndForks
             };
         },
         staleTime: GITHUB_DATA_REFRESH_INTERVAL,

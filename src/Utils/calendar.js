@@ -1,3 +1,14 @@
+const getPolishedGithubHeatmap = (heatmap) => {
+    const polishedHeatmap = {};
+    if (!heatmap) return {};
+    heatmap.forEach(week => {
+        week.contributionDays?.forEach(day => {
+            if (day.date) polishedHeatmap[day.date] = day.contributionCount;
+        });
+    });
+    return polishedHeatmap;
+};
+
 const getStreaksAndActiveDays = (calendar) => {
 
     if (!calendar) return { currentStreak: 0, maxStreak: 0, activeDays: 0, totalContributions: 0 };
@@ -40,4 +51,5 @@ const getStreaksAndActiveDays = (calendar) => {
 
 export {
     getStreaksAndActiveDays,
+    getPolishedGithubHeatmap,
 }
