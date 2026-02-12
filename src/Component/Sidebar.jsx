@@ -7,7 +7,7 @@ const Sidebar = ({ activePlatform, setActivePlatform, platforms }) => {
                     key={item.platformName}
                     onClick={() => setActivePlatform(index)}
                     className={`flex items-center justify-center p-3 lg:p-5 rounded-xl transition-all duration-300 font-medium shrink-0 lg:w-full ${activePlatform === index
-                        ? "bg-blue-500 text-white shadow-xl scale-105"
+                        ? "bg-black dark:bg-white shadow-xl scale-105"
                         : "bg-gray-200/50 dark:bg-gray-800/50 text-gray-600 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-700"
                         }`}
                 >

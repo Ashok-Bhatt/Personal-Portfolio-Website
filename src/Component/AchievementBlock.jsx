@@ -8,7 +8,7 @@ function AchievementBlock(props) {
   const achievementDateString = `${months[achievement.date.getMonth()]} ${achievement.date.getFullYear()}`
 
   return (
-    <div className='relative flex flex-col justify-between bg-gray-50 dark:bg-gray-900 border-2 border-yellow-400 hover:border-blue-500 rounded-2xl p-6 shadow-md transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10 cursor-pointer group w-full max-w-[90vw] md:max-w-sm md:min-h-[220px] mx-auto'>
+    <div className='relative flex flex-col justify-between bg-gray-50 dark:bg-gray-900 border-2 border-yellow-400 hover:border-blue-500 rounded-2xl p-6 shadow-md transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10 cursor-pointer group w-full max-w-[90vw] md:max-w-[400px] min-h-[230px] mx-auto'>
       <img
         src={achievement.logo || "/Images/badge.png"}
         alt="Achievement Badge"

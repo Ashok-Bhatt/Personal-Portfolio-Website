@@ -6,7 +6,7 @@ function ProjectBlock(props) {
   const { project, isActive } = props;
 
   return (
-    <div className='relative aspect-[8/5] w-full max-w-[90vw] md:max-w-[500px] rounded-lg border border-gray-500 hover:cursor-pointer overflow-hidden group transition duration-300 shadow-md mx-auto'>
+    <div className='relative aspect-[7/4] w-full max-w-[90vw] md:max-w-[500px] rounded-lg border border-gray-500 hover:cursor-pointer overflow-hidden group transition duration-300 shadow-md mx-auto'>
       <img src={project.projectImage} className={`h-full w-full object-cover transition-transform duration-500 ${isActive ? 'group-hover:scale-105' : ''}`} alt={project.projectName} />
       <div className={`absolute bottom-0 w-full translate-y-full ${isActive ? 'group-hover:translate-y-0' : ''} transition-transform duration-500`}>
         <div className='flex absolute bottom-full w-full h-[50px] md:h-16 bg-yellow-300/90 text-black text-lg md:text-xl font-bold justify-center items-center shadow-inner z-10'>{project.projectName}</div>

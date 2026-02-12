@@ -148,7 +148,6 @@ const SubmissionHeatmap = ({
     calendar,
     className,
     containerClasses = "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl",
-    titleClasses = "text-blue-500 font-bold",
     statsClasses = "text-black dark:text-white"
 }) => {
     const [selectedYear, setSelectedYear] = useState(null);
@@ -189,24 +188,20 @@ const SubmissionHeatmap = ({
     }
 
     return (
-        <div className={classNames("flex flex-col p-4 md:p-6 shadow-sm transition-all w-full", containerClasses, className)}>
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 pb-4 border-b border-gray-100 dark:border-gray-700 gap-4">
+        <div className={classNames("flex flex-col p-2 md:p-3 shadow-sm transition-all w-full", containerClasses, className)}>
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-3 pb-2 border-b border-gray-100 dark:border-gray-700 gap-4">
                 <div className="flex flex-wrap gap-4 sm:gap-8 text-sm font-bold">
-                    <div className="flex flex-col">
-                        <span className="text-gray-400 dark:text-gray-500 text-[10px] uppercase tracking-wider">Total</span>
-                        <span className={classNames(statsClasses, "text-lg md:text-xl")}>{globalStats.totalSubmissions}</span>
-                    </div>
-                    <div className="flex flex-col">
-                        <span className="text-gray-400 dark:text-gray-500 text-[10px] uppercase tracking-wider">{selectedYear}</span>
+                    <div className="flex flex-col items-center">
+                        <span className="text-gray-400 dark:text-gray-500 text-[10px] uppercase tracking-wider">Submissions</span>
                         <span className={classNames(statsClasses, "text-lg md:text-xl")}>{currentYearTotal}</span>
                     </div>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col items-center">
                         <span className="text-gray-400 dark:text-gray-500 text-[10px] uppercase tracking-wider">Max Streak</span>
-                        <span className="text-orange-500 text-lg md:text-xl">{globalStats.maxStreak}</span>
+                        <span className="text-lg md:text-xl">{globalStats.maxStreak}</span>
                     </div>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col items-center">
                         <span className="text-gray-400 dark:text-gray-500 text-[10px] uppercase tracking-wider">Current Streak</span>
-                        <span className="text-orange-500 text-lg md:text-xl">{globalStats.currentStreak}</span>
+                        <span className="text-lg md:text-xl">{globalStats.currentStreak}</span>
                     </div>
                 </div>
 
