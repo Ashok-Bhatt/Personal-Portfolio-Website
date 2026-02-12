@@ -15,11 +15,11 @@ function ProjectBlock(props) {
             {project.description}
           </div>
           <div className='flex justify-between items-center gap-x-4'>
-            <div className="flex flex-1 items-center justify-center gap-x-2 bg-blue-500 text-white py-2 px-4 hover:cursor-pointer rounded-lg font-semibold transition-colors" onClick={(e) => { e.stopPropagation(); window.location.href = project.liveLink }} style={{ display: project.liveLink == "" ? 'none' : 'flex' }}>
+            <div className="flex flex-1 items-center justify-center gap-x-2 bg-blue-500 text-white py-2 px-4 hover:cursor-pointer rounded-lg font-semibold transition-colors" onClick={(e) => { e.stopPropagation(); window.open(project.liveLink, "_blank") }} style={{ display: project.liveLink == "" ? 'none' : 'flex' }}>
               <IoEyeSharp />
               <span>Live</span>
             </div>
-            <div className="flex flex-1 items-center justify-center gap-x-2 bg-gray-800 dark:bg-gray-200 text-white dark:text-black py-2 px-4 hover:cursor-pointer rounded-lg font-semibold transition-colors" onClick={(e) => { e.stopPropagation(); window.location.href = project.repoLink }}>
+            <div className="flex flex-1 items-center justify-center gap-x-2 bg-gray-800 dark:bg-gray-200 text-white dark:text-black py-2 px-4 hover:cursor-pointer rounded-lg font-semibold transition-colors" onClick={(e) => { e.stopPropagation(); window.open(project.repoLink, "_blank") }}>
               <FaCode />
               <span>Code</span>
             </div>

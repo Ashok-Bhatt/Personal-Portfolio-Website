@@ -52,23 +52,23 @@ function Intro() {
                     <p className='text-blue-500 font-semibold'>{description && descriptionPointer ? description[descriptionPointer[0]].slice(0, descriptionPointer[1] + 1) + " |" : ""}</p>
                 </div>
                 <div className='flex gap-x-4 mt-5'>
-                    <div className={`${iconDivStyle}`} onClick={() => window.location.href = "https://www.linkedin.com/in/ashokbhatt2048/"}>
+                    <div className={`${iconDivStyle}`} onClick={() => window.open("https://www.linkedin.com/in/ashokbhatt2048/", "_blank")}>
                         <FaLinkedin className={`${iconStyle}`} />
                     </div>
-                    <div className={`${iconDivStyle}`} onClick={() => window.location.href = "https://github.com/Ashok-Bhatt/"}>
+                    <div className={`${iconDivStyle}`} onClick={() => window.open("https://github.com/Ashok-Bhatt/", "_blank")}>
                         <FaGithub className={`${iconStyle}`} />
                     </div>
-                    <div className={`${iconDivStyle}`} onClick={() => window.location.href = "https://www.geeksforgeeks.org/user/ashokbhacjou/"}>
+                    <div className={`${iconDivStyle}`} onClick={() => window.open("https://www.geeksforgeeks.org/user/ashokbhacjou/", "_blank")}>
                         <SiGeeksforgeeks className={`${iconStyle}`} />
                     </div>
-                    <div className={`${iconDivStyle}`} onClick={() => window.location.href = "https://leetcode.com/u/ashokbhatt2048/"}>
+                    <div className={`${iconDivStyle}`} onClick={() => window.open("https://leetcode.com/u/ashokbhatt2048/", "_blank")}>
                         <SiLeetcode className={`${iconStyle}`} />
                     </div>
-                    <div className={`${iconDivStyle}`} onClick={() => window.location.href = "https://x.com/AshokBhatt619"}>
+                    <div className={`${iconDivStyle}`} onClick={() => window.open("https://x.com/AshokBhatt619", "_blank")}>
                         <BsTwitterX className={`${iconStyle}`} />
                     </div>
                 </div>
-                <div className='bg-green-400 text-gray-900 mt-8 py-3 px-10 hover:cursor-pointer rounded-xl text-lg font-bold hover:bg-green-300 transition-colors' onClick={() => window.location.href = "https://drive.google.com/file/d/1K3UYAB9CjsQTzWY60D-TTFwos34uE3qW/view?usp=drive_link"}>Resume</div>
+                <div className='bg-green-400 text-gray-900 mt-8 py-3 px-10 hover:cursor-pointer rounded-xl text-lg font-bold hover:bg-green-300 transition-colors' onClick={() => window.open("https://drive.google.com/file/d/1K3UYAB9CjsQTzWY60D-TTFwos34uE3qW/view?usp=drive_link", "_blank")}>Resume</div>
             </div>
             <div className="flex justify-center items-center w-full md:w-1/2 order-1 md:order-2 mb-10 md:mb-0">
                 <img src="/Images/my_image.jpeg" alt="coder image" className='rounded-full w-48 h-48 md:w-[300px] md:h-[300px] lg:w-[400px] lg:h-[400px] border-4 border-blue-500/10 object-cover shadow-2xl' />
