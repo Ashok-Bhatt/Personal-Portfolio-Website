@@ -1,7 +1,7 @@
 export const skills = {
     "Programming Languages": [
         { name: "Python", logoSrc: "/Images/Skills/python_logo.png" },
-        { name: "C", logoSrc: "/Images/Skills/c_logo.png" },
+        { name: "C Language", logoSrc: "/Images/Skills/c_logo.png" },
         { name: "C++", logoSrc: "/Images/Skills/cpp_logo.png" },
         { name: "Java", logoSrc: "/Images/Skills/java_logo.png" },
         { name: "Javascript", logoSrc: "/Images/Skills/javascript_logo.png" },

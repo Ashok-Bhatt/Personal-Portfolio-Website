@@ -7,10 +7,45 @@
 
 /* Hide scrollbar for IE, Edge, and Firefox */
 .no-scrollbar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
-body{
+body {
     user-select: none;
+}
+
+/* Marquee Animations */
+.animate-marquee-left {
+    animation: marquee-left 40s linear infinite;
+}
+
+.animate-marquee-right {
+    animation: marquee-right 40s linear infinite;
+}
+
+.pause-on-hover:hover {
+    animation-play-state: paused;
+}
+
+@keyframes marquee-left {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes marquee-right {
+    0% {
+        transform: translateX(-50%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
 }
