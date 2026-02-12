@@ -7,7 +7,7 @@ import { useNavigation } from '../context/navigationContext.jsx';
 
 function Achievements() {
     const { navigationRefs } = useNavigation();
-    const [achievementPointer, setAchievementPointer] = useState(0);
+    const [achievementPointer, setAchievementPointer] = useState(1);
 
     return (
         <div className='flex flex-col w-full gap-y-10 bg-gray-100 dark:bg-gray-900 py-20 px-6 box-border z-5' id="achievements" ref={el => (navigationRefs.current["achievements"] = el)}>

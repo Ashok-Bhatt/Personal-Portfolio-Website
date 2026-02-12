@@ -7,7 +7,7 @@ import { useNavigation } from '../context/navigationContext.jsx';
 
 function Projects() {
     const { navigationRefs } = useNavigation();
-    const [projectPointer, setProjectPointer] = useState(0);
+    const [projectPointer, setProjectPointer] = useState(1);
 
     return (
         <div className='flex flex-col w-full gap-y-10 bg-gray-100 dark:bg-gray-900 py-20 px-6 box-border z-5' id="projects" ref={el => (navigationRefs.current["projects"] = el)}>

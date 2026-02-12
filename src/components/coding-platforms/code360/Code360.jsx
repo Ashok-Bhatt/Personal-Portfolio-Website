@@ -15,7 +15,7 @@ function Code360() {
     const userName = "AshokBhatt";
     const cachedData = JSON.parse(localStorage.getItem("code360Data"));
     const { data: refreshedData, isLoading: loading, refetch: refetchData } = useCode360Data(userName);
-    const [badgePointer, setBadgePointer] = useState(0);
+    const [badgePointer, setBadgePointer] = useState(1);
     const [badges, setBadges] = useState([]);
 
     // Persistence Logic

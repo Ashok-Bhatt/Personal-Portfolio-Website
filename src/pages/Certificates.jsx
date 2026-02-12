@@ -1,4 +1,3 @@
-
 import { LiaCertificateSolid } from "react-icons/lia";
 import { useState } from 'react';
 import { certificates } from "../constants/index.js";
@@ -8,7 +7,7 @@ import { useNavigation } from '../context/navigationContext.jsx';
 
 function Certificates() {
     const { navigationRefs } = useNavigation();
-    const [certificatePointer, setCertificatePointer] = useState(0);
+    const [certificatePointer, setCertificatePointer] = useState(1);
 
     return (
         <div className='flex flex-col w-full hover:cursor-pointer gap-y-10 bg-white dark:bg-black py-20 px-6 z-5 box-border' id="certificates" ref={el => (navigationRefs.current["certificates"] = el)}>
@@ -20,7 +19,7 @@ function Certificates() {
                 <Slider
                     cards={
                         certificates.map((_, index) => (
-                            <CertificateBlock certificate={certificates[index]} key={`cert-${index}`} eventListeners={index == certificatePointer} />
+                            <CertificateCard certificate={certificates[index]} key={`cert-${index}`} eventListeners={index == certificatePointer} />
                         ))
                     }
                     cardClasses="w-full max-w-[280px] md:max-w-sm p-1 sm:p-2 md:p-4"

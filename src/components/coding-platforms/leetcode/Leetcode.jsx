@@ -16,7 +16,7 @@ function Leetcode() {
     const userName = "ashokbhatt2048";
     const cachedData = JSON.parse(localStorage.getItem("leetcodeData"));
     const { data: refreshedData, isLoading: loading, refetch: refetchData } = useLeetcodeData(userName);
-    const [badgePointer, setBadgePointer] = useState(0);
+    const [badgePointer, setBadgePointer] = useState(1);
 
     // Issue 1 Fix: Move refetch into useEffect
     useEffect(() => {

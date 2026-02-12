@@ -40,8 +40,6 @@ function GitHub() {
 
   const userData = refreshedData || cachedData;
 
-  console.log(userData);
-
   const { currentStreak, maxStreak, activeDays, totalContributions } = getStreaksAndActiveDays(userData.submissions)
 
   if (loading && !userData) return <MessageBox text="Loading..." textClassname="text-gray-600 dark:text-gray-300" />;
