@@ -43,7 +43,7 @@ function ProblemsBlock(props) {
                         className={classNames(progressBarClassName, "flex justify-center items-center h-28 w-28 md:h-32 md:w-32 p-2 rounded-full border border-gray-500 aspect-square shrink-0")}
                         style={{ background: progressClass }}
                     >
-                        <div className={classNames(progressBodyClassName, "flex flex-col justify-center items-center h-full w-full rounded-full border border-gray-500 bg-white dark:bg-black text-[10px] md:text-xs text-center font-bold")}>
+                        <div className={classNames(progressBodyClassName, "flex flex-col justify-center items-center h-full w-full rounded-full border border-gray-500 bg-black text-[10px] md:text-xs text-center font-bold")}>
                             <span>{solvedProblems}</span>
                             {totalProblems !== 0 && <span className="border-t border-gray-500 w-1/2 mt-1 pt-1">{totalProblems}</span>}
                         </div>
@@ -54,10 +54,10 @@ function ProblemsBlock(props) {
                         <div className='flex flex-col w-full' key={problemsSet["problemsTag"]}>
                             <div className="flex justify-between text-lg">
                                 <p>{problemsSet["problemsTag"]}</p>
-                                {problemsCount["totalProblems"] ? (<p className='text-black dark:text-white font-semibold'>{problemsSet["solvedProblems"]} / {problemsSet["totalProblems"]}</p>) : (<p className='text-black dark:text-white font-semibold'>{problemsSet["solvedProblems"]}</p>)}
+                                {problemsCount["totalProblems"] ? (<p className='text-white font-semibold'>{problemsSet["solvedProblems"]} / {problemsSet["totalProblems"]}</p>) : (<p className='text-white font-semibold'>{problemsSet["solvedProblems"]}</p>)}
                             </div>
                             <div className='flex gap-x-2 items-center w-full'>
-                                <div className='rounded-full overflow-hidden bg-gray-200 dark:bg-gray-800' style={{ height: barHeight, width: '100%' }}>
+                                <div className='rounded-full overflow-hidden bg-gray-800' style={{ height: barHeight, width: '100%' }}>
                                     <div className='h-full' style={{ width: `${(Math.floor(problemsSet["solvedProblems"] / Math.max(1, problemsSet["totalProblems"]) * 100))}%`, backgroundColor: problemsSet["setColor"] }}></div>
                                 </div>
                             </div>

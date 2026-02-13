@@ -12,9 +12,9 @@ function Navbar() {
   };
 
   return (
-    <nav className='fixed top-0 flex justify-center w-full h-[60px] bg-gray-200 dark:bg-gray-800 text-black dark:text-white z-50 shadow-md'>
+    <nav className='fixed top-0 flex justify-center w-full h-[60px] bg-gray-800 text-white z-50 shadow-md'>
       <div className="flex justify-between items-center px-5 w-full max-w-screen-xl h-full">
-        <div className='text-2xl md:text-3xl font-bold text-black dark:text-white'>
+        <div className='text-2xl md:text-3xl font-bold text-white'>
           <span className='text-green-400'>Ashok</span> Bhatt
         </div>
 
@@ -45,7 +45,7 @@ function Navbar() {
 
         {/* Mobile Menu Overlay */}
         <div
-          className={`md:hidden fixed top-[60px] left-0 w-full bg-gray-200 dark:bg-gray-800 transition-all duration-300 ease-in-out border-t border-gray-300 dark:border-gray-700 box-border ${isOpen ? "opacity-100 visible h-auto py-5" : "opacity-0 invisible h-0 overflow-hidden"
+          className={`md:hidden fixed top-[60px] left-0 w-full bg-gray-800 transition-all duration-300 ease-in-out border-t border-gray-700 box-border ${isOpen ? "opacity-100 visible h-auto py-5" : "opacity-0 invisible h-0 overflow-hidden"
             }`}
         >
           <div className="flex flex-col items-center gap-y-4">

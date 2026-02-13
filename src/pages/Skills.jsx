@@ -48,14 +48,14 @@ function Skills() {
 
   return (
     <div
-      className="flex flex-col w-full bg-gray-100 dark:bg-gray-900 py-20 px-4 md:px-6 z-5 box-border overflow-hidden"
+      className="flex flex-col w-full bg-gray-900 py-20 px-4 md:px-6 z-5 box-border overflow-hidden"
       id="skills"
       ref={el => (navigationRefs.current["skills"] = el)}
     >
       {/* Title Section */}
       <div className="flex gap-x-3 w-full justify-center items-center mb-16">
-        <FaLaptopCode className="text-black dark:text-white text-[clamp(1.5rem,4vw,3rem)]" />
-        <h2 className="text-black dark:text-white text-[clamp(1.5rem,4vw,3rem)] font-bold text-center">
+        <FaLaptopCode className="text-white text-[clamp(1.5rem,4vw,3rem)]" />
+        <h2 className="text-white text-[clamp(1.5rem,4vw,3rem)] font-bold text-center">
           Skills & <span className="text-yellow-400">Abilities</span>
         </h2>
       </div>

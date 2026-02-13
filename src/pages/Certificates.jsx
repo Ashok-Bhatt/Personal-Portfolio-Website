@@ -10,10 +10,10 @@ function Certificates() {
     const [certificatePointer, setCertificatePointer] = useState(1);
 
     return (
-        <div className='flex flex-col w-full hover:cursor-pointer gap-y-10 bg-white dark:bg-black py-20 px-6 z-5 box-border' id="certificates" ref={el => (navigationRefs.current["certificates"] = el)}>
+        <div className='flex flex-col w-full hover:cursor-pointer gap-y-10 bg-black py-20 px-6 z-5 box-border' id="certificates" ref={el => (navigationRefs.current["certificates"] = el)}>
             <div className='flex gap-x-3 w-full justify-center items-center'>
-                <LiaCertificateSolid className='text-black dark:text-white text-xl md:text-4xl font-bold' />
-                <span className='text-black dark:text-white text-xl md:text-4xl font-bold text-center'>Certificates <span className="text-yellow-300">Obtained</span></span>
+                <LiaCertificateSolid className='text-white text-xl md:text-4xl font-bold' />
+                <span className='text-white text-xl md:text-4xl font-bold text-center'>Certificates <span className="text-yellow-300">Obtained</span></span>
             </div>
             <div className="flex relative w-full justify-center overflow-x-hidden">
                 <Slider

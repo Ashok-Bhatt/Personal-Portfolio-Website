@@ -49,19 +49,19 @@ function Contests(props) {
         <div className="flex w-full justify-between">
           {contestRating && <div>
             <p className='text-sm text-gray-500'>Contest Rating</p>
-            <p className='text-xl text-black dark:text-white'>{Math.round(contestRating)}</p>
+            <p className='text-xl text-white'>{Math.round(contestRating)}</p>
           </div>}
           {contestRanking && <div>
             <p className='text-sm text-gray-500'>Global Ranking</p>
-            <p className='text-sm text-black dark:text-white'>{contestRanking}/<span className='text-gray-300 dark:text-gray-600'>{totalParticipants}</span></p>
+            <p className='text-sm text-white'>{contestRanking}/<span className='text-gray-600'>{totalParticipants}</span></p>
           </div>}
           {contestAttended && <div>
             <p className='text-sm text-gray-500'>Attended</p>
-            <p className='text-sm text-black dark:text-white'>{contestAttended}</p>
+            <p className='text-sm text-white'>{contestAttended}</p>
           </div>}
           {contestTopPercentage && <div>
             <p className='text-sm text-gray-500'> Top</p>
-            <p className='text-xl text-black dark:text-white'>{contestTopPercentage} %</p>
+            <p className='text-xl text-white'>{contestTopPercentage} %</p>
           </div>}
         </div>
         <div className='flex-grow w-full'>

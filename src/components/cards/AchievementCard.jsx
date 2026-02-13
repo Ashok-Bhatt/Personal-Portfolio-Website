@@ -8,15 +8,15 @@ function AchievementBlock(props) {
   const achievementDateString = `${months[achievement.date.getMonth()]} ${achievement.date.getFullYear()}`
 
   return (
-    <div className='relative flex flex-col justify-between bg-gray-50 dark:bg-gray-900 border-2 border-yellow-400 hover:border-blue-500 rounded-2xl p-6 shadow-md transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10 cursor-pointer group w-full max-w-[90vw] md:max-w-[400px] min-h-[230px] mx-auto'>
+    <div className='relative flex flex-col justify-between bg-gray-900 border-2 border-yellow-400 hover:border-blue-500 rounded-2xl p-6 shadow-md transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10 cursor-pointer group w-full max-w-[90vw] md:max-w-[400px] min-h-[230px] mx-auto'>
       <img
         src={achievement.logo || "/Images/badge.png"}
         alt="Achievement Badge"
         className="absolute top-4 right-4 w-15 h-15 object-contain drop-shadow-md group-hover:scale-110 transition-transform duration-300"
       />
       <div className="pr-10">
-        <h3 className='font-extrabold text-xl text-black dark:text-white group-hover:text-blue-500 transition-colors mb-2'>{achievement.title}</h3>
-        <p className='text-base text-black/70 dark:text-white/70 leading-relaxed font-medium'>{achievement.description}</p>
+        <h3 className='font-extrabold text-xl text-white group-hover:text-blue-500 transition-colors mb-2'>{achievement.title}</h3>
+        <p className='text-base text-white/70 leading-relaxed font-medium'>{achievement.description}</p>
       </div>
       <p className="text-yellow-500 text-sm font-bold text-right mt-6 tracking-wide">{achievementDateString}</p>
     </div>

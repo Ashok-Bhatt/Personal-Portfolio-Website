@@ -10,8 +10,8 @@ const colorMap = [
 const LanguageItem = ({ name, percentage, colorClass }) => (
     <div className="flex items-center space-x-2">
         <span className={`w-3 h-3 rounded-full ${colorClass} shadow-md`}></span>
-        <span className="text-gray-900 dark:text-gray-100 font-bold">{name}</span>
-        <span className="text-gray-700 dark:text-gray-400 text-sm font-semibold">{percentage}%</span>
+        <span className="text-gray-100 font-bold">{name}</span>
+        <span className="text-gray-400 text-sm font-semibold">{percentage}%</span>
     </div>
 );
 
@@ -51,17 +51,17 @@ const LanguageStatsCard = ({ languageStats, className }) => {
 
     if (processedData.length === 0) {
         return (
-            <div className={`${className} bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700/50`}>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Languages</h3>
-                <p className="text-gray-500 dark:text-gray-400">No language data available.</p>
+            <div className={`${className} bg-gray-800 p-6 rounded-2xl shadow-xl border border-gray-700/50`}>
+                <h3 className="text-2xl font-bold text-white mb-4">Languages</h3>
+                <p className="text-gray-400">No language data available.</p>
             </div>
         );
     }
 
     return (
-        <div className={`${className} bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-xl border border-gray-100 dark:border-gray-700/50`}>
+        <div className={`${className} bg-gray-800 p-6 rounded-2xl shadow-xl border border-gray-700/50`}>
             <h3 className="text-2xl font-bold text-blue-500 mb-6">Languages</h3>
-            <div className="flex w-full h-4 mb-8 rounded-full overflow-hidden shadow-inner bg-gray-100 dark:bg-gray-700">
+            <div className="flex w-full h-4 mb-8 rounded-full overflow-hidden shadow-inner bg-gray-700">
                 {processedData.map((lang) => (
                     <div
                         key={lang.name}

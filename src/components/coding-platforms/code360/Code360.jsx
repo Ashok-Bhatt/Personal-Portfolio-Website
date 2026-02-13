@@ -82,7 +82,7 @@ function Code360() {
         if (code360UserData?.dsa_domain_data?.badges_hash) getCode360Badges(code360UserData?.dsa_domain_data?.badges_hash);
     }, [badgePointer]);
 
-    if (loading && !userData) return <MessageBox text="Loading..." textClassname="text-gray-600 dark:text-gray-300" />;
+    if (loading && !userData) return <MessageBox text="Loading..." textClassname="text-gray-300" />;
     if (!userData || !code360UserData) return <MessageBox text="Data not available" textClassname="text-red-500" />;
 
     const getProblemCount = (level) => {
@@ -98,13 +98,13 @@ function Code360() {
     const contestBadge = contestDetails.rating_group?.icon ? [contestDetails.rating_group.icon] : [];
 
     return (
-        <div className="flex flex-col lg:flex-row h-full rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-800">
-            <div className="flex flex-col w-full lg:w-1/4 h-full items-center justify-center gap-y-5 p-6 bg-gray-300 dark:bg-gray-700/30">
+        <div className="flex flex-col lg:flex-row h-full rounded-lg overflow-hidden bg-gray-800">
+            <div className="flex flex-col w-full lg:w-1/4 h-full items-center justify-center gap-y-5 p-6 bg-gray-700/30">
                 <div className='w-40 h-40 md:w-50 md:h-50 rounded-full overflow-hidden border-4 border-blue-400 shadow-md'>
                     <img src={"/Images/my_image.jpeg" || code360UserData.image || "/Images/coder_logo.png"} className='h-full w-full object-cover' alt="Code360 Profile Image" />
                 </div>
                 <div className="flex flex-col w-full items-center text-center">
-                    <p className='text-black dark:text-white text-2xl md:text-3xl font-bold'>{code360UserData.profile?.name}</p>
+                    <p className='text-white text-2xl md:text-3xl font-bold'>{code360UserData.profile?.name}</p>
                     <p className='text-yellow-600 font-semibold'>@{code360UserData.name}</p>
                 </div>
                 <div className="flex flex-col min-w-[200px] w-max rounded p-2 items-center bg-white/5 border border-white/5">
@@ -113,7 +113,7 @@ function Code360() {
                 </div>
                 <OpenWebsite text={"Open Website"} link={`https://www.naukri.com/code360/profile/${userName}`} />
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow h-full p-4 md:p-6 bg-gray-100 dark:bg-gray-900 overflow-y-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow h-full p-4 md:p-6 bg-gray-900 overflow-y-auto">
                 <ProblemsCard
                     problemsCount={[
                         { "problemsTag": "Easy", "setColor": "#28C244", "solvedProblems": getProblemCount("Easy"), "totalProblems": 0 },
@@ -121,9 +121,9 @@ function Code360() {
                         { "problemsTag": "Hard", "setColor": "#F63737", "solvedProblems": getProblemCount("Hard"), "totalProblems": 0 },
                         { "problemsTag": "Ninja", "setColor": "#5341A0", "solvedProblems": getProblemCount("Ninja"), "totalProblems": 0 }
                     ]}
-                    className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl"
-                    progressBodyClassName="bg-gray-100 dark:bg-gray-900"
-                    progressBarClassName="bg-gray-200 dark:bg-gray-800"
+                    className="bg-gray-800 border border-gray-700 rounded-xl"
+                    progressBodyClassName="bg-gray-900"
+                    progressBarClassName="bg-gray-800"
                     title="Problems Solved"
                 />
 
@@ -132,7 +132,7 @@ function Code360() {
                     contestRating={currentRating}
                     contestBadges={contestBadge}
                     contestData={contestDetails.user_rating_data || []}
-                    className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl"
+                    className="bg-gray-800 border border-gray-700 rounded-xl"
                     title="Contest Stats"
                 />
 
@@ -140,7 +140,7 @@ function Code360() {
                     <Slider
                         cards={badges}
                         cardClasses="h-full w-24 sm:w-28 md:w-[130px]"
-                        containerClasses="rounded-xl flex-grow bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
+                        containerClasses="rounded-xl flex-grow bg-gray-800 border border-gray-700"
                         scrollTrigger="card"
                         defaultPointer={badgePointer}
                         setParentPointer={setBadgePointer}

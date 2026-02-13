@@ -147,8 +147,8 @@ const calculateOverallStats = (calendar) => {
 const SubmissionHeatmap = ({
     calendar,
     className,
-    containerClasses = "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl",
-    statsClasses = "text-black dark:text-white"
+    containerClasses = "bg-gray-800 border border-gray-700 rounded-xl",
+    statsClasses = "text-white"
 }) => {
     const [selectedYear, setSelectedYear] = useState(null);
 
@@ -189,18 +189,18 @@ const SubmissionHeatmap = ({
 
     return (
         <div className={classNames("flex flex-col p-2 md:p-3 shadow-sm transition-all w-full", containerClasses, className)}>
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-3 pb-2 border-b border-gray-100 dark:border-gray-700 gap-4">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-3 pb-2 border-b border-gray-700 gap-4">
                 <div className="flex flex-wrap gap-4 sm:gap-8 text-sm font-bold">
                     <div className="flex flex-col items-center">
-                        <span className="text-gray-400 dark:text-gray-500 text-[10px] uppercase tracking-wider">Submissions</span>
+                        <span className="text-gray-500 text-[10px] uppercase tracking-wider">Submissions</span>
                         <span className={classNames(statsClasses, "text-lg md:text-xl")}>{currentYearTotal}</span>
                     </div>
                     <div className="flex flex-col items-center">
-                        <span className="text-gray-400 dark:text-gray-500 text-[10px] uppercase tracking-wider">Max Streak</span>
+                        <span className="text-gray-500 text-[10px] uppercase tracking-wider">Max Streak</span>
                         <span className="text-lg md:text-xl">{globalStats.maxStreak}</span>
                     </div>
                     <div className="flex flex-col items-center">
-                        <span className="text-gray-400 dark:text-gray-500 text-[10px] uppercase tracking-wider">Current Streak</span>
+                        <span className="text-gray-500 text-[10px] uppercase tracking-wider">Current Streak</span>
                         <span className="text-lg md:text-xl">{globalStats.currentStreak}</span>
                     </div>
                 </div>
@@ -209,7 +209,7 @@ const SubmissionHeatmap = ({
                     <select
                         value={selectedYear || ''}
                         onChange={(e) => setSelectedYear(e.target.value)}
-                        className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200 text-sm font-bold rounded-xl focus:ring-2 focus:ring-green-500 block w-full md:w-auto p-2 outline-none cursor-pointer transition-all"
+                        className="bg-gray-900 border border-gray-700 text-gray-200 text-sm font-bold rounded-xl focus:ring-2 focus:ring-green-500 block w-full md:w-auto p-2 outline-none cursor-pointer transition-all"
                     >
                         {years.map(year => (
                             <option key={year} value={year}>{year}</option>
@@ -220,7 +220,7 @@ const SubmissionHeatmap = ({
 
             <div className="w-full overflow-x-auto pb-4 no-scrollbar">
                 <div className="flex gap-4 min-w-max">
-                    <div className="flex flex-col justify-between py-1 mr-1 text-[10px] text-gray-400 dark:text-gray-500 font-black h-[112px] uppercase">
+                    <div className="flex flex-col justify-between py-1 mr-1 text-[10px] text-gray-500 font-black h-[112px] uppercase">
                         <span>Mon</span><span className="invisible">Tue</span><span>Wed</span><span className="invisible">Thu</span><span>Fri</span><span className="invisible">Sat</span><span>Sun</span>
                     </div>
 
@@ -235,7 +235,7 @@ const SubmissionHeatmap = ({
                                                 className={classNames(
                                                     "w-3 h-3 rounded-[2px] border transition-all duration-300",
                                                     day ? getColorClass(day.count) : "bg-transparent border-transparent",
-                                                    day && (day.count > 0 ? 'border-green-200/50 dark:border-green-500/20' : 'border-gray-200 dark:border-gray-700/50')
+                                                    day && (day.count > 0 ? 'border-green-500/20' : 'border-gray-700/50')
                                                 )}
                                                 title={day ? `${day.count} submissions on ${day.dateString}` : ''}
                                             />
@@ -243,7 +243,7 @@ const SubmissionHeatmap = ({
                                     </div>
                                 ))}
                             </div>
-                            <span className="text-[10px] font-black text-gray-400 dark:text-gray-500 text-center uppercase tracking-widest">{month.name}</span>
+                            <span className="text-[10px] font-black text-gray-500 text-center uppercase tracking-widest">{month.name}</span>
                         </div>
                     ))}
                 </div>

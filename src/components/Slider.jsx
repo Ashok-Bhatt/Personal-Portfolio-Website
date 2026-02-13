@@ -84,7 +84,7 @@ function Slider(props) {
         {/* Slider Left Button */}
         {scrollTrigger == "button" && (
           <FaChevronCircleLeft
-            className='absolute -left-4 md:-left-12 top-1/2 -translate-y-1/2 text-black dark:text-white bg-white/80 dark:bg-black/80 px-2 py-2 text-4xl rounded-full hover:cursor-pointer hover:bg-blue-500 transition-colors shadow-lg z-20'
+            className='absolute -left-4 md:-left-12 top-1/2 -translate-y-1/2 text-white bg-black/80 px-2 py-2 text-4xl rounded-full hover:cursor-pointer hover:bg-blue-500 transition-colors shadow-lg z-20'
             style={{ visibility: (pointer <= 0) ? "hidden" : "visible" }}
             onClick={() => scrollLeft("button")}
           />
@@ -93,7 +93,7 @@ function Slider(props) {
         {/* Slider Right Button */}
         {scrollTrigger == "button" && (
           <FaChevronCircleRight
-            className='absolute -right-4 md:-right-12 top-1/2 -translate-y-1/2 text-black dark:text-white bg-white/80 dark:bg-black/80 px-2 py-2 text-4xl rounded-full hover:cursor-pointer hover:bg-blue-500 transition-colors shadow-lg z-20'
+            className='absolute -right-4 md:-right-12 top-1/2 -translate-y-1/2 text-white bg-black/80 px-2 py-2 text-4xl rounded-full hover:cursor-pointer hover:bg-blue-500 transition-colors shadow-lg z-20'
             style={{ visibility: (pointer + 1 >= cards.length) ? "hidden" : "visible" }}
             onClick={() => scrollRight("button")}
           />
