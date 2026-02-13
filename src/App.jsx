@@ -1,7 +1,6 @@
 import './App.css'
 import Intro from "./pages/Intro";
 import Navbar from './components/Navbar';
-import About from './pages/About';
 import Skills from './pages/Skills';
 import Projects from './pages/Projects';
 import Contact from "./pages/Contact";
@@ -16,7 +15,6 @@ function App() {
     <div className='relative w-full flex flex-col'>
       <Navbar />
       <Intro />
-      <About />
       <Skills />
       <CodingProfiles />
       <Projects />

@@ -5,11 +5,6 @@ export const navigation = [
         id: "home"
     },
     {
-        text: "About",
-        link: "#about",
-        id: "about"
-    },
-    {
         text: "Skills",
         link: "#skills",
         id: "skills"

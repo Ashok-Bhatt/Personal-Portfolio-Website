@@ -54,8 +54,8 @@ function Skills() {
     >
       {/* Title Section */}
       <div className="flex gap-x-3 w-full justify-center items-center mb-16">
-        <FaLaptopCode className="text-black dark:text-white text-3xl md:text-4xl" />
-        <h2 className="text-black dark:text-white text-3xl md:text-5xl font-bold text-center">
+        <FaLaptopCode className="text-black dark:text-white text-[clamp(1.5rem,4vw,3rem)]" />
+        <h2 className="text-black dark:text-white text-[clamp(1.5rem,4vw,3rem)] font-bold text-center">
           Skills & <span className="text-yellow-400">Abilities</span>
         </h2>
       </div>

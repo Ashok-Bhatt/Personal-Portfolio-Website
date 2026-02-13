@@ -13,7 +13,7 @@ function Navbar() {
 
   return (
     <nav className='fixed top-0 flex justify-center w-full h-[60px] bg-gray-200 dark:bg-gray-800 text-black dark:text-white z-50 shadow-md'>
-      <div className="flex justify-between items-center px-5 w-full max-w-[1080px] h-full">
+      <div className="flex justify-between items-center px-5 w-full max-w-screen-xl h-full">
         <div className='text-2xl md:text-3xl font-bold text-black dark:text-white'>
           <span className='text-green-400'>Ashok</span> Bhatt
         </div>

@@ -41,7 +41,7 @@ function Contact() {
         <div className='flex flex-col lg:flex-row w-full min-h-screen bg-white dark:bg-black py-20 px-6 md:px-20 box-border gap-10' id="contact" ref={el => (navigationRefs.current["contact"] = el)}>
             <div className="flex flex-col w-full lg:w-1/2 gap-y-5">
                 <div className='flex flex-col gap-y-2 items-center lg:items-start'>
-                    <div className='text-xl md:text-4xl lg:text-5xl font-bold text-black dark:text-white'>Contact Me</div>
+                    <div className='text-[clamp(1.5rem,4vw,3rem)] font-bold text-black dark:text-white'>Contact Me</div>
                     <div className='h-1 w-24 md:w-30 bg-cyan-200'></div>
                 </div>
                 <div className='text-black dark:text-white text-center lg:text-left text-lg'>
