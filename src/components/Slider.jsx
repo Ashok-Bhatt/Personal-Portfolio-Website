@@ -4,7 +4,7 @@ import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa"
 
 function Slider(props) {
 
-  const { cards, cardClasses = "", containerClasses = "", scrollTrigger = "button", defaultPointer = 0, setParentPointer = null, title = "" } = props;
+  const { cards, cardClasses = "", containerClasses = "", scrollTrigger = "button", defaultPointer = 0, setParentPointer = null, title = "", showSideCardsOnMobile = false } = props;
   const [pointer, setPointer] = useState(defaultPointer);
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
@@ -67,7 +67,7 @@ function Slider(props) {
       >
 
         {/* Side Card */}
-        <div className={classNames(cardClasses, "hidden lg:flex flex-col items-center justify-center opacity-30 sm:opacity-40 grayscale scale-75 sm:scale-90 cursor-pointer hover:opacity-60 transition-all")} onClick={() => scrollLeft("card")}>
+        <div className={classNames(cardClasses, showSideCardsOnMobile ? "flex" : "hidden lg:flex", "flex-col items-center justify-center opacity-30 sm:opacity-40 grayscale scale-75 sm:scale-90 cursor-pointer hover:opacity-60 transition-all")} onClick={() => scrollLeft("card")}>
           {(cards.length > 0 && pointer >= 1) ? cards[pointer - 1] : <div className="invisible">{cards[0]}</div>}
         </div>
 
@@ -77,7 +77,7 @@ function Slider(props) {
         </div>
 
         {/* Side Card */}
-        <div className={classNames(cardClasses, "hidden lg:flex flex-col items-center justify-center opacity-30 sm:opacity-40 grayscale scale-75 sm:scale-90 cursor-pointer hover:opacity-60 transition-all")} onClick={() => scrollRight("card")}>
+        <div className={classNames(cardClasses, showSideCardsOnMobile ? "flex" : "hidden lg:flex", "flex-col items-center justify-center opacity-30 sm:opacity-40 grayscale scale-75 sm:scale-90 cursor-pointer hover:opacity-60 transition-all")} onClick={() => scrollRight("card")}>
           {(cards.length > 0 && pointer + 1 < cards.length) ? cards[pointer + 1] : <div className="invisible">{cards[0]}</div>}
         </div>
 

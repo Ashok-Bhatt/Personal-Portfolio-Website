@@ -44,24 +44,24 @@ function Contests(props) {
 
   return (
     <div className={classNames(className, 'flex flex-col gap-2 py-2 px-5 h-full')}>
-      {title && <div className="w-full text-2xl text-center text-blue-500">{title}</div>}
-      <div className="flex flex-col gap-5 rounded">
-        <div className="flex w-full justify-between">
-          {contestRating && <div>
-            <p className='text-sm text-gray-500'>Contest Rating</p>
-            <p className='text-xl text-white'>{Math.round(contestRating)}</p>
+      {title && <div className="w-full text-xl md:text-2xl font-bold text-center text-blue-500">{title}</div>}
+      <div className="flex flex-col gap-4 sm:gap-5 rounded">
+        <div className="flex w-full justify-between flex-wrap gap-y-2">
+          {contestRating && <div className='min-w-[45%] sm:min-w-0'>
+            <p className='text-xs sm:text-sm text-gray-400'>Contest Rating</p>
+            <p className='text-lg sm:text-xl text-white font-bold'>{Math.round(contestRating)}</p>
           </div>}
-          {contestRanking && <div>
-            <p className='text-sm text-gray-500'>Global Ranking</p>
-            <p className='text-sm text-white'>{contestRanking}/<span className='text-gray-600'>{totalParticipants}</span></p>
+          {contestRanking && <div className='min-w-[45%] sm:min-w-0'>
+            <p className='text-xs sm:text-sm text-gray-400'>Global Ranking</p>
+            <p className='text-xs sm:text-sm text-white font-bold'>{contestRanking}/<span className='text-gray-500'>{totalParticipants}</span></p>
           </div>}
-          {contestAttended && <div>
-            <p className='text-sm text-gray-500'>Attended</p>
-            <p className='text-sm text-white'>{contestAttended}</p>
+          {contestAttended && <div className='min-w-[45%] sm:min-w-0'>
+            <p className='text-xs sm:text-sm text-gray-400'>Attended</p>
+            <p className='text-xs sm:text-sm text-white font-bold'>{contestAttended}</p>
           </div>}
-          {contestTopPercentage && <div>
-            <p className='text-sm text-gray-500'> Top</p>
-            <p className='text-xl text-white'>{contestTopPercentage} %</p>
+          {contestTopPercentage && <div className='min-w-[45%] sm:min-w-0'>
+            <p className='text-xs sm:text-sm text-gray-400'> Top</p>
+            <p className='text-lg sm:text-xl text-white font-bold'>{contestTopPercentage} %</p>
           </div>}
         </div>
         <div className='flex-grow w-full'>

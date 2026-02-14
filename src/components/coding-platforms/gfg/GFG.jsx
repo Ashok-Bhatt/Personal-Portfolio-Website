@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { FaCode, FaUniversity, FaCalendarCheck, FaFire } from "react-icons/fa";
+import ProfileOverview from '../ProfileOverview';
 import ProblemsCard from '../../cards/ProblemsCard';
-import OpenWebsite from '../../OpenWebsite.jsx';
 import ContributionCard from '../../cards/ContributionCard.jsx';
 import MessageBox from '../../MessageBox.jsx';
 import { useGfgData } from '../../../hooks/useCodingProfiles.js';
@@ -45,46 +46,50 @@ function GFG() {
     }
 
     return (
-        <div className="flex flex-col lg:flex-row flex-grow rounded-lg bg-gray-800 overflow-hidden ">
-            <div className="flex flex-col w-full lg:w-1/4 items-center justify-center gap-y-5 p-6 bg-gray-700/30">
-                <div className='w-40 h-40 md:w-50 md:h-50 rounded-full overflow-hidden border-4 border-blue-400 shadow-md'>
-                    <img src={gfgUserData.avatar || "/Images/coder_logo.png"} className='h-full w-full object-cover' alt="GFG Profile Image" />
-                </div>
-                <div className="flex flex-col w-full items-center text-center">
-                    <p className='text-white text-2xl md:text-3xl font-bold'>{fullName}</p>
-                    <p className='text-yellow-600 font-semibold'>@{gfgUserData.username}</p>
-                </div>
-                <OpenWebsite text={"Open Website"} link={`https://www.geeksforgeeks.org/user/${userName}/`} />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow p-4 md:p-6 bg-gray-900 overflow-y-auto">
-                <div className="col-span-1">
-                    <ProblemsCard className="bg-gray-800 border border-gray-700 rounded-xl"
-                        problemsCount={[
-                            { "problemsTag": "School", "setColor": "#C8FE5E", "solvedProblems": getSolvedCount("School") + getSolvedCount("Basic"), "totalProblems": 0 },
-                            { "problemsTag": "Easy", "setColor": "#28C244", "solvedProblems": getSolvedCount("Easy"), "totalProblems": 0 },
-                            { "problemsTag": "Medium", "setColor": "#FFB700", "solvedProblems": getSolvedCount("Medium"), "totalProblems": 0 },
-                            { "problemsTag": "Hard", "setColor": "#F63737", "solvedProblems": getSolvedCount("Hard"), "totalProblems": 0 }
-                        ]}
-                        progressBodyClassName="bg-gray-900"
-                        progressBarClassName="bg-gray-800"
-                        title="Problems Solved"
-                    />
-                </div>
+        <div className="flex flex-col h-full lg:flex-row flex-grow rounded-lg bg-gray-800 overflow-hidden">
+            <ProfileOverview
+                profileImage={gfgUserData.avatar}
+                profileName={fullName}
+                profileUsername={gfgUserData.username}
+                websiteLink={`https://www.geeksforgeeks.org/user/${userName}/`}
+                stats={[
+                    { stat: "Coding Score", value: gfgUserData.codingScore?.toLocaleString() || "0", icon: FaCode },
+                    { stat: "Institute Rank", value: gfgUserData.instituteRank?.toLocaleString() || "NA", icon: FaUniversity },
+                    { stat: "POTD Solved", value: gfgUserData.potdsSolved?.toLocaleString() || "0", icon: FaCalendarCheck },
+                    { stat: "Active Days", value: activeDays || "0", icon: FaFire }
+                ]}
+            />
 
-                <div className="col-span-1">
-                    <ContributionCard currentStreak={{
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-grow min-w-0 h-full p-4 md:p-6 bg-gray-900 overflow-y-auto w-full">
+                <ProblemsCard className="bg-gray-800 border border-gray-700 rounded-xl"
+                    problemsCount={[
+                        { "problemsTag": "School", "setColor": "#C8FE5E", "solvedProblems": getSolvedCount("School") + getSolvedCount("Basic"), "totalProblems": 0 },
+                        { "problemsTag": "Easy", "setColor": "#28C244", "solvedProblems": getSolvedCount("Easy"), "totalProblems": 0 },
+                        { "problemsTag": "Medium", "setColor": "#FFB700", "solvedProblems": getSolvedCount("Medium"), "totalProblems": 0 },
+                        { "problemsTag": "Hard", "setColor": "#F63737", "solvedProblems": getSolvedCount("Hard"), "totalProblems": 0 }
+                    ]}
+                    progressBodyClassName="bg-gray-900"
+                    progressBarClassName="bg-gray-800"
+                    title="Problems Solved"
+                />
+
+                <ContributionCard 
+                    currentStreak={{
                         count: currentStreak,
                         text: "Current Streak",
-                    }} maxStreak={{
+                    }} 
+                    maxStreak={{
                         count: maxStreak,
                         text: "Max Streak",
-                    }} totalContributions={{
+                    }} 
+                    totalContributions={{
                         count: totalContributions,
                         text: "Total Submissions",
-                    }} />
-                </div>
+                    }} 
+                    className="bg-gray-800 border border-gray-700 rounded-xl"
+                />
 
-                <SubmissionHeatmap calendar={userData.submissions} className="col-span-2" />
+                <SubmissionHeatmap calendar={userData.submissions} className="sm:col-span-2" />
             </div>
         </div>
     )

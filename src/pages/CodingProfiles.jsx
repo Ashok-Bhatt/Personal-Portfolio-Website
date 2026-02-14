@@ -4,7 +4,7 @@ import Leetcode from '../components/coding-platforms/leetcode/Leetcode';
 import GFG from "../components/coding-platforms/gfg/GFG";
 import GitHub from '../components/coding-platforms/github/GitHub';
 import Code360 from '../components/coding-platforms/code360/Code360';
-import Sidebar from '../components/coding-platforms/Sidebar';
+import ProfileOptions from '../components/coding-platforms/ProfileOptions';
 import { useNavigation } from '../context/navigationContext.jsx';
 
 function CodingProfiles() {
@@ -41,9 +41,9 @@ function CodingProfiles() {
                 <span className='text-white text-[clamp(1.5rem,4vw,3rem)] font-bold text-center'>Coding <span className='text-yellow-300'>Profiles</span></span>
             </div>
 
-            <div className="flex flex-col lg:flex-row flex-grow gap-6 w-full max-w-7xl mx-auto">
-                <div className="w-full lg:w-32 overflow-x-auto lg:overflow-x-visible no-scrollbar">
-                    <Sidebar
+            <div className="flex flex-col lg:flex-row flex-grow gap-6 w-full mx-auto">
+                <div className="w-full lg:w-32 shrink-0 overflow-x-auto lg:overflow-x-visible no-scrollbar">
+                    <ProfileOptions
                         activePlatform={codingPlatformIndex}
                         setActivePlatform={(index) => {
                             setCodingPlatformIndex(index);

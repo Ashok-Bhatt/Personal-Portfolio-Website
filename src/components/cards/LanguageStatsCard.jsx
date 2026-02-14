@@ -59,9 +59,9 @@ const LanguageStatsCard = ({ languageStats, className }) => {
     }
 
     return (
-        <div className={`${className} bg-gray-800 p-6 rounded-2xl shadow-xl border border-gray-700/50`}>
-            <h3 className="text-2xl font-bold text-blue-500 mb-6">Languages</h3>
-            <div className="flex w-full h-4 mb-8 rounded-full overflow-hidden shadow-inner bg-gray-700">
+        <div className={`${className} bg-gray-800 p-4 md:p-6 rounded-2xl shadow-xl border border-gray-700/50`}>
+            <h3 className="text-xl md:text-2xl font-bold text-blue-500 mb-4 md:mb-6">Languages</h3>
+            <div className="flex w-full h-3 md:h-4 mb-6 md:mb-8 rounded-full overflow-hidden shadow-inner bg-gray-700">
                 {processedData.map((lang) => (
                     <div
                         key={lang.name}

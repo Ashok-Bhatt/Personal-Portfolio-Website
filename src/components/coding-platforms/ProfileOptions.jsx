@@ -1,4 +1,6 @@
-const Sidebar = ({ activePlatform, setActivePlatform, platforms }) => {
+import React from 'react';
+
+const ProfileOptions = ({ activePlatform, setActivePlatform, platforms }) => {
 
     return (
         <div className="flex flex-row lg:flex-col lg:h-full bg-gray-900 border border-gray-800 p-2 lg:p-4 gap-2 lg:gap-y-4 rounded-xl lg:rounded-none w-full lg:w-32 overflow-x-auto no-scrollbar">
@@ -18,4 +20,4 @@ const Sidebar = ({ activePlatform, setActivePlatform, platforms }) => {
     );
 };
 
-export default Sidebar;
+export default ProfileOptions;

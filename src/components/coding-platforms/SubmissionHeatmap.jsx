@@ -193,15 +193,15 @@ const SubmissionHeatmap = ({
                 <div className="flex flex-wrap gap-4 sm:gap-8 text-sm font-bold">
                     <div className="flex flex-col items-center">
                         <span className="text-gray-500 text-[10px] uppercase tracking-wider">Submissions</span>
-                        <span className={classNames(statsClasses, "text-lg md:text-xl")}>{currentYearTotal}</span>
+                        <span className={classNames(statsClasses, "text-sm sm:text-lg md:text-xl")}>{currentYearTotal}</span>
                     </div>
                     <div className="flex flex-col items-center">
                         <span className="text-gray-500 text-[10px] uppercase tracking-wider">Max Streak</span>
-                        <span className="text-lg md:text-xl">{globalStats.maxStreak}</span>
+                        <span className={classNames(statsClasses, "text-sm sm:text-lg md:text-xl")}>{globalStats.maxStreak}</span>
                     </div>
                     <div className="flex flex-col items-center">
                         <span className="text-gray-500 text-[10px] uppercase tracking-wider">Current Streak</span>
-                        <span className="text-lg md:text-xl">{globalStats.currentStreak}</span>
+                        <span className={classNames(statsClasses, "text-sm sm:text-lg md:text-xl")}>{globalStats.currentStreak}</span>
                     </div>
                 </div>
 

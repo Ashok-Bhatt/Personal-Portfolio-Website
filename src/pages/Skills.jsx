@@ -26,7 +26,7 @@ function Skills() {
            - We duplicate the list once ([...list, ...list]) so that when 
              it hits -50% (translateX), it loops seamlessly.
         */}
-        <div className={`flex gap-x-6 py-2 px-4 whitespace-nowrap w-max flex-none ${animationClass} pause-on-hover`}>
+        <div className={`flex gap-x-3 md:gap-x-6 py-2 px-4 whitespace-nowrap w-max flex-none ${animationClass} pause-on-hover`}>
           {[...skillsList, ...skillsList].map((skill, index) => (
             <SkillCard
               key={`${skill.name}-${index}`}

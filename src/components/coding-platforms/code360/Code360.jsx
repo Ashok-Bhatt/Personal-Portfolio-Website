@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import { FaFire, FaTrophy, FaEye, FaAward } from "react-icons/fa";
+import ProfileOverview from '../ProfileOverview';
 import Contests from '../Contests';
 import ContributionCard from '../../cards/ContributionCard';
 import ProblemsCard from '../../cards/ProblemsCard';
-import OpenWebsite from '../../OpenWebsite';
 import Code360Badge from './Code360Badge';
 import Slider from '../../Slider';
 import MessageBox from '../../MessageBox.jsx';
@@ -98,22 +99,20 @@ function Code360() {
     const contestBadge = contestDetails.rating_group?.icon ? [contestDetails.rating_group.icon] : [];
 
     return (
-        <div className="flex flex-col lg:flex-row h-full rounded-lg overflow-hidden bg-gray-800">
-            <div className="flex flex-col w-full lg:w-1/4 h-full items-center justify-center gap-y-5 p-6 bg-gray-700/30">
-                <div className='w-40 h-40 md:w-50 md:h-50 rounded-full overflow-hidden border-4 border-blue-400 shadow-md'>
-                    <img src={"/Images/my_image.jpeg" || code360UserData.image || "/Images/coder_logo.png"} className='h-full w-full object-cover' alt="Code360 Profile Image" />
-                </div>
-                <div className="flex flex-col w-full items-center text-center">
-                    <p className='text-white text-2xl md:text-3xl font-bold'>{code360UserData.profile?.name}</p>
-                    <p className='text-yellow-600 font-semibold'>@{code360UserData.name}</p>
-                </div>
-                <div className="flex flex-col min-w-[200px] w-max rounded p-2 items-center bg-white/5 border border-white/5">
-                    <p className='text-green-600 text-xl font-bold'>Longest Streak</p>
-                    <p className='text-lg font-mono'>{code360UserData.streaks?.longest_streak || 0}</p>
-                </div>
-                <OpenWebsite text={"Open Website"} link={`https://www.naukri.com/code360/profile/${userName}`} />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow h-full p-4 md:p-6 bg-gray-900 overflow-y-auto">
+        <div className="flex flex-col h-full lg:flex-row flex-grow rounded-lg bg-gray-800 overflow-hidden">
+            <ProfileOverview
+                profileImage={"/Images/my_image.jpeg" || code360UserData.image}
+                profileName={code360UserData.profile?.name}
+                profileUsername={code360UserData.name}
+                websiteLink={`https://www.naukri.com/code360/profile/${userName}`}
+                stats={[
+                    { stat: "Profile Views", value: code360UserData.profile_view_count || 0, icon: FaEye },
+                    { stat: "Active Days", value: activeDays || 0, icon: FaFire },
+                    { stat: "User Level", value: `${code360UserData.user_level_name} (L${code360UserData.user_level})` || 0, icon: FaTrophy },
+                    { stat: "Rank Points", value: code360UserData.user_exp || 0, icon: FaAward },
+                ]}
+            />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-grow min-w-0 h-full p-4 md:p-6 bg-gray-900 overflow-y-auto w-full">
                 <ProblemsCard
                     problemsCount={[
                         { "problemsTag": "Easy", "setColor": "#28C244", "solvedProblems": getProblemCount("Easy"), "totalProblems": 0 },
@@ -136,33 +135,35 @@ function Code360() {
                     title="Contest Stats"
                 />
 
-                <div className="md:col-span-2 lg:col-span-1">
-                    <Slider
-                        cards={badges}
-                        cardClasses="h-full w-24 sm:w-28 md:w-[130px]"
-                        containerClasses="rounded-xl flex-grow bg-gray-800 border border-gray-700"
-                        scrollTrigger="card"
-                        defaultPointer={badgePointer}
-                        setParentPointer={setBadgePointer}
-                        title="Code360 Badges"
-                    />
-                </div>
+                <Slider
+                    cards={badges}
+                    cardClasses="h-full w-[30%] sm:w-[32%]"
+                    containerClasses="rounded-xl flex-grow bg-gray-800 border border-gray-700"
+                    scrollTrigger="card"
+                    defaultPointer={badgePointer}
+                    setParentPointer={setBadgePointer}
+                    showSideCardsOnMobile={true}
+                    title="Code360 Badges"
+                />
 
-                <div className="md:col-span-2 lg:col-span-1">
-                    <ContributionCard currentStreak={{
+                <ContributionCard 
+                    currentStreak={{
                         count: currentStreak,
                         text: "Current Streak",
-                    }} maxStreak={{
+                    }} 
+                    maxStreak={{
                         count: maxStreak,
                         text: "Max Streak",
-                    }} totalContributions={{
+                    }} 
+                    totalContributions={{
                         count: totalContributions,
                         text: "Total Submissions",
-                    }} />
-                </div>
+                    }} 
+                    className="bg-gray-800 border border-gray-700 rounded-xl"
+                />
                 <SubmissionHeatmap
                     calendar={userData.submissions}
-                    className="md:col-span-2"
+                    className="sm:col-span-2"
                 />
             </div>
         </div>

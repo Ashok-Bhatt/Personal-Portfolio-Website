@@ -1,8 +1,7 @@
-import React from 'react'
 import classNames from 'classnames';
 import { v4 as uuid } from "uuid"
 
-function StatsBlock(props) {
+function StatsCard(props) {
 
     const { data, containerClasses = "", blockClasses = "", titleClasses = "", statsClasses = "" } = props;
 
@@ -20,4 +19,4 @@ function StatsBlock(props) {
     )
 }
 
-export default StatsBlock
+export default StatsCard

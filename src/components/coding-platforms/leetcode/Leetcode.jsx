@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { FaTrophy, FaStar, FaCheckCircle, FaFire } from "react-icons/fa";
+import ProfileOverview from '../ProfileOverview.jsx';
 import Contests from '../Contests';
 import ProblemsCard from '../../cards/ProblemsCard';
 import LeetcodeBadge from './LeetcodeBadge';
 import Slider from '../../Slider';
 import ContributionCard from '../../cards/ContributionCard';
-import OpenWebsite from '../../OpenWebsite';
 import { useLeetcodeData } from '../../../hooks/useCodingProfiles.js';
 import MessageBox from '../../MessageBox.jsx';
 import SubmissionHeatmap from '../SubmissionHeatmap.jsx';
@@ -18,7 +19,6 @@ function Leetcode() {
     const { data: refreshedData, isLoading: loading, refetch: refetchData } = useLeetcodeData(userName);
     const [badgePointer, setBadgePointer] = useState(1);
 
-    // Issue 1 Fix: Move refetch into useEffect
     useEffect(() => {
         const isMissing = !localStorage.getItem("leetcodeData");
         const isStale = (Date.now() - Number(localStorage.getItem("leetcodeLastRefresh"))) > REFRESH_INTERVAL.LEETCODE;
@@ -46,22 +46,20 @@ function Leetcode() {
     const { currentStreak, maxStreak, activeDays, totalContributions } = getStreaksAndActiveDays(userData.submissions);
 
     return (
-        <div className="flex flex-col lg:flex-row h-full rounded-lg overflow-hidden bg-gray-800">
-            <div className="flex flex-col w-full lg:w-1/4 h-full items-center justify-center gap-y-5 p-6 bg-gray-700/30">
-                <div className='w-40 h-40 md:w-50 md:h-50 rounded-full overflow-hidden border-4 border-blue-400 shadow-md'>
-                    <img src={userData.profile?.profile?.userAvatar || "/Images/coder_logo.png"} className='h-full w-full object-cover' alt="Leetcode Profile Image" />
-                </div>
-                <div className="flex flex-col w-full items-center text-center">
-                    <p className='text-white text-2xl md:text-3xl font-bold'>{userData.profile?.profile?.realName}</p>
-                    <p className='text-yellow-600 font-semibold'>@{userData.profile?.username}</p>
-                </div>
-                <div className="flex flex-col min-w-[200px] w-max rounded p-2 items-center bg-white/5 border border-white/5">
-                    <p className='text-green-600 text-xl font-bold'>Global Rank</p>
-                    <p className='text-lg font-mono'>{userData.profile?.profile?.ranking?.toLocaleString()} / 5M</p>
-                </div>
-                <OpenWebsite text={"Open Website"} link={`https://leetcode.com/u/${userData.profile?.username}/`} />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow h-full p-4 md:p-6 bg-gray-900 overflow-y-auto">
+        <div className="flex flex-col h-full lg:flex-row flex-grow rounded-lg bg-gray-800 overflow-hidden">
+            <ProfileOverview
+                profileImage={userData.profile?.profile?.userAvatar}
+                profileName={userData.profile?.profile?.realName}
+                profileUsername={userData.profile?.username}
+                websiteLink={`https://leetcode.com/u/${userData.profile?.username}/`}
+                stats={[
+                    { stat: "Global Rank", value: userData.profile?.profile?.ranking || "N/A", icon: FaTrophy },
+                    { stat: "Reputation", value: userData.profile?.profile?.reputation || "0", icon: FaStar },
+                    { stat: "Active Days", value: activeDays || 0, icon: FaFire },
+                    { stat: "Solutions", value: userData.profile?.profile?.solutionCount || "0", icon: FaCheckCircle },
+                ]}
+            />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow min-w-0 h-full p-4 md:p-6 bg-gray-900 overflow-y-auto w-full">
                 <ProblemsCard
                     problemsCount={[
                         {
@@ -99,22 +97,23 @@ function Leetcode() {
                     className="bg-gray-800 border border-gray-700 rounded-xl"
                     title="Contest Stats"
                 />
-                <div className="md:col-span-2 lg:col-span-1">
+                <div className="">
                     <Slider
                         cards={
                             (userData.badges?.badges || []).map((badge, index) => (
                                 <LeetcodeBadge badge={badge} isMiddleBadge={index === badgePointer} key={badge.id} />
                             ))
                         }
-                        cardClasses="h-full w-24 sm:w-28 md:w-[130px]"
+                        cardClasses="h-full w-[30%] sm:w-[32%]"
                         containerClasses="rounded-xl flex-grow bg-gray-800 border border-gray-700"
                         scrollTrigger="card"
                         defaultPointer={badgePointer}
                         setParentPointer={setBadgePointer}
+                        showSideCardsOnMobile={true}
                         title="Leetcode Badges"
                     />
                 </div>
-                <div className="md:col-span-2 lg:col-span-1">
+                <div className="">
                     <ContributionCard currentStreak={{
                         count: currentStreak,
                         text: "Current Streak",
@@ -128,7 +127,7 @@ function Leetcode() {
                 </div>
                 <SubmissionHeatmap
                     calendar={userData.submissions}
-                    className="md:col-span-2"
+                    className="sm:col-span-2"
                 />
             </div>
         </div>

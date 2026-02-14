@@ -40,7 +40,7 @@ const ContributionCard = ({
         }
 
         return (
-            <div className="flex-1 flex flex-col items-center justify-center min-w-0 px-1 text-center">
+            <div className="flex-1 flex flex-col items-center justify-center min-w-0 p-5 text-center">
                 <p className={classNames(statsClasses, "text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold truncate w-full")}>
                     {count}
                 </p>
@@ -55,7 +55,7 @@ const ContributionCard = ({
     return (
         <div className={classNames(
             containerClasses,
-            "w-full flex items-center justify-between py-2 sm:py-4 px-1 sm:px-2 shadow-sm transition-all h-full overflow-hidden bg-gray-800 border border-gray-700 rounded-xl"
+            "w-full min-h-[150px] flex items-center justify-between py-2 sm:py-4 px-1 sm:px-2 shadow-sm transition-all h-full overflow-hidden bg-gray-800 border border-gray-700 rounded-xl"
         )}>
             {/* Total Contributions */}
             <StatItem data={totalContributions} />

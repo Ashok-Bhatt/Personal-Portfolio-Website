@@ -51,8 +51,8 @@ function Intro() {
                     <p className='text-white font-semibold'>I am </p>
                     <p className='text-blue-500 font-semibold'>{description && descriptionPointer ? description[descriptionPointer[0]].slice(0, descriptionPointer[1] + 1) + " |" : ""}</p>
                 </div>
-                <div className='text-md md:text-lg text-gray-300 mt-4 leading-relaxed'>
-                    I am a <span className='text-green-400 font-semibold'>final-year B.Tech Computer Science student</span> at ITM(SLS) Baroda University and an aspiring software developer. I specialize in building modern web applications using <span className='text-green-400 font-semibold'>React</span> and <span className='text-green-400 font-semibold'>Express</span>. Beyond that, I have hands-on experience in <span className='text-green-400 font-semibold'>mobile and desktop development</span>, backed by a strong foundation in <span className='text-green-400 font-semibold'>Python</span>, <span className='text-green-400 font-semibold'>C++</span>, <span className='text-green-400 font-semibold'>DSA</span>, <span className='text-green-400 font-semibold'>Generative AI</span>, and <span className='text-green-400 font-semibold'>Databases</span>.
+                <div className='text-sm md:text-md text-gray-600 mt-4 leading-relaxed'>
+                    I am <span className='text-green-600 font-semibold'>final-year B.Tech CSE student</span> and an aspiring software developer. I specialize in building modern web applications using <span className='text-green-600 font-semibold'>React</span> and <span className='text-green-600 font-semibold'>Express</span>. Beyond that, I have hands-on experience in <span className='text-green-600 font-semibold'>mobile and desktop application development</span>, backed by a strong foundation in <span className='text-green-600 font-semibold'>Python</span>, <span className='text-green-600 font-semibold'>C++</span>, <span className='text-green-600 font-semibold'>DSA</span>, <span className='text-green-600 font-semibold'>Generative AI</span>, and <span className='text-green-600 font-semibold'>Databases</span>.
                 </div>
                 <div className='flex gap-x-4 mt-6 flex-wrap justify-center md:justify-start'>
                     <div className={`${iconDivStyle}`} onClick={() => window.open("https://www.linkedin.com/in/ashokbhatt2048/", "_blank")}>
@@ -77,7 +77,7 @@ function Intro() {
                 <img
                     src="/Images/my_image.jpeg"
                     alt="coder image"
-                    className='rounded-full w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] lg:w-[400px] lg:h-[400px] border-4 border-blue-500/10 object-cover shadow-2xl transition-all duration-300 hover:scale-105'
+                    className='rounded-full w-[150px] h-[150px] sm:w-[200px] sm:h-[200px] lg:w-[300px] lg:h-[300px] border-4 border-blue-500/10 object-cover shadow-2xl transition-all duration-300 hover:scale-105'
                 />
             </div>
         </div>

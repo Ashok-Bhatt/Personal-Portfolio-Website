@@ -1,5 +1,5 @@
 import React from 'react'
-import OpenWebsite from '../../OpenWebsite';
+import ProfileOverview from '../ProfileOverview.jsx';
 import { useGithubData } from '../../../hooks/useCodingProfiles.js';
 import MessageBox from '../../MessageBox.jsx';
 import SubmissionHeatmap from '../SubmissionHeatmap.jsx';
@@ -11,7 +11,8 @@ import LanguageStatsCard from '../../cards/LanguageStatsCard.jsx';
 import PlatformStatsCard from '../../cards/PlatformStatsCard.jsx';
 import Slider from '../../Slider.jsx';
 import GithubBadge from './GithubBadge.jsx';
-import { GoStar, GoGitCommit, GoGitPullRequest, GoIssueOpened } from "react-icons/go";
+import { GoStar, GoGitCommit, GoGitPullRequest, GoIssueOpened, GoPeople, GoPerson } from "react-icons/go";
+import { FaFire } from "react-icons/fa";
 import { useState } from 'react';
 
 function GitHub() {
@@ -46,28 +47,20 @@ function GitHub() {
   if (!userData) return <MessageBox text="Data not available" textClassname="text-red-500" />;
 
   return (
-    <div className='flex flex-col lg:flex-row flex-grow rounded-lg bg-gray-800 overflow-hidden '>
-      <div className="flex flex-col w-full lg:w-1/4 h-full items-center justify-center gap-y-5 p-6 bg-gray-700/30">
-        <div className='w-40 h-40 md:w-50 md:h-50 rounded-full overflow-hidden border-4 border-blue-400 shadow-md'>
-          <img src={userData.profile?.avatar_url || "/Images/coder_logo.png"} className='h-full w-full object-cover' alt="Github Profile Image" />
-        </div>
-        <div className="flex flex-col w-full items-center text-center">
-          <p className='text-white text-2xl md:text-3xl font-bold'>{userData.profile?.name}</p>
-          <p className='text-yellow-600 font-semibold'>@{userData.profile?.login}</p>
-        </div>
-        <div className="flex w-full justify-around bg-white/5 p-3 rounded-xl border border-white/5">
-          <div className="flex flex-col items-center">
-            <p className='text-green-600 text-lg font-bold'>Followers</p>
-            <p className='text-white font-mono'>{userData.profile?.followers}</p>
-          </div>
-          <div className="flex flex-col items-center">
-            <p className='text-green-600 text-lg font-bold'>Following</p>
-            <p className='text-white font-mono'>{userData.profile?.following}</p>
-          </div>
-        </div>
-        <OpenWebsite text={"Open Website"} link={"https://github.com/Ashok-Bhatt"} />
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow h-full p-4 md:p-6 bg-gray-900 overflow-y-auto">
+    <div className='flex flex-col h-full lg:flex-row flex-grow rounded-lg bg-gray-800 overflow-hidden '>
+      <ProfileOverview
+        profileImage={userData.profile?.avatar_url}
+        profileName={userData.profile?.name}
+        profileUsername={userData.profile?.login}
+        websiteLink={"https://github.com/Ashok-Bhatt"}
+        stats={[
+          { stat: "Followers", value: userData.profile?.followers || 0, icon: GoPeople },
+          { stat: "Following", value: userData.profile?.following || 0, icon: GoPerson },
+          { stat: "Active Days", value: activeDays || 0, icon: FaFire },
+          { stat: "Repositories", value: userData.profile?.public_repos || 0, icon: GoStar }
+        ]}
+      />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-grow min-w-0 h-full p-4 md:p-6 bg-gray-900 overflow-y-auto w-full">
         <ContributionCard
           currentStreak={{
             count: currentStreak,
@@ -89,11 +82,12 @@ function GitHub() {
               <GithubBadge badge={badge} isMiddleBadge={index === badgePointer} key={index} />
             ))
           }
-          cardClasses="h-full w-24 sm:w-28 md:w-[130px]"
+          cardClasses="h-full w-[30%] sm:w-[32%]"
           containerClasses="rounded-xl flex-grow bg-gray-800 border border-gray-700"
           scrollTrigger="card"
           defaultPointer={badgePointer}
           setParentPointer={setBadgePointer}
+          showSideCardsOnMobile={true}
           title="Github Badges"
         />
         <PlatformStatsCard
@@ -104,15 +98,13 @@ function GitHub() {
             { Icon: GoGitPullRequest, name: "PRs", count: userData.contributions?.pullRequestsCount || 0, colorClass: "text-green-500" },
             { Icon: GoIssueOpened, name: "Issues", count: userData.contributions?.issuesCount || 0, colorClass: "text-red-500" },
           ]}
-          className="col-span-1 md:col-span-1 sm:col-span-2"
         />
         <LanguageStatsCard
           languageStats={userData.languageStats}
-          className="col-span-1 md:col-span-1 sm:col-span-2"
         />
         <SubmissionHeatmap
           calendar={userData.submissions}
-          className="col-span-2"
+          className="col-span-1 sm:col-span-2"
         />
       </div>
     </div>
