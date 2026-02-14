@@ -1,0 +1,35 @@
+import { LiaCertificateSolid } from "react-icons/lia";
+import { useState } from 'react';
+import { certificates } from "../constants/index.js";
+import CertificateCard from "../components/cards/CertificateCard.jsx";
+import Slider from "../components/Slider.jsx";
+import { useNavigation } from '../context/navigationContext.jsx';
+
+function Certificates() {
+    const { navigationRefs } = useNavigation();
+    const [certificatePointer, setCertificatePointer] = useState(1);
+
+    return (
+        <div className='flex flex-col w-full hover:cursor-pointer gap-y-10 bg-black py-20 px-6 z-5 box-border' id="certificates" ref={el => (navigationRefs.current["certificates"] = el)}>
+            <div className='flex gap-x-3 w-full justify-center items-center'>
+                <LiaCertificateSolid className='text-white text-xl md:text-4xl font-bold' />
+                <span className='text-white text-xl md:text-4xl font-bold text-center'>Certificates <span className="text-yellow-300">Obtained</span></span>
+            </div>
+            <div className="flex relative w-full justify-center overflow-x-hidden">
+                <Slider
+                    cards={
+                        certificates.map((_, index) => (
+                            <CertificateCard certificate={certificates[index]} key={`cert-${index}`} eventListeners={index == certificatePointer} />
+                        ))
+                    }
+                    cardClasses="w-full max-w-[280px] md:max-w-sm p-1 sm:p-2 md:p-4"
+                    scrollTrigger="card"
+                    defaultPointer={certificatePointer}
+                    setParentPointer={setCertificatePointer}
+                />
+            </div>
+        </div>
+    );
+}
+
+export default Certificates;

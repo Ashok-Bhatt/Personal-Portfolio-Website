@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
+import { ENV } from '../config/env.js';
 
 export const useContactMutation = () => {
     return useMutation({
@@ -8,7 +9,7 @@ export const useContactMutation = () => {
             formData.append("email", data.email);
             formData.append("phone", data.phone);
             formData.append("message", data.message);
-            formData.append("access_key", import.meta.env.VITE_EMAIL_ACCESS_KEY);
+            formData.append("access_key", ENV.EMAIL_ACCESS_KEY);
 
             const object = Object.fromEntries(formData);
             const json = JSON.stringify(object);
