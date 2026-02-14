@@ -15,7 +15,7 @@ import { REFRESH_INTERVAL } from '../../../constants/index.js';
 function Leetcode() {
 
     const userName = "ashokbhatt2048";
-    const cachedData = JSON.parse(localStorage.getItem("leetcodeData"));
+    const cachedData = React.useMemo(() => JSON.parse(localStorage.getItem("leetcodeData")), []);
     const { data: refreshedData, isLoading: loading, refetch: refetchData } = useLeetcodeData(userName);
     const [badgePointer, setBadgePointer] = useState(1);
 
@@ -36,14 +36,11 @@ function Leetcode() {
         }
     }, [refreshedData]);
 
-    if (!cachedData) {
-        if (loading) return <MessageBox text="Loading..." textClassname="text-gray-300" />;
-        else if (!refreshedData) return <MessageBox text="Data not available" textClassname="text-red-500" />;
-    }
-
     const userData = refreshedData || cachedData;
+    const { currentStreak, maxStreak, activeDays, totalContributions } = getStreaksAndActiveDays(userData?.submissions);
 
-    const { currentStreak, maxStreak, activeDays, totalContributions } = getStreaksAndActiveDays(userData.submissions);
+    if (loading && !userData) return <MessageBox text="Loading..." textClassname="text-gray-300" />;
+    if (!userData || !userData.profile) return <MessageBox text="Data not available" textClassname="text-red-500" />;
 
     return (
         <div className="flex flex-col h-full lg:flex-row flex-grow rounded-lg bg-gray-800 overflow-hidden">

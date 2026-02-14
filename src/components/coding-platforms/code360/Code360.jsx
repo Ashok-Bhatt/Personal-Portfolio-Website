@@ -14,32 +14,10 @@ import { REFRESH_INTERVAL } from '../../../constants/index.js';
 
 function Code360() {
     const userName = "AshokBhatt";
-    const cachedData = JSON.parse(localStorage.getItem("code360Data"));
+    const cachedData = React.useMemo(() => JSON.parse(localStorage.getItem("code360Data")), []);
     const { data: refreshedData, isLoading: loading, refetch: refetchData } = useCode360Data(userName);
     const [badgePointer, setBadgePointer] = useState(1);
     const [badges, setBadges] = useState([]);
-
-    // Persistence Logic
-    useEffect(() => {
-        const isMissing = !localStorage.getItem("code360Data");
-        const isStale = (Date.now() - Number(localStorage.getItem("code360LastRefresh"))) > REFRESH_INTERVAL.CODE360;
-
-        if (isMissing || isStale) {
-            refetchData();
-        }
-    }, []);
-
-    useEffect(() => {
-        if (refreshedData) {
-            localStorage.setItem("code360Data", JSON.stringify(refreshedData));
-            localStorage.setItem("code360LastRefresh", Date.now().toString());
-        }
-    }, [refreshedData]);
-
-    const userData = refreshedData || cachedData;
-
-    const code360UserData = userData?.profile;
-    const { currentStreak, maxStreak, activeDays, totalContributions } = getStreaksAndActiveDays(userData?.submissions);
 
     const getCode360Badges = (badgesData) => {
         const badges = [];
@@ -79,37 +57,50 @@ function Code360() {
         setBadges(badges);
     };
 
-    useEffect(() => {
-        if (code360UserData?.dsa_domain_data?.badges_hash) getCode360Badges(code360UserData?.dsa_domain_data?.badges_hash);
-    }, [badgePointer]);
-
-    if (loading && !userData) return <MessageBox text="Loading..." textClassname="text-gray-300" />;
-    if (!userData || !code360UserData) return <MessageBox text="Data not available" textClassname="text-red-500" />;
-
     const getProblemCount = (level) => {
-        return code360UserData.dsa_domain_data?.problem_count_data?.difficulty_data?.find(d => d.level === level)?.count || 0;
+        return userData?.profile?.dsa_domain_data?.problem_count_data?.difficulty_data?.find(d => d.level === level)?.count || 0;
     };
 
-    // Contests logic based on new data structure
-    const contestDetails = code360UserData.contests || {};
-    const attendedContests = contestDetails.user_rating_data ? contestDetails.user_rating_data.length : 0;
-    const currentRating = contestDetails.current_user_rating ? Math.round(contestDetails.current_user_rating) : 0;
+    // Persistence Logic
+    useEffect(() => {
+        const isMissing = !localStorage.getItem("code360Data");
+        const isStale = (Date.now() - Number(localStorage.getItem("code360LastRefresh"))) > REFRESH_INTERVAL.CODE360;
 
-    // Attempt to map contest badges from rating_group
-    const contestBadge = contestDetails.rating_group?.icon ? [contestDetails.rating_group.icon] : [];
+        if (isMissing || isStale) {
+            refetchData();
+        }
+    }, []);
+
+    // Update cached data
+    useEffect(() => {
+        if (refreshedData) {
+            localStorage.setItem("code360Data", JSON.stringify(refreshedData));
+            localStorage.setItem("code360LastRefresh", Date.now().toString());
+        }
+    }, [refreshedData]);
+
+    const userData = refreshedData || cachedData;
+    const { currentStreak, maxStreak, activeDays, totalContributions } = getStreaksAndActiveDays(userData?.submissions);
+
+    useEffect(() => {
+        if (userData?.profile?.dsa_domain_data?.badges_hash) getCode360Badges(userData?.profile?.dsa_domain_data?.badges_hash);
+    }, [badgePointer, userData]);
+
+    if (loading && !userData) return <MessageBox text="Loading..." textClassname="text-gray-300" />;
+    if (!userData || !userData.profile) return <MessageBox text="Data not available" textClassname="text-red-500" />;
 
     return (
         <div className="flex flex-col h-full lg:flex-row flex-grow rounded-lg bg-gray-800 overflow-hidden">
             <ProfileOverview
-                profileImage={"/Images/my_image.jpeg" || code360UserData.image}
-                profileName={code360UserData.profile?.name}
-                profileUsername={code360UserData.name}
+                profileImage={"/Images/my_image.jpeg"}
+                profileName={userData?.profile?.profile?.name}
+                profileUsername={userData?.profile?.name}
                 websiteLink={`https://www.naukri.com/code360/profile/${userName}`}
                 stats={[
-                    { stat: "Profile Views", value: code360UserData.profile_view_count || 0, icon: FaEye },
+                    { stat: "Profile Views", value: userData?.profile?.profile_view_count || 0, icon: FaEye },
                     { stat: "Active Days", value: activeDays || 0, icon: FaFire },
-                    { stat: "User Level", value: `${code360UserData.user_level_name} (L${code360UserData.user_level})` || 0, icon: FaTrophy },
-                    { stat: "Rank Points", value: code360UserData.user_exp || 0, icon: FaAward },
+                    { stat: "User Level", value: `${userData?.profile?.user_level_name} (L${userData?.profile?.user_level})` || 0, icon: FaTrophy },
+                    { stat: "Rank Points", value: userData?.profile?.user_exp || 0, icon: FaAward },
                 ]}
             />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-grow min-w-0 h-full p-4 md:p-6 bg-gray-900 overflow-y-auto w-full">
@@ -127,10 +118,10 @@ function Code360() {
                 />
 
                 <Contests
-                    contestAttended={attendedContests}
-                    contestRating={currentRating}
-                    contestBadges={contestBadge}
-                    contestData={contestDetails.user_rating_data || []}
+                    contestAttended={userData?.profile?.contests?.user_rating_data?.length || 0}
+                    contestRating={Math.round(userData?.profile?.contests?.current_user_rating) || 0}
+                    contestBadges={userData?.profile?.contests?.rating_group?.icon ? [userData?.profile?.contests?.rating_group?.icon] : []}
+                    contestData={userData?.profile?.contests?.user_rating_data || []}
                     className="bg-gray-800 border border-gray-700 rounded-xl"
                     title="Contest Stats"
                 />
@@ -146,19 +137,19 @@ function Code360() {
                     title="Code360 Badges"
                 />
 
-                <ContributionCard 
+                <ContributionCard
                     currentStreak={{
                         count: currentStreak,
                         text: "Current Streak",
-                    }} 
+                    }}
                     maxStreak={{
                         count: maxStreak,
                         text: "Max Streak",
-                    }} 
+                    }}
                     totalContributions={{
                         count: totalContributions,
                         text: "Total Submissions",
-                    }} 
+                    }}
                     className="bg-gray-800 border border-gray-700 rounded-xl"
                 />
                 <SubmissionHeatmap

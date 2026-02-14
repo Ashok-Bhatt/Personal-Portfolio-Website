@@ -19,7 +19,7 @@ function GitHub() {
   const [badgePointer, setBadgePointer] = useState(1);
 
   const userName = "Ashok-Bhatt";
-  const cachedData = JSON.parse(localStorage.getItem("githubData"));
+  const cachedData = React.useMemo(() => JSON.parse(localStorage.getItem("githubData")), []);
   const { data: refreshedData, isLoading: loading, refetch: refetchData } = useGithubData(userName);
 
   // Persistence Logic
@@ -40,11 +40,10 @@ function GitHub() {
   }, [refreshedData]);
 
   const userData = refreshedData || cachedData;
-
-  const { currentStreak, maxStreak, activeDays, totalContributions } = getStreaksAndActiveDays(userData.submissions)
+  const { currentStreak, maxStreak, activeDays, totalContributions } = getStreaksAndActiveDays(userData?.submissions)
 
   if (loading && !userData) return <MessageBox text="Loading..." textClassname="text-gray-300" />;
-  if (!userData) return <MessageBox text="Data not available" textClassname="text-red-500" />;
+  if (!userData || !userData.profile) return <MessageBox text="Data not available" textClassname="text-red-500" />;
 
   return (
     <div className='flex flex-col h-full lg:flex-row flex-grow rounded-lg bg-gray-800 overflow-hidden '>
