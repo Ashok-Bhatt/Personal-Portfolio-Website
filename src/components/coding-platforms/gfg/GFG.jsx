@@ -13,8 +13,12 @@ function GFG() {
 
     const userName = "ashokbhacjou";
     const fullName = "Ashok Bhatt";
-    const cachedData = JSON.parse(localStorage.getItem("gfgData"));
+    const cachedData = React.useMemo(() => JSON.parse(localStorage.getItem("gfgData")), []);
     const { data: refreshedData, isLoading: loading, refetch: refetchData } = useGfgData(userName);
+
+    const getSolvedCount = (difficulty) => {
+        return userData?.profile?.problemsSolved?.[difficulty] || 0;
+    }
 
     // Persistence Logic
     useEffect(() => {
@@ -26,6 +30,7 @@ function GFG() {
         }
     }, []);
 
+    // Update cached data
     useEffect(() => {
         if (refreshedData) {
             localStorage.setItem("gfgData", JSON.stringify(refreshedData));
@@ -34,28 +39,22 @@ function GFG() {
     }, [refreshedData]);
 
     const userData = refreshedData || cachedData;
+    const { currentStreak, maxStreak, activeDays, totalContributions } = getStreaksAndActiveDays(userData?.submissions);
 
     if (loading && !userData) return <MessageBox text="Loading..." textClassname="text-gray-300" />;
     if (!userData || !userData.profile) return <MessageBox text="Data not available" textClassname="text-red-500" />;
 
-    const gfgUserData = userData.profile;
-    const { currentStreak, maxStreak, activeDays, totalContributions } = getStreaksAndActiveDays(userData.submissions);
-
-    const getSolvedCount = (difficulty) => {
-        return gfgUserData.problemsSolved ? (gfgUserData.problemsSolved[difficulty] || 0) : 0;
-    }
-
     return (
         <div className="flex flex-col h-full lg:flex-row flex-grow rounded-lg bg-gray-800 overflow-hidden">
             <ProfileOverview
-                profileImage={gfgUserData.avatar}
+                profileImage={userData?.profile.avatar}
                 profileName={fullName}
-                profileUsername={gfgUserData.username}
+                profileUsername={userData?.profile.username}
                 websiteLink={`https://www.geeksforgeeks.org/user/${userName}/`}
                 stats={[
-                    { stat: "Coding Score", value: gfgUserData.codingScore?.toLocaleString() || "0", icon: FaCode },
-                    { stat: "Institute Rank", value: gfgUserData.instituteRank?.toLocaleString() || "NA", icon: FaUniversity },
-                    { stat: "POTD Solved", value: gfgUserData.potdsSolved?.toLocaleString() || "0", icon: FaCalendarCheck },
+                    { stat: "Coding Score", value: userData?.profile.codingScore?.toLocaleString() || "0", icon: FaCode },
+                    { stat: "Institute Rank", value: userData?.profile.instituteRank?.toLocaleString() || "NA", icon: FaUniversity },
+                    { stat: "POTD Solved", value: userData?.profile.potdsSolved?.toLocaleString() || "0", icon: FaCalendarCheck },
                     { stat: "Active Days", value: activeDays || "0", icon: FaFire }
                 ]}
             />
@@ -73,19 +72,19 @@ function GFG() {
                     title="Problems Solved"
                 />
 
-                <ContributionCard 
+                <ContributionCard
                     currentStreak={{
                         count: currentStreak,
                         text: "Current Streak",
-                    }} 
+                    }}
                     maxStreak={{
                         count: maxStreak,
                         text: "Max Streak",
-                    }} 
+                    }}
                     totalContributions={{
                         count: totalContributions,
                         text: "Total Submissions",
-                    }} 
+                    }}
                     className="bg-gray-800 border border-gray-700 rounded-xl"
                 />
 

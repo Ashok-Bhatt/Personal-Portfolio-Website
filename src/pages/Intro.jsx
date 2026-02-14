@@ -51,7 +51,7 @@ function Intro() {
                     <p className='text-white font-semibold'>I am </p>
                     <p className='text-blue-500 font-semibold'>{description && descriptionPointer ? description[descriptionPointer[0]].slice(0, descriptionPointer[1] + 1) + " |" : ""}</p>
                 </div>
-                <div className='text-sm md:text-md text-gray-600 mt-4 leading-relaxed'>
+                <div className='text-sm md:text-lg text-gray-600 mt-4 leading-relaxed'>
                     I am <span className='text-green-600 font-semibold'>final-year B.Tech CSE student</span> and an aspiring software developer. I specialize in building modern web applications using <span className='text-green-600 font-semibold'>React</span> and <span className='text-green-600 font-semibold'>Express</span>. Beyond that, I have hands-on experience in <span className='text-green-600 font-semibold'>mobile and desktop application development</span>, backed by a strong foundation in <span className='text-green-600 font-semibold'>Python</span>, <span className='text-green-600 font-semibold'>C++</span>, <span className='text-green-600 font-semibold'>DSA</span>, <span className='text-green-600 font-semibold'>Generative AI</span>, and <span className='text-green-600 font-semibold'>Databases</span>.
                 </div>
                 <div className='flex gap-x-4 mt-6 flex-wrap justify-center md:justify-start'>
